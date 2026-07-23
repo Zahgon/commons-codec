@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.math.BigInteger;
@@ -64,27 +63,17 @@ public class Base58 extends BaseNCodec {
             setDecodeTable(DECODE_TABLE);
         }
 
-        /**
-         * Builds a new Base58 instance with the configured settings.
-         *
-         * @return a new Base58 codec.
-         */
         @Override
         public Base58 get() {
-            return new Base58(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Creates a new Base58 codec instance.
-         *
-         * @return a new Base58 codec.
-         */
         @Override
         public Base58.Builder setEncodeTable(final byte... encodeTable) {
-            super.setDecodeTableRaw(DECODE_TABLE);
-            return super.setEncodeTable(encodeTable);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
+
     private static final BigInteger BASE = BigInteger.valueOf(58);
 
     private static final byte[] EMPTY = new byte[0];
@@ -93,49 +82,143 @@ public class Base58 extends BaseNCodec {
      * Base58 alphabet: 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
      * (excludes: 0, I, O, l).
      */
-    private static final byte[] ENCODE_TABLE = {
-            '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-            'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a',
-            'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-            't', 'u', 'v', 'w', 'x', 'y', 'z'
-    };
+    private static final byte[] ENCODE_TABLE = { '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
     /**
      * This array is a lookup table that translates Unicode characters drawn from the "Base58 Alphabet"
      * into their numeric equivalents (0-57). Characters that are not in the Base58 alphabet are marked
      * with -1.
      */
     // @formatter:off
-    private static final byte[] DECODE_TABLE = {
-         //  0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 00-0f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 10-1f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 20-2f
-            -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, -1, -1, -1, -1, -1, -1,          // 30-3f '1'-'9' -> 0-8
-            -1, 9, 10, 11, 12, 13, 14, 15, 16, -1, 17, 18, 19, 20, 21, -1,  // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
-            22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,                     // 50-5a 'P'-'Z'
-            -1, -1, -1, -1, -1,                                             // 5b-5f
-            -1, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, -1, 44, 45, 46, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
-            47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,                     // 70-7a 'p'-'z'
-    };
-    // @formatter:on
+    private static final byte[] DECODE_TABLE = { //  0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+    // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 30-3f '1'-'9' -> 0-8
+    -1, // 30-3f '1'-'9' -> 0-8
+    0, // 30-3f '1'-'9' -> 0-8
+    1, // 30-3f '1'-'9' -> 0-8
+    2, // 30-3f '1'-'9' -> 0-8
+    3, // 30-3f '1'-'9' -> 0-8
+    4, // 30-3f '1'-'9' -> 0-8
+    5, // 30-3f '1'-'9' -> 0-8
+    6, // 30-3f '1'-'9' -> 0-8
+    7, // 30-3f '1'-'9' -> 0-8
+    8, // 30-3f '1'-'9' -> 0-8
+    -1, // 30-3f '1'-'9' -> 0-8
+    -1, // 30-3f '1'-'9' -> 0-8
+    -1, // 30-3f '1'-'9' -> 0-8
+    -1, // 30-3f '1'-'9' -> 0-8
+    -1, // 30-3f '1'-'9' -> 0-8
+    -1, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    -1, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    9, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    10, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    11, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    12, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    13, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    14, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    15, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    16, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    -1, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    17, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    18, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    19, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    20, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    21, // 40-4f 'A'-'N', 'P'-'Z' (skip 'I' and 'O')
+    -1, // 50-5a 'P'-'Z'
+    22, // 50-5a 'P'-'Z'
+    23, // 50-5a 'P'-'Z'
+    24, // 50-5a 'P'-'Z'
+    25, // 50-5a 'P'-'Z'
+    26, // 50-5a 'P'-'Z'
+    27, // 50-5a 'P'-'Z'
+    28, // 50-5a 'P'-'Z'
+    29, // 50-5a 'P'-'Z'
+    30, // 50-5a 'P'-'Z'
+    31, // 50-5a 'P'-'Z'
+    32, // 5b-5f
+    -1, // 5b-5f
+    -1, // 5b-5f
+    -1, // 5b-5f
+    -1, // 5b-5f
+    -1, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    -1, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    33, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    34, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    35, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    36, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    37, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    38, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    39, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    40, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    41, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    42, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    43, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    -1, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    44, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    45, // 60-6f 'a'-'k', 'm'-'o' (skip 'l')
+    46, // 70-7a 'p'-'z'
+    47, // 70-7a 'p'-'z'
+    48, // 70-7a 'p'-'z'
+    49, // 70-7a 'p'-'z'
+    50, // 70-7a 'p'-'z'
+    51, // 70-7a 'p'-'z'
+    52, // 70-7a 'p'-'z'
+    53, // 70-7a 'p'-'z'
+    54, // 70-7a 'p'-'z'
+    55, // 70-7a 'p'-'z'
+    56, // 70-7a 'p'-'z'
+    57 };
 
-    /**
-     * Creates a new Builder.
-     *
-     * <p>
-     * To configure a new instance, use a {@link Builder}. For example:
-     * </p>
-     *
-     * <pre>
-     * Base58 base58 = Base58.builder()
-     *   .setEncode(true)
-     *   .get()
-     * </pre>
-     *
-     * @return a new Builder.
-     */
+    // @formatter:on
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -218,68 +301,14 @@ public class Base58 extends BaseNCodec {
         return buffer;
     }
 
-    /**
-     * Decodes the given Base58 encoded data.
-     * <p>
-     * This implementation accumulates data internally. When length is less than 0 (EOF), the accumulated data is converted from Base58 to binary.
-     * </p>
-     *
-     * @param array   the byte array containing Base58 encoded data.
-     * @param offset  the offset in the array to start from.
-     * @param length  the number of bytes to decode, or negative to signal EOF.
-     * @param context the context for this decoding operation.
-     */
     @Override
     void decode(final byte[] array, final int offset, final int length, final Context context) {
-        if (context.eof) {
-            return;
-        }
-        if (length < 0) {
-            context.eof = true;
-            final byte[] accumulate = context.buffer = context.buffer != null ? context.buffer : EMPTY;
-            if (accumulate.length > 0) {
-                convertFromBase58(accumulate, context);
-            }
-            return;
-        }
-        final byte[] accumulate = context.buffer = context.buffer != null ? context.buffer : EMPTY;
-        final byte[] newAccumulated = new byte[accumulate.length + length];
-        if (accumulate.length > 0) {
-            System.arraycopy(accumulate, 0, newAccumulated, 0, accumulate.length);
-        }
-        System.arraycopy(array, offset, newAccumulated, accumulate.length, length);
-        context.buffer = newAccumulated;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes the given binary data as Base58.
-     * <p>
-     * This implementation accumulates data internally. When length is less than 0 (EOF), the accumulated data is converted to Base58.
-     * </p>
-     *
-     * @param array   the byte array containing binary data to encode.
-     * @param offset  the offset in the array to start from.
-     * @param length  the number of bytes to encode, or negative to signal EOF.
-     * @param context the context for this encoding operation.
-     */
     @Override
     void encode(final byte[] array, final int offset, final int length, final Context context) {
-        if (context.eof) {
-            return;
-        }
-        if (length < 0) {
-            context.eof = true;
-            final byte[] accumulate = context.buffer = context.buffer != null ? context.buffer : EMPTY;
-            convertToBase58(accumulate, context);
-            return;
-        }
-        final byte[] accumulate = context.buffer = context.buffer != null ? context.buffer : EMPTY;
-        final byte[] newAccumulated = new byte[accumulate.length + length];
-        if (accumulate.length > 0) {
-            System.arraycopy(accumulate, 0, newAccumulated, 0, accumulate.length);
-        }
-        System.arraycopy(array, offset, newAccumulated, accumulate.length, length);
-        context.buffer = newAccumulated;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -313,14 +342,8 @@ public class Base58 extends BaseNCodec {
         return base58;
     }
 
-    /**
-     * Returns whether or not the {@code octet} is in the Base58 alphabet.
-     *
-     * @param value The value to test.
-     * @return {@code true} if the value is defined in the Base58 alphabet {@code false} otherwise.
-     */
     @Override
     protected boolean isInAlphabet(final byte value) {
-        return isInAlphabet(value, DECODE_TABLE);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

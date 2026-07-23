@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.digest;
 
 /**
@@ -22,39 +21,11 @@ package org.apache.commons.codec.digest;
  */
 final class MurmurHash {
 
-    /**
-     * Gets the little-endian int from 4 bytes starting at the specified index.
-     *
-     * @param data  The data.
-     * @param index The index.
-     * @return The little-endian int.
-     */
     static int getLittleEndianInt(final byte[] data, final int index) {
-        // @formatter:off
-        return data[index    ] & 0xff |
-               (data[index + 1] & 0xff) <<  8 |
-               (data[index + 2] & 0xff) << 16 |
-               (data[index + 3] & 0xff) << 24;
-        // @formatter:on
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the little-endian long from 8 bytes starting at the specified index.
-     *
-     * @param data  The data.
-     * @param index The index.
-     * @return The little-endian long.
-     */
     static long getLittleEndianLong(final byte[] data, final int index) {
-        // @formatter:off
-        return (long) data[index    ] & 0xff |
-               ((long) data[index + 1] & 0xff) <<  8 |
-               ((long) data[index + 2] & 0xff) << 16 |
-               ((long) data[index + 3] & 0xff) << 24 |
-               ((long) data[index + 4] & 0xff) << 32 |
-               ((long) data[index + 5] & 0xff) << 40 |
-               ((long) data[index + 6] & 0xff) << 48 |
-               ((long) data[index + 7] & 0xff) << 56;
-        // @formatter:on
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

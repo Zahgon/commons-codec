@@ -23,7 +23,6 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
-
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.MessageDigestAlgorithms;
@@ -36,34 +35,21 @@ import org.apache.commons.codec.digest.MessageDigestAlgorithms;
  */
 public class Digest {
 
-    /**
-     * Runs the digest algorithm in {@code args[0]} on the file in {@code args[1]}. If there is no {@code args[1]}, use
-     * standard input.
-     *
-     * <p>
-     * The algorithm can also be {@code ALL} or {@code *} to output one line for each known algorithm.
-     * </p>
-     *
-     * @param args
-     *            {@code args[0]} is one of {@link MessageDigestAlgorithms} name,
-     *            {@link MessageDigest} name, {@code ALL}, or {@code *}.
-     *            {@code args[1+]} is a FILE/DIRECTORY/String.
-     * @throws IOException if an error occurs.
-     */
     public static void main(final String[] args) throws IOException {
-        new Digest(args).run();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private final String algorithm;
+
     private final String[] args;
+
     private final String[] inputs;
 
     private Digest(final String[] args) {
         Objects.requireNonNull(args);
         final int argsLength = args.length;
         if (argsLength == 0) {
-            throw new IllegalArgumentException(
-                    String.format("Usage: java %s [algorithm] [FILE|DIRECTORY|string] ...", Digest.class.getName()));
+            throw new IllegalArgumentException(String.format("Usage: java %s [algorithm] [FILE|DIRECTORY|string] ...", Digest.class.getName()));
         }
         this.args = args;
         this.algorithm = args[0];
@@ -144,6 +130,6 @@ public class Digest {
 
     @Override
     public String toString() {
-        return String.format("%s %s", super.toString(), Arrays.toString(args));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

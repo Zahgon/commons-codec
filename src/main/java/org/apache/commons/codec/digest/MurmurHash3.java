@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.digest;
 
 import org.apache.commons.codec.binary.StringUtils;
@@ -104,20 +103,20 @@ public final class MurmurHash3 {
             int result = hash;
             // Note: This fails to apply masking using 0xff to the 3 remaining bytes.
             int k1 = 0;
-            switch (unprocessedLength) {
-            case 3:
-                k1 ^= unprocessed[2] << 16;
+            switch(unprocessedLength) {
+                case 3:
+                    k1 ^= unprocessed[2] << 16;
                 // falls-through
-            case 2:
-                k1 ^= unprocessed[1] << 8;
+                case 2:
+                    k1 ^= unprocessed[1] << 8;
                 // falls-through
-            case 1:
-                k1 ^= unprocessed[0];
-                // mix functions
-                k1 *= C1_32;
-                k1 = Integer.rotateLeft(k1, R1_32);
-                k1 *= C2_32;
-                result ^= k1;
+                case 1:
+                    k1 ^= unprocessed[0];
+                    // mix functions
+                    k1 *= C1_32;
+                    k1 = Integer.rotateLeft(k1, R1_32);
+                    k1 *= C2_32;
+                    result ^= k1;
             }
             // finalization
             result ^= totalLen;
@@ -138,7 +137,9 @@ public final class MurmurHash3 {
      */
     public static class IncrementalHash32x86 {
 
-        /** The size of byte blocks that are processed together. */
+        /**
+         * The size of byte blocks that are processed together.
+         */
         private static final int BLOCK_SIZE = 4;
 
         /**
@@ -156,13 +157,19 @@ public final class MurmurHash3 {
             return b1 & 0xff | (b2 & 0xff) << 8 | (b3 & 0xff) << 16 | (b4 & 0xff) << 24;
         }
 
-        /** Up to 3 unprocessed bytes from input data. */
+        /**
+         * Up to 3 unprocessed bytes from input data.
+         */
         private final byte[] unprocessed = new byte[3];
 
-        /** The number of unprocessed bytes in the tail data. */
+        /**
+         * The number of unprocessed bytes in the tail data.
+         */
         private int unprocessedLength;
 
-        /** The total number of input bytes added since the start. */
+        /**
+         * The total number of input bytes added since the start.
+         */
         private int totalLen;
 
         /**
@@ -178,133 +185,20 @@ public final class MurmurHash3 {
             // empty
         }
 
-        /**
-         * Adds the byte array to the current incremental hash.
-         *
-         * @param data The input byte array.
-         * @param offset The offset of data.
-         * @param length The length of array.
-         */
         public final void add(final byte[] data, final int offset, final int length) {
-            if (length <= 0) {
-                // Nothing to add
-                return;
-            }
-            totalLen += length;
-            // Process the bytes in blocks of 4.
-            // New bytes must be added to any current unprocessed bytes,
-            // then processed in blocks of 4 and the remaining bytes saved:
-            //
-            //    |--|---------------------------|--|
-            // unprocessed
-            //                main block
-            //                                remaining
-
-            // Check if the unprocessed bytes and new bytes can fill a block of 4.
-            // Make this overflow safe in the event that length is Integer.MAX_VALUE.
-            // Equivalent to: (unprocessedLength + length < BLOCK_SIZE)
-            if (unprocessedLength + length - BLOCK_SIZE < 0) {
-                // Not enough so add to the unprocessed bytes
-                System.arraycopy(data, offset, unprocessed, unprocessedLength, length);
-                unprocessedLength += length;
-                return;
-            }
-            // Combine unprocessed bytes with new bytes.
-            final int newOffset;
-            final int newLength;
-            if (unprocessedLength > 0) {
-                int k = -1;
-                switch (unprocessedLength) {
-                case 1:
-                    k = orBytes(unprocessed[0], data[offset], data[offset + 1], data[offset + 2]);
-                    break;
-                case 2:
-                    k = orBytes(unprocessed[0], unprocessed[1], data[offset], data[offset + 1]);
-                    break;
-                case 3:
-                    k = orBytes(unprocessed[0], unprocessed[1], unprocessed[2], data[offset]);
-                    break;
-                default:
-                    throw new IllegalStateException("Unprocessed length should be 1, 2, or 3: " + unprocessedLength);
-                }
-                hash = mix32(k, hash);
-                // Update the offset and length
-                final int consumed = BLOCK_SIZE - unprocessedLength;
-                newOffset = offset + consumed;
-                newLength = length - consumed;
-            } else {
-                newOffset = offset;
-                newLength = length;
-            }
-            // Main processing of blocks of 4 bytes
-            final int nblocks = newLength >> 2;
-
-            for (int i = 0; i < nblocks; i++) {
-                final int index = newOffset + (i << 2);
-                final int k = MurmurHash.getLittleEndianInt(data, index);
-                hash = mix32(k, hash);
-            }
-            // Save left-over unprocessed bytes
-            final int consumed = nblocks << 2;
-            unprocessedLength = newLength - consumed;
-            if (unprocessedLength != 0) {
-                System.arraycopy(data, newOffset + consumed, unprocessed, 0, unprocessedLength);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Generates the 32-bit hash value. Repeat calls to this method with no additional data
-         * will generate the same hash value.
-         *
-         * @return The 32-bit hash.
-         */
         public final int end() {
-            // Allow calling end() again after adding no data to return the same result.
-            return finalise(hash, unprocessedLength, unprocessed, totalLen);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Finalizes the running hash to the output 32-bit hash by processing remaining bytes
-         * and performing final mixing.
-         *
-         * @param hash The running hash.
-         * @param unprocessedLength The number of unprocessed bytes in the tail data.
-         * @param unprocessed Up to 3 unprocessed bytes from input data.
-         * @param totalLen The total number of input bytes added since the start.
-         * @return The 32-bit hash.
-         */
         int finalise(final int hash, final int unprocessedLength, final byte[] unprocessed, final int totalLen) {
-            int result = hash;
-            int k1 = 0;
-            switch (unprocessedLength) {
-            case 3:
-                k1 ^= (unprocessed[2] & 0xff) << 16;
-                // falls-through
-            case 2:
-                k1 ^= (unprocessed[1] & 0xff) << 8;
-                // falls-through
-            case 1:
-                k1 ^= unprocessed[0] & 0xff;
-                // mix functions
-                k1 *= C1_32;
-                k1 = Integer.rotateLeft(k1, R1_32);
-                k1 *= C2_32;
-                result ^= k1;
-            }
-            // finalization
-            result ^= totalLen;
-            return fmix32(result);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Starts a new incremental hash.
-         *
-         * @param seed The initial seed value.
-         */
         public final void start(final int seed) {
-            // Reset
-            unprocessedLength = totalLen = 0;
-            hash = seed;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -321,20 +215,31 @@ public final class MurmurHash3 {
      * Has the value {@code 104729}.
      */
     public static final int DEFAULT_SEED = 104729;
+
     // Constants for 32-bit variant
     private static final int C1_32 = 0xcc9e2d51;
+
     private static final int C2_32 = 0x1b873593;
+
     private static final int R1_32 = 15;
+
     private static final int R2_32 = 13;
 
     private static final int M_32 = 5;
+
     private static final int N_32 = 0xe6546b64;
+
     // Constants for 128-bit variant
     private static final long C1 = 0x87c37b91114253d5L;
+
     private static final long C2 = 0x4cf5ad432745937fL;
+
     private static final int R1 = 31;
+
     private static final int R2 = 27;
+
     private static final int R3 = 33;
+
     private static final int M = 5;
 
     private static final int N1 = 0x52dce729;
@@ -371,27 +276,8 @@ public final class MurmurHash3 {
         return hash;
     }
 
-    /**
-     * Generates 128-bit hash from the byte array with a default seed.
-     * This is a helper method that will produce the same result as:
-     *
-     * <pre>
-     * int offset = 0;
-     * int seed = 104729;
-     * int hash = MurmurHash3.hash128(data, offset, data.length, seed);
-     * </pre>
-     *
-     * <p>
-     * Note: The sign extension bug in {@link #hash128(byte[], int, int, int)} does not effect
-     * this result as the default seed is positive.
-     * </p>
-     *
-     * @param data The input byte array.
-     * @return The 128-bit hash (2 longs).
-     * @see #hash128(byte[], int, int, int)
-     */
     public static long[] hash128(final byte[] data) {
-        return hash128(data, 0, data.length, DEFAULT_SEED);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -455,43 +341,12 @@ public final class MurmurHash3 {
         return hash128(bytes, 0, bytes.length, DEFAULT_SEED);
     }
 
-    /**
-     * Generates 128-bit hash from the byte array with a seed of zero.
-     * This is a helper method that will produce the same result as:
-     *
-     * <pre>
-     * int offset = 0;
-     * int seed = 0;
-     * int hash = MurmurHash3.hash128x64(data, offset, data.length, seed);
-     * </pre>
-     *
-     * @param data The input byte array.
-     * @return The 128-bit hash (2 longs).
-     * @see #hash128x64(byte[], int, int, int)
-     * @since 1.14
-     */
     public static long[] hash128x64(final byte[] data) {
-        return hash128x64(data, 0, data.length, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Generates 128-bit hash from the byte array with the given offset, length and seed.
-     *
-     * <p>
-     * This is an implementation of the 128-bit hash function {@code MurmurHash3_x64_128}
-     * from Austin Appleby's original MurmurHash3 {@code c++} code in SMHasher.
-     * </p>
-     *
-     * @param data The input byte array.
-     * @param offset The first element of array.
-     * @param length The length of array.
-     * @param seed The initial seed value.
-     * @return The 128-bit hash (2 longs).
-     * @since 1.14
-     */
     public static long[] hash128x64(final byte[] data, final int offset, final int length, final int seed) {
-        // Use an unsigned 32-bit integer as the seed
-        return hash128x64Internal(data, offset, length, seed & 0xffffffffL);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -538,70 +393,67 @@ public final class MurmurHash3 {
         long k1 = 0;
         long k2 = 0;
         final int index = offset + (nblocks << 4);
-        switch (offset + length - index) {
-        case 15:
-            k2 ^= ((long) data[index + 14] & 0xff) << 48;
+        switch(offset + length - index) {
+            case 15:
+                k2 ^= ((long) data[index + 14] & 0xff) << 48;
             // falls-through
-        case 14:
-            k2 ^= ((long) data[index + 13] & 0xff) << 40;
+            case 14:
+                k2 ^= ((long) data[index + 13] & 0xff) << 40;
             // falls-through
-        case 13:
-            k2 ^= ((long) data[index + 12] & 0xff) << 32;
+            case 13:
+                k2 ^= ((long) data[index + 12] & 0xff) << 32;
             // falls-through
-        case 12:
-            k2 ^= ((long) data[index + 11] & 0xff) << 24;
+            case 12:
+                k2 ^= ((long) data[index + 11] & 0xff) << 24;
             // falls-through
-        case 11:
-            k2 ^= ((long) data[index + 10] & 0xff) << 16;
+            case 11:
+                k2 ^= ((long) data[index + 10] & 0xff) << 16;
             // falls-through
-        case 10:
-            k2 ^= ((long) data[index + 9] & 0xff) << 8;
+            case 10:
+                k2 ^= ((long) data[index + 9] & 0xff) << 8;
             // falls-through
-        case 9:
-            k2 ^= data[index + 8] & 0xff;
-            k2 *= C2;
-            k2 = Long.rotateLeft(k2, R3);
-            k2 *= C1;
-            h2 ^= k2;
+            case 9:
+                k2 ^= data[index + 8] & 0xff;
+                k2 *= C2;
+                k2 = Long.rotateLeft(k2, R3);
+                k2 *= C1;
+                h2 ^= k2;
             // falls-through
-        case 8:
-            k1 ^= ((long) data[index + 7] & 0xff) << 56;
+            case 8:
+                k1 ^= ((long) data[index + 7] & 0xff) << 56;
             // falls-through
-        case 7:
-            k1 ^= ((long) data[index + 6] & 0xff) << 48;
+            case 7:
+                k1 ^= ((long) data[index + 6] & 0xff) << 48;
             // falls-through
-        case 6:
-            k1 ^= ((long) data[index + 5] & 0xff) << 40;
+            case 6:
+                k1 ^= ((long) data[index + 5] & 0xff) << 40;
             // falls-through
-        case 5:
-            k1 ^= ((long) data[index + 4] & 0xff) << 32;
+            case 5:
+                k1 ^= ((long) data[index + 4] & 0xff) << 32;
             // falls-through
-        case 4:
-            k1 ^= ((long) data[index + 3] & 0xff) << 24;
+            case 4:
+                k1 ^= ((long) data[index + 3] & 0xff) << 24;
             // falls-through
-        case 3:
-            k1 ^= ((long) data[index + 2] & 0xff) << 16;
+            case 3:
+                k1 ^= ((long) data[index + 2] & 0xff) << 16;
             // falls-through
-        case 2:
-            k1 ^= ((long) data[index + 1] & 0xff) << 8;
+            case 2:
+                k1 ^= ((long) data[index + 1] & 0xff) << 8;
             // falls-through
-        case 1:
-            k1 ^= data[index] & 0xff;
-            k1 *= C1;
-            k1 = Long.rotateLeft(k1, R1);
-            k1 *= C2;
-            h1 ^= k1;
+            case 1:
+                k1 ^= data[index] & 0xff;
+                k1 *= C1;
+                k1 = Long.rotateLeft(k1, R1);
+                k1 *= C2;
+                h1 ^= k1;
         }
         // finalization
         h1 ^= length;
         h2 ^= length;
-
         h1 += h2;
         h2 += h1;
-
         h1 = fmix64(h1);
         h2 = fmix64(h2);
-
         h1 += h2;
         h2 += h1;
         return new long[] { h1, h2 };
@@ -722,124 +574,39 @@ public final class MurmurHash3 {
         // Note: This fails to apply masking using 0xff to the 3 remaining bytes.
         final int index = offset + (nblocks << 2);
         int k1 = 0;
-        switch (offset + length - index) {
-        case 3:
-            k1 ^= data[index + 2] << 16;
+        switch(offset + length - index) {
+            case 3:
+                k1 ^= data[index + 2] << 16;
             // falls-through
-        case 2:
-            k1 ^= data[index + 1] << 8;
+            case 2:
+                k1 ^= data[index + 1] << 8;
             // falls-through
-        case 1:
-            k1 ^= data[index];
-            // mix functions
-            k1 *= C1_32;
-            k1 = Integer.rotateLeft(k1, R1_32);
-            k1 *= C2_32;
-            hash ^= k1;
+            case 1:
+                k1 ^= data[index];
+                // mix functions
+                k1 *= C1_32;
+                k1 = Integer.rotateLeft(k1, R1_32);
+                k1 *= C2_32;
+                hash ^= k1;
         }
         hash ^= length;
         return fmix32(hash);
     }
 
-    /**
-     * Generates 32-bit hash from a long with a default seed value.
-     * This is a helper method that will produce the same result as:
-     *
-     * <pre>
-     * int offset = 0;
-     * int seed = 104729;
-     * int hash = MurmurHash3.hash32x86(ByteBuffer.allocate(8)
-     *                                            .putLong(data)
-     *                                            .array(), offset, 8, seed);
-     * </pre>
-     *
-     * @param data The long to hash.
-     * @return The 32-bit hash.
-     * @see #hash32x86(byte[], int, int, int)
-     */
     public static int hash32(final long data) {
-        return hash32(data, DEFAULT_SEED);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Generates 32-bit hash from a long with the given seed.
-     * This is a helper method that will produce the same result as:
-     *
-     * <pre>
-     * int offset = 0;
-     * int hash = MurmurHash3.hash32x86(ByteBuffer.allocate(8)
-     *                                            .putLong(data)
-     *                                            .array(), offset, 8, seed);
-     * </pre>
-     *
-     * @param data The long to hash.
-     * @param seed The initial seed value.
-     * @return The 32-bit hash.
-     * @see #hash32x86(byte[], int, int, int)
-     */
     public static int hash32(final long data, final int seed) {
-        int hash = seed;
-        final long r0 = Long.reverseBytes(data);
-
-        hash = mix32((int) r0, hash);
-        hash = mix32((int) (r0 >>> 32), hash);
-
-        hash ^= Long.BYTES;
-        return fmix32(hash);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Generates 32-bit hash from two longs with a default seed value.
-     * This is a helper method that will produce the same result as:
-     *
-     * <pre>
-     * int offset = 0;
-     * int seed = 104729;
-     * int hash = MurmurHash3.hash32x86(ByteBuffer.allocate(16)
-     *                                            .putLong(data1)
-     *                                            .putLong(data2)
-     *                                            .array(), offset, 16, seed);
-     * </pre>
-     *
-     * @param data1 The first long to hash.
-     * @param data2 The second long to hash.
-     * @return The 32-bit hash.
-     * @see #hash32x86(byte[], int, int, int)
-     */
     public static int hash32(final long data1, final long data2) {
-        return hash32(data1, data2, DEFAULT_SEED);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Generates 32-bit hash from two longs with the given seed.
-     * This is a helper method that will produce the same result as:
-     *
-     * <pre>
-     * int offset = 0;
-     * int hash = MurmurHash3.hash32x86(ByteBuffer.allocate(16)
-     *                                            .putLong(data1)
-     *                                            .putLong(data2)
-     *                                            .array(), offset, 16, seed);
-     * </pre>
-     *
-     * @param data1 The first long to hash.
-     * @param data2 The second long to hash.
-     * @param seed The initial seed value.
-     * @return The 32-bit hash.
-     * @see #hash32x86(byte[], int, int, int)
-     */
     public static int hash32(final long data1, final long data2, final int seed) {
-        int hash = seed;
-        final long r0 = Long.reverseBytes(data1);
-        final long r1 = Long.reverseBytes(data2);
-
-        hash = mix32((int) r0, hash);
-        hash = mix32((int) (r0 >>> 32), hash);
-        hash = mix32((int) r1, hash);
-        hash = mix32((int) (r1 >>> 32), hash);
-
-        hash ^= Long.BYTES * 2;
-        return fmix32(hash);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -875,70 +642,12 @@ public final class MurmurHash3 {
         return hash32(bytes, 0, bytes.length, DEFAULT_SEED);
     }
 
-    /**
-     * Generates 32-bit hash from the byte array with a seed of zero.
-     * This is a helper method that will produce the same result as:
-     *
-     * <pre>
-     * int offset = 0;
-     * int seed = 0;
-     * int hash = MurmurHash3.hash32x86(data, offset, data.length, seed);
-     * </pre>
-     *
-     * @param data The input byte array.
-     * @return The 32-bit hash.
-     * @see #hash32x86(byte[], int, int, int)
-     * @since 1.14
-     */
     public static int hash32x86(final byte[] data) {
-        return hash32x86(data, 0, data.length, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Generates 32-bit hash from the byte array with the given offset, length and seed.
-     *
-     * <p>
-     * This is an implementation of the 32-bit hash function {@code MurmurHash3_x86_32}
-     * from Austin Appleby's original MurmurHash3 {@code c++} code in SMHasher.
-     * </p>
-     *
-     * @param data The input byte array.
-     * @param offset The offset of data.
-     * @param length The length of array.
-     * @param seed The initial seed value.
-     * @return The 32-bit hash.
-     * @since 1.14
-     */
     public static int hash32x86(final byte[] data, final int offset, final int length, final int seed) {
-        int hash = seed;
-        final int nblocks = length >> 2;
-        // body
-        for (int i = 0; i < nblocks; i++) {
-            final int index = offset + (i << 2);
-            final int k = MurmurHash.getLittleEndianInt(data, index);
-            hash = mix32(k, hash);
-        }
-        // tail
-        final int index = offset + (nblocks << 2);
-        int k1 = 0;
-        switch (offset + length - index) {
-        case 3:
-            k1 ^= (data[index + 2] & 0xff) << 16;
-            // falls-through
-        case 2:
-            // falls-through
-            k1 ^= (data[index + 1] & 0xff) << 8;
-            // falls-through
-        case 1:
-            k1 ^= data[index] & 0xff;
-            // mix functions
-            k1 *= C1_32;
-            k1 = Integer.rotateLeft(k1, R1_32);
-            k1 *= C2_32;
-            hash ^= k1;
-        }
-        hash ^= length;
-        return fmix32(hash);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1067,31 +776,31 @@ public final class MurmurHash3 {
         // tail
         long k1 = 0;
         final int index = offset + (nblocks << 3);
-        switch (offset + length - index) {
-        case 7:
-            k1 ^= ((long) data[index + 6] & 0xff) << 48;
+        switch(offset + length - index) {
+            case 7:
+                k1 ^= ((long) data[index + 6] & 0xff) << 48;
             // falls-through
-        case 6:
-            k1 ^= ((long) data[index + 5] & 0xff) << 40;
+            case 6:
+                k1 ^= ((long) data[index + 5] & 0xff) << 40;
             // falls-through
-        case 5:
-            k1 ^= ((long) data[index + 4] & 0xff) << 32;
+            case 5:
+                k1 ^= ((long) data[index + 4] & 0xff) << 32;
             // falls-through
-        case 4:
-            k1 ^= ((long) data[index + 3] & 0xff) << 24;
+            case 4:
+                k1 ^= ((long) data[index + 3] & 0xff) << 24;
             // falls-through
-        case 3:
-            k1 ^= ((long) data[index + 2] & 0xff) << 16;
+            case 3:
+                k1 ^= ((long) data[index + 2] & 0xff) << 16;
             // falls-through
-        case 2:
-            k1 ^= ((long) data[index + 1] & 0xff) << 8;
+            case 2:
+                k1 ^= ((long) data[index + 1] & 0xff) << 8;
             // falls-through
-        case 1:
-            k1 ^= (long) data[index] & 0xff;
-            k1 *= C1;
-            k1 = Long.rotateLeft(k1, R1);
-            k1 *= C2;
-            hash ^= k1;
+            case 1:
+                k1 ^= (long) data[index] & 0xff;
+                k1 *= C1;
+                k1 = Long.rotateLeft(k1, R1);
+                k1 *= C2;
+                hash ^= k1;
         }
         // finalization
         hash ^= length;
@@ -1253,7 +962,9 @@ public final class MurmurHash3 {
         return Integer.rotateLeft(hash, R2_32) * M_32 + N_32;
     }
 
-    /** No instance methods. */
+    /**
+     * No instance methods.
+     */
     private MurmurHash3() {
     }
 }

@@ -14,13 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.io.InputStream;
-
 import org.apache.commons.codec.CodecPolicy;
-import org.apache.commons.codec.binary.BaseNCodecInputStream.AbstracBuilder; // NOPMD: Required by ECJ (Eclipse)
+// NOPMD: Required by ECJ (Eclipse)
+import org.apache.commons.codec.binary.BaseNCodecInputStream.AbstracBuilder;
 
 /**
  * Provides Base16 decoding in a streaming fashion (unlimited size).
@@ -48,22 +47,17 @@ public class Base16InputStream extends BaseNCodecInputStream<Base16, Base16Input
 
         @Override
         public Base16InputStream get() {
-            return new Base16InputStream(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         protected Base16 newBaseNCodec() {
-            return new Base16();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /**
-     * Constructs a new Builder.
-     *
-     * @return a new Builder.
-     */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private Base16InputStream(final Builder builder) {

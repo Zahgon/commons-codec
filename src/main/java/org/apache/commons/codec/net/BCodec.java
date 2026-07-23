@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.net;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
-
 import org.apache.commons.codec.CodecPolicy;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
@@ -108,149 +106,50 @@ public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder
         this(Charset.forName(charsetName));
     }
 
-    /**
-     * Decodes a Base64 object into its original form. Escaped characters are converted back to their original
-     * representation.
-     *
-     * @param value
-     *            Base64 object to convert into its original form.
-     * @return original object.
-     * @throws DecoderException
-     *             Thrown if the argument is not a {@code String}. Thrown if a failure condition is encountered
-     *             during the decode process.
-     */
     @Override
     public Object decode(final Object value) throws DecoderException {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof String) {
-            return decode((String) value);
-        }
-        throw new DecoderException("Objects of type " + value.getClass().getName() + " cannot be decoded using BCodec");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Decodes a Base64 string into its original form. Escaped characters are converted back to their original
-     * representation.
-     *
-     * @param value
-     *            Base64 string to convert into its original form.
-     * @return original string.
-     * @throws DecoderException
-     *             A decoder exception is thrown if a failure condition is encountered during the decode process.
-     */
     @Override
     public String decode(final String value) throws DecoderException {
-        try {
-            return decodeText(value);
-        } catch (final UnsupportedEncodingException | IllegalArgumentException e) {
-            throw new DecoderException(e.getMessage(), e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected byte[] doDecoding(final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        return Base64.builder().setLineLength(0).setLineSeparator(BaseNCodec.getChunkSeparator()).setUrlSafe(false).setDecodingPolicy(decodingPolicy).get()
-                .decode(bytes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected byte[] doEncoding(final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        return Base64.encodeBase64(bytes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes an object into its Base64 form using the default Charset. Unsafe characters are escaped.
-     *
-     * @param value
-     *            object to convert to Base64 form.
-     * @return Base64 object.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     */
     @Override
     public Object encode(final Object value) throws EncoderException {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof String) {
-            return encode((String) value);
-        }
-        throw new EncoderException("Objects of type " + value.getClass().getName() + " cannot be encoded using BCodec");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a string into its Base64 form using the default Charset. Unsafe characters are escaped.
-     *
-     * @param strSource
-     *            string to convert to Base64 form.
-     * @return Base64 string.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     */
     @Override
     public String encode(final String strSource) throws EncoderException {
-        return encode(strSource, getCharset());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a string into its Base64 form using the specified Charset. Unsafe characters are escaped.
-     *
-     * @param strSource
-     *            string to convert to Base64 form.
-     * @param sourceCharset
-     *            the Charset for {@code value}.
-     * @return Base64 string.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     * @since 1.7
-     */
     public String encode(final String strSource, final Charset sourceCharset) throws EncoderException {
-        return encodeText(strSource, sourceCharset);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a string into its Base64 form using the specified Charset. Unsafe characters are escaped.
-     *
-     * @param strSource
-     *            string to convert to Base64 form.
-     * @param sourceCharset
-     *            the Charset for {@code value}.
-     * @return Base64 string.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     */
     public String encode(final String strSource, final String sourceCharset) throws EncoderException {
-        try {
-            return encodeText(strSource, sourceCharset);
-        } catch (final UnsupportedCharsetException e) {
-            throw new EncoderException(e.getMessage(), e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected String getEncoding() {
-        return "B";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns true if decoding behavior is strict. Decoding will raise a
-     * {@link DecoderException} if trailing bits are not part of a valid Base64 encoding.
-     *
-     * <p>The default is false for lenient encoding. Decoding will compose trailing bits
-     * into 8-bit bytes and discard the remainder.
-     *
-     * @return true if using strict decoding.
-     * @since 1.15
-     */
     public boolean isStrictDecoding() {
-        return decodingPolicy == CodecPolicy.STRICT;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

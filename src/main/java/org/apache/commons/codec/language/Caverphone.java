@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language;
 
 import org.apache.commons.codec.EncoderException;
@@ -46,59 +45,21 @@ public class Caverphone implements StringEncoder {
         // empty
     }
 
-    /**
-     * Encodes the given String into a Caverphone value.
-     *
-     * @param source
-     *            String the source string.
-     * @return A Caverphone code for the given String.
-     */
     public String caverphone(final String source) {
-        return this.encoder.encode(source);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes an Object using the Caverphone algorithm. This method is provided in order to satisfy the requirements of
-     * the Encoder interface, and will throw an EncoderException if the supplied object is not of type {@link String}.
-     *
-     * @param obj
-     *            Object to encode.
-     * @return An object (or type {@link String}) containing the Caverphone code which corresponds to the String
-     *         supplied.
-     * @throws EncoderException
-     *             if the parameter supplied is not of type {@link String}.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (!(obj instanceof String)) {
-            throw new EncoderException("Parameter supplied to Caverphone encode is not of type java.lang.String");
-        }
-        return caverphone((String) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a String using the Caverphone algorithm.
-     *
-     * @param str
-     *            String object to encode.
-     * @return The Caverphone code corresponding to the String supplied.
-     */
     @Override
     public String encode(final String str) {
-        return caverphone(str);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests if the Caverphones of two strings are identical.
-     *
-     * @param str1
-     *            First of two strings to compare.
-     * @param str2
-     *            Second of two strings to compare.
-     * @return {@code true} if the Caverphones of these strings are identical, {@code false} otherwise.
-     */
     public boolean isCaverphoneEqual(final String str1, final String str2) {
-        return caverphone(str1).equals(caverphone(str2));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

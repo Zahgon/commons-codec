@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language.bm;
 
 import java.util.Collections;
@@ -25,7 +24,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.apache.commons.codec.Resources;
 
 /**
@@ -58,26 +56,20 @@ import org.apache.commons.codec.Resources;
  * @since 1.6
  */
 public class Languages {
+
     // Implementation note: This class is divided into two sections. The first part
     // is a static factory interface that
     // exposes org/apache/commons/codec/language/bm/%s_languages.txt for %s in
     // NameType.* as a list of supported
     // languages, and a second part that provides instance methods for accessing
     // this set for supported languages.
-
     /**
      * A set of languages.
      */
     public abstract static class LanguageSet {
 
-        /**
-         * Gets a language set for the given languages.
-         *
-         * @param languages a language set.
-         * @return a LanguageSet.
-         */
         public static LanguageSet from(final Set<String> languages) {
-            return languages.isEmpty() ? NO_LANGUAGES : new SomeLanguages(languages);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -131,6 +123,7 @@ public class Languages {
      * Some languages, explicitly enumerated.
      */
     public static final class SomeLanguages extends LanguageSet {
+
         private final Set<String> languages;
 
         private SomeLanguages(final Set<String> languages) {
@@ -139,64 +132,42 @@ public class Languages {
 
         @Override
         public boolean contains(final String language) {
-            return this.languages.contains(language);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String getAny() {
-            return this.languages.iterator().next();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Gets the language strings
-         *
-         * @return the languages strings.
-         */
         public Set<String> getLanguages() {
-            return this.languages;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean isEmpty() {
-            return this.languages.isEmpty();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean isSingleton() {
-            return this.languages.size() == 1;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public LanguageSet merge(final LanguageSet other) {
-            if (other == NO_LANGUAGES) {
-                return this;
-            }
-            if (other == ANY_LANGUAGE) {
-                return other;
-            }
-            final SomeLanguages someLanguages = (SomeLanguages) other;
-            final Set<String> set = new HashSet<>(languages);
-            set.addAll(someLanguages.languages);
-            return from(set);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public LanguageSet restrictTo(final LanguageSet other) {
-            if (other == NO_LANGUAGES) {
-                return other;
-            }
-            if (other == ANY_LANGUAGE) {
-                return this;
-            }
-            final SomeLanguages someLanguages = (SomeLanguages) other;
-            return from(languages.stream().filter(lang -> someLanguages.languages.contains(lang)).collect(Collectors.toSet()));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return "Languages(" + languages.toString() + ")";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -213,37 +184,37 @@ public class Languages {
 
         @Override
         public boolean contains(final String language) {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String getAny() {
-            throw new NoSuchElementException("Can't fetch any language from the empty language set.");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean isEmpty() {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean isSingleton() {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public LanguageSet merge(final LanguageSet other) {
-            return other;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public LanguageSet restrictTo(final LanguageSet other) {
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return "NO_LANGUAGES";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     };
 
@@ -254,37 +225,37 @@ public class Languages {
 
         @Override
         public boolean contains(final String language) {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String getAny() {
-            throw new NoSuchElementException("Can't fetch any language from the any language set.");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean isEmpty() {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean isSingleton() {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public LanguageSet merge(final LanguageSet other) {
-            return other;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public LanguageSet restrictTo(final LanguageSet other) {
-            return other;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return "ANY_LANGUAGE";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     };
 
@@ -294,42 +265,12 @@ public class Languages {
         }
     }
 
-    /**
-     * Gets an instance for the given name type.
-     *
-     * @param nameType The name type to lookup.
-     * @return an instance for the given name type.
-     */
     public static Languages getInstance(final NameType nameType) {
-        return LANGUAGES.get(nameType);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets a new instance for the given resource name.
-     *
-     * @param languagesResourceName the resource name to lookup.
-     * @return a new instance.
-     */
     public static Languages getInstance(final String languagesResourceName) {
-        // read languages list
-        final Set<String> ls = new HashSet<>();
-        try (Scanner lsScanner = new Scanner(Resources.getInputStream(languagesResourceName),
-                ResourceConstants.ENCODING)) {
-            boolean inExtendedComment = false;
-            while (lsScanner.hasNextLine()) {
-                final String line = lsScanner.nextLine().trim();
-                if (inExtendedComment) {
-                    if (line.endsWith(ResourceConstants.EXT_CMT_END)) {
-                        inExtendedComment = false;
-                    }
-                } else if (line.startsWith(ResourceConstants.EXT_CMT_START)) {
-                    inExtendedComment = true;
-                } else if (!line.isEmpty()) {
-                    ls.add(line);
-                }
-            }
-            return new Languages(Collections.unmodifiableSet(ls));
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static String langResourceName(final NameType nameType) {
@@ -342,12 +283,7 @@ public class Languages {
         this.languages = languages;
     }
 
-    /**
-     * Gets the language set.
-     *
-     * @return the language set.
-     */
     public Set<String> getLanguages() {
-        return this.languages;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

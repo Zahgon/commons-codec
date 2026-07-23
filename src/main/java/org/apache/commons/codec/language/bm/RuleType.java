@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language.bm;
 
 /**
@@ -28,12 +27,10 @@ public enum RuleType {
      * Approximate rules, which will lead to the largest number of phonetic interpretations.
      */
     APPROX("approx"),
-
     /**
      * Exact rules, which will lead to a minimum number of phonetic interpretations.
      */
     EXACT("exact"),
-
     /**
      * For internal use only. Please use {@link #APPROX} or {@link #EXACT}.
      */
@@ -45,13 +42,7 @@ public enum RuleType {
         this.name = name;
     }
 
-    /**
-     * Gets the rule name.
-     *
-     * @return the rule name.
-     */
     public String getName() {
-        return this.name;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

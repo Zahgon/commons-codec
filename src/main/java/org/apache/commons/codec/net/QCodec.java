@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.net;
 
 import java.io.UnsupportedEncodingException;
@@ -22,7 +21,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.BitSet;
-
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.StringDecoder;
@@ -101,6 +99,7 @@ public class QCodec extends RFC1522Codec implements StringEncoder, StringDecoder
         PRINTABLE_CHARS.set('}');
         PRINTABLE_CHARS.set('~');
     }
+
     private static final byte SPACE = 32;
 
     private static final byte UNDERSCORE = 95;
@@ -141,180 +140,54 @@ public class QCodec extends RFC1522Codec implements StringEncoder, StringDecoder
         this(Charset.forName(charsetName));
     }
 
-    /**
-     * Decodes a quoted-printable object into its original form. Escaped characters are converted back to their original
-     * representation.
-     *
-     * @param obj
-     *            quoted-printable object to convert into its original form.
-     * @return original object.
-     * @throws DecoderException
-     *             Thrown if the argument is not a {@code String}. Thrown if a failure condition is encountered
-     *             during the decode process.
-     */
     @Override
     public Object decode(final Object obj) throws DecoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof String) {
-            return decode((String) obj);
-        }
-        throw new DecoderException("Objects of type " + obj.getClass().getName() + " cannot be decoded using Q codec");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Decodes a quoted-printable string into its original form. Escaped characters are converted back to their original
-     * representation.
-     *
-     * @param str
-     *            quoted-printable string to convert into its original form.
-     * @return original string.
-     * @throws DecoderException
-     *             A decoder exception is thrown if a failure condition is encountered during the decode process.
-     */
     @Override
     public String decode(final String str) throws DecoderException {
-        try {
-            return decodeText(str);
-        } catch (final UnsupportedEncodingException e) {
-            throw new DecoderException(e.getMessage(), e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected byte[] doDecoding(final byte[] bytes) throws DecoderException {
-        if (bytes == null) {
-            return null;
-        }
-        boolean hasUnderscores = false;
-        for (final byte b : bytes) {
-            if (b == UNDERSCORE) {
-                hasUnderscores = true;
-                break;
-            }
-        }
-        if (hasUnderscores) {
-            final byte[] tmp = new byte[bytes.length];
-            for (int i = 0; i < bytes.length; i++) {
-                final byte b = bytes[i];
-                if (b != UNDERSCORE) {
-                    tmp[i] = b;
-                } else {
-                    tmp[i] = SPACE;
-                }
-            }
-            return QuotedPrintableCodec.decodeQuotedPrintable(tmp);
-        }
-        return QuotedPrintableCodec.decodeQuotedPrintable(bytes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected byte[] doEncoding(final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        final byte[] data = QuotedPrintableCodec.encodeQuotedPrintable(PRINTABLE_CHARS, bytes);
-        if (this.encodeBlanks) {
-            for (int i = 0; i < data.length; i++) {
-                if (data[i] == SPACE) {
-                    data[i] = UNDERSCORE;
-                }
-            }
-        }
-        return data;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes an object into its quoted-printable form using the default Charset. Unsafe characters are escaped.
-     *
-     * @param obj
-     *            object to convert to quoted-printable form.
-     * @return quoted-printable object.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof String) {
-            return encode((String) obj);
-        }
-        throw new EncoderException("Objects of type " + obj.getClass().getName() + " cannot be encoded using Q codec");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a string into its quoted-printable form using the default Charset. Unsafe characters are escaped.
-     *
-     * @param sourceStr
-     *            string to convert to quoted-printable form.
-     * @return quoted-printable string.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     */
     @Override
     public String encode(final String sourceStr) throws EncoderException {
-        return encode(sourceStr, getCharset());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a string into its quoted-printable form using the specified Charset. Unsafe characters are escaped.
-     *
-     * @param sourceStr
-     *            string to convert to quoted-printable form.
-     * @param sourceCharset
-     *            the Charset for sourceStr.
-     * @return quoted-printable string.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     * @since 1.7
-     */
     public String encode(final String sourceStr, final Charset sourceCharset) throws EncoderException {
-        return encodeText(sourceStr, sourceCharset);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a string into its quoted-printable form using the specified Charset. Unsafe characters are escaped.
-     *
-     * @param sourceStr
-     *            string to convert to quoted-printable form.
-     * @param sourceCharset
-     *            the Charset for sourceStr.
-     * @return quoted-printable string.
-     * @throws EncoderException
-     *             thrown if a failure condition is encountered during the encoding process.
-     */
     public String encode(final String sourceStr, final String sourceCharset) throws EncoderException {
-        try {
-            return encodeText(sourceStr, sourceCharset);
-        } catch (final UnsupportedCharsetException e) {
-            throw new EncoderException(e.getMessage(), e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     protected String getEncoding() {
-        return "Q";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests if optional transformation of SPACE characters is to be used
-     *
-     * @return {@code true} if SPACE characters are to be transformed, {@code false} otherwise.
-     */
     public boolean isEncodeBlanks() {
-        return this.encodeBlanks;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Defines whether optional transformation of SPACE characters is to be used
-     *
-     * @param b
-     *            {@code true} if SPACE characters are to be transformed, {@code false} otherwise.
-     */
     public void setEncodeBlanks(final boolean b) {
-        this.encodeBlanks = b;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

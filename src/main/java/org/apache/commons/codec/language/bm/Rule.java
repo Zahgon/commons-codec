@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language.bm;
 
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.commons.codec.Resources;
 import org.apache.commons.codec.language.bm.Languages.LanguageSet;
 
@@ -105,7 +103,9 @@ public class Rule {
             }
             return 0;
         };
+
         private final StringBuilder phonemeText;
+
         private final Languages.LanguageSet languages;
 
         /**
@@ -142,38 +142,21 @@ public class Rule {
             this.phonemeText.append(phonemeRight.phonemeText);
         }
 
-        /**
-         * Appends the sequence to the phone text.
-         *
-         * @param sequence The sequence to append.
-         * @return {@code this} instance.
-         */
         public Phoneme append(final CharSequence sequence) {
-            this.phonemeText.append(sequence);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Gets the language set.
-         *
-         * @return the language set.
-         */
         public Languages.LanguageSet getLanguages() {
-            return this.languages;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public Iterable<Phoneme> getPhonemes() {
-            return Collections.singleton(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Gets the phoneme text sequence.
-         *
-         * @return the phoneme text sequence.
-         */
         public CharSequence getPhonemeText() {
-            return this.phonemeText;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -188,24 +171,18 @@ public class Rule {
             return new Phoneme(phonemeText.toString() + right.phonemeText.toString(), languages.restrictTo(right.languages));
         }
 
-        /**
-         * Returns a new Phoneme with the same text but a union of its current language set and the given one.
-         *
-         * @param lang the language set to merge.
-         * @return a new Phoneme.
-         */
         public Phoneme mergeWithLanguage(final LanguageSet lang) {
-            return new Phoneme(phonemeText.toString(), languages.merge(lang));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public int size() {
-            return 1;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return phonemeText.toString() + "[" + languages + "]";
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -221,15 +198,8 @@ public class Rule {
          */
         Iterable<Phoneme> getPhonemes();
 
-        /**
-         * Gets the expression size in phonemes.
-         *
-         * @return the expression size in phonemes.
-         * @since 1.17.0
-         */
         default int size() {
-            // All implementations are int-bound.
-            return (int) Math.min(getPhonemes().spliterator().getExactSizeIfKnown(), Integer.MAX_VALUE);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -251,12 +221,12 @@ public class Rule {
 
         @Override
         public List<Phoneme> getPhonemes() {
-            return phonemeList;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public int size() {
-            return phonemeList.size();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -290,10 +260,15 @@ public class Rule {
     public static final String ALL = "ALL";
 
     private static final String DOUBLE_QUOTE = "\"";
+
     private static final String HASH_INCLUDE = "#include";
+
     private static final int HASH_INCLUDE_LENGTH = HASH_INCLUDE.length();
+
     private static final Pattern AROUND_PLUS = Pattern.compile("[+]");
+
     private static final Pattern AROUND_PIPE = Pattern.compile("[|]");
+
     private static final Map<NameType, Map<RuleType, Map<String, Map<String, List<Rule>>>>> RULES = new EnumMap<>(NameType.class);
 
     /**
@@ -331,13 +306,15 @@ public class Rule {
         return String.format("/org/apache/commons/codec/language/bm/%s_%s_%s.txt", nameType.getName(), rt.getName(), lang);
     }
 
-    @SuppressWarnings("resource") // Closing the Scanner closes the resource
+    // Closing the Scanner closes the resource
+    @SuppressWarnings("resource")
     private static Scanner createScanner(final NameType nameType, final RuleType rt, final String lang) {
         final String resName = createResourceName(nameType, rt, lang);
         return new Scanner(Resources.getInputStream(resName), ResourceConstants.ENCODING);
     }
 
-    @SuppressWarnings("resource") // Closing the Scanner closes the resource
+    // Closing the Scanner closes the resource
+    @SuppressWarnings("resource")
     private static Scanner createScanner(final String lang) {
         final String resName = String.format("/org/apache/commons/codec/language/bm/%s.txt", lang);
         return new Scanner(Resources.getInputStream(resName), ResourceConstants.ENCODING);
@@ -357,61 +334,20 @@ public class Rule {
         return true;
     }
 
-    /**
-     * Gets rules for a combination of name type, rule type and languages.
-     *
-     * @param nameType the NameType to consider.
-     * @param rt       the RuleType to consider.
-     * @param langs    the set of languages to consider.
-     * @return a list of Rules that apply.
-     */
     public static List<Rule> getInstance(final NameType nameType, final RuleType rt, final Languages.LanguageSet langs) {
-        final Map<String, List<Rule>> ruleMap = getInstanceMap(nameType, rt, langs);
-        final List<Rule> allRules = new ArrayList<>();
-        ruleMap.values().forEach(rules -> allRules.addAll(rules));
-        return allRules;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets rules for a combination of name type, rule type and a single language.
-     *
-     * @param nameType the NameType to consider.
-     * @param rt       the RuleType to consider.
-     * @param lang     the language to consider.
-     * @return a list of Rules that apply.
-     */
     public static List<Rule> getInstance(final NameType nameType, final RuleType rt, final String lang) {
-        return getInstance(nameType, rt, LanguageSet.from(new HashSet<>(Arrays.asList(lang))));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets rules for a combination of name type, rule type and languages.
-     *
-     * @param nameType the NameType to consider.
-     * @param rt       the RuleType to consider.
-     * @param langs    the set of languages to consider.
-     * @return a map containing all Rules that apply, grouped by the first character of the rule pattern.
-     * @since 1.9
-     */
     public static Map<String, List<Rule>> getInstanceMap(final NameType nameType, final RuleType rt, final Languages.LanguageSet langs) {
-        return langs.isSingleton() ? getInstanceMap(nameType, rt, langs.getAny()) : getInstanceMap(nameType, rt, Languages.ANY);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets rules for a combination of name type, rule type and a single language.
-     *
-     * @param nameType the NameType to consider.
-     * @param rt       the RuleType to consider.
-     * @param lang     the language to consider.
-     * @return a map containing all Rules that apply, grouped by the first character of the rule pattern.
-     * @since 1.9
-     */
     public static Map<String, List<Rule>> getInstanceMap(final NameType nameType, final RuleType rt, final String lang) {
-        final Map<String, List<Rule>> rules = RULES.get(nameType).get(rt).get(lang);
-        if (rules == null) {
-            throw new IllegalArgumentException(String.format("No rules found for %s, %s, '%s'.", nameType.getName(), rt.getName(), lang));
-        }
-        return rules;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static Phoneme parsePhoneme(final String ph) {
@@ -432,23 +368,7 @@ public class Rule {
      * Package-private for testing only.
      */
     static PhonemeExpr parsePhonemeExpr(final String ph) {
-        if (ph.startsWith("(")) {
-            // we have a bracketed list of options
-            if (!ph.endsWith(")")) {
-                throw new IllegalArgumentException("Phoneme starting with '(' must end with ')'");
-            }
-            final List<Phoneme> phs = new ArrayList<>();
-            final String body = ph.substring(1, ph.length() - 1);
-            final String[] split = AROUND_PIPE.split(body);
-            for (final String part : split) {
-                phs.add(parsePhoneme(part));
-            }
-            if (split.length > 1 && split[0].length() != 0 && body.startsWith(PIPE) || split[split.length - 1].length() != 0 && body.endsWith(PIPE)) {
-                phs.add(new Phoneme("", Languages.ANY_LANGUAGE));
-            }
-            return new PhonemeList(phs);
-        }
-        return parsePhoneme(ph);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static Map<String, List<Rule>> parseRules(final Scanner scanner, final String location) {
@@ -474,7 +394,8 @@ public class Rule {
                 // trim leading-trailing whitespace
                 line = line.trim();
                 if (line.isEmpty()) {
-                    continue; // empty lines can be safely skipped
+                    // empty lines can be safely skipped
+                    continue;
                 }
                 if (line.startsWith(HASH_INCLUDE)) {
                     // include statement
@@ -500,19 +421,12 @@ public class Rule {
                         final Rule r = new Rule(pat, lCon, rCon, ph) {
 
                             private final int myLine = cLine;
+
                             private final String loc = location;
 
                             @Override
                             public String toString() {
-                                final StringBuilder sb = new StringBuilder();
-                                sb.append("Rule");
-                                sb.append("{line=").append(myLine);
-                                sb.append(", loc='").append(loc).append('\'');
-                                sb.append(", pat='").append(pat).append('\'');
-                                sb.append(", lcon='").append(lCon).append('\'');
-                                sb.append(", rcon='").append(rCon).append('\'');
-                                sb.append('}');
-                                return sb.toString();
+                                throw new UnsupportedOperationException("STUB: not implemented");
                             }
                         };
                         final String patternKey = r.pattern.substring(0, 1);
@@ -593,8 +507,7 @@ public class Rule {
 
             @Override
             public boolean isMatch(final CharSequence input) {
-                final Matcher matcher = pattern.matcher(input);
-                return matcher.find();
+                throw new UnsupportedOperationException("STUB: not implemented");
             }
         };
     }
@@ -622,8 +535,11 @@ public class Rule {
     }
 
     private final RPattern lContext;
+
     private final String pattern;
+
     private final PhonemeExpr phoneme;
+
     private final RPattern rContext;
 
     /**
@@ -641,68 +557,23 @@ public class Rule {
         this.phoneme = phoneme;
     }
 
-    /**
-     * Gets the left context. This is a regular expression that must match to the left of the pattern.
-     *
-     * @return the left context Pattern.
-     */
     public RPattern getLContext() {
-        return lContext;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the pattern. This is a string-literal that must exactly match.
-     *
-     * @return the pattern.
-     */
     public String getPattern() {
-        return pattern;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the phoneme. If the rule matches, this is the phoneme associated with the pattern match.
-     *
-     * @return the phoneme.
-     */
     public PhonemeExpr getPhoneme() {
-        return phoneme;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the right context. This is a regular expression that must match to the right of the pattern.
-     *
-     * @return the right context Pattern.
-     */
     public RPattern getRContext() {
-        return rContext;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Decides if the pattern and context match the input starting at a position. It is a match if the {@code lContext} matches {@code input} up to {@code i},
-     * {@code pattern} matches at i and {@code rContext} matches from the end of the match of {@code pattern} to the end of {@code input}.
-     *
-     * @param input the input String.
-     * @param i     the int position within the input.
-     * @return true if the pattern and left/right context match, false otherwise.
-     */
     public boolean patternAndContextMatches(final CharSequence input, final int i) {
-        if (i < 0) {
-            throw new IndexOutOfBoundsException("Can not match pattern at negative indexes");
-        }
-        final int patternLength = pattern.length();
-        final int ipl = i + patternLength;
-        if (ipl > input.length()) {
-            // not enough room for the pattern to match
-            return false;
-        }
-        // evaluate the pattern, left context and right context
-        // fail early if any of the evaluations is not successful
-        if (!input.subSequence(i, ipl).equals(pattern)) {
-            return false;
-        }
-        if (!rContext.isMatch(input.subSequence(ipl, input.length()))) {
-            return false;
-        }
-        return lContext.isMatch(input.subSequence(0, i));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

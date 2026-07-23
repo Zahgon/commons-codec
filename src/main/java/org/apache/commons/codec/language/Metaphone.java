@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language;
 
 import java.util.Locale;
-
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.StringEncoder;
 
@@ -83,55 +81,26 @@ public class Metaphone implements StringEncoder {
         // empty
     }
 
-    /**
-     * Encodes an Object using the Metaphone algorithm. This method is provided in order to satisfy the requirements of the Encoder interface, and will throw an
-     * EncoderException if the supplied object is not of type {@link String}.
-     *
-     * @param obj Object to encode.
-     * @return An object (or type {@link String}) containing the Metaphone code which corresponds to the String supplied.
-     * @throws EncoderException if the parameter supplied is not of type {@link String}.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (!(obj instanceof String)) {
-            throw new EncoderException("Parameter supplied to Metaphone encode is not of type java.lang.String");
-        }
-        return metaphone((String) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a String using the Metaphone algorithm.
-     *
-     * @param str String object to encode.
-     * @return The Metaphone code corresponding to the String supplied.
-     */
     @Override
     public String encode(final String str) {
-        return metaphone(str);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the maxCodeLen.
-     *
-     * @return the maxCodeLen.
-     */
     public int getMaxCodeLen() {
-        return this.maxCodeLen;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private boolean isLastChar(final int wdsz, final int n) {
         return n + 1 == wdsz;
     }
 
-    /**
-     * Tests is the Metaphones of two strings are identical.
-     *
-     * @param str1 First of two strings to compare.
-     * @param str2 Second of two strings to compare.
-     * @return {@code true} if the Metaphones of these strings are identical, {@code false} otherwise.
-     */
     public boolean isMetaphoneEqual(final String str1, final String str2) {
-        return metaphone(str1).equals(metaphone(str2));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private boolean isNextChar(final StringBuilder string, final int index, final char c) {
@@ -154,227 +123,8 @@ public class Metaphone implements StringEncoder {
         return VOWELS.indexOf(string.charAt(index)) >= 0;
     }
 
-    /**
-     * Find the Metaphone value of a String. This is similar to the
-     * Soundex algorithm, but better at finding similar sounding words.
-     * All input is converted to upper case.
-     * Limitations: Input format is expected to be a single ASCII word
-     * with only characters in the A - Z range, no punctuation or numbers.
-     *
-     * @param txt String to find the Metaphone code for.
-     * @return A Metaphone code corresponding to the String supplied.
-     */
     public String metaphone(final String txt) {
-        boolean hard = false;
-        final int txtLength;
-        if (txt == null || (txtLength = txt.length()) == 0) {
-            return "";
-        }
-        // single character is itself
-        if (txtLength == 1) {
-            return txt.toUpperCase(Locale.ENGLISH);
-        }
-
-        final char[] inwd = txt.toUpperCase(Locale.ENGLISH).toCharArray();
-
-        final StringBuilder local = new StringBuilder(40); // manipulate
-        final StringBuilder code = new StringBuilder(10); // output
-        // handle initial 2 characters exceptions
-        switch (inwd[0]) {
-        case 'K':
-        case 'G':
-        case 'P': /* looking for KN, etc */
-            if (inwd[1] == 'N') {
-                local.append(inwd, 1, inwd.length - 1);
-            } else {
-                local.append(inwd);
-            }
-            break;
-        case 'A': /* looking for AE */
-            if (inwd[1] == 'E') {
-                local.append(inwd, 1, inwd.length - 1);
-            } else {
-                local.append(inwd);
-            }
-            break;
-        case 'W': /* looking for WR or WH */
-            if (inwd[1] == 'R') { // WR -> R
-                local.append(inwd, 1, inwd.length - 1);
-                break;
-            }
-            if (inwd[1] == 'H') {
-                local.append(inwd, 1, inwd.length - 1);
-                local.setCharAt(0, 'W'); // WH -> W
-            } else {
-                local.append(inwd);
-            }
-            break;
-        case 'X': /* initial X becomes S */
-            inwd[0] = 'S';
-            local.append(inwd);
-            break;
-        default:
-            local.append(inwd);
-        } // now local has working string with initials fixed
-
-        final int wdsz = local.length();
-        int n = 0;
-
-        while (code.length() < getMaxCodeLen() && n < wdsz) { // max code size of 4 works well
-            final char symb = local.charAt(n);
-            // remove duplicate letters except C
-            if (symb == 'C' || !isPreviousChar(local, n, symb)) {
-                // not dup
-                switch (symb) {
-                case 'A':
-                case 'E':
-                case 'I':
-                case 'O':
-                case 'U':
-                    if (n == 0) {
-                        code.append(symb);
-                    }
-                    break; // only use vowel if leading char
-                case 'B':
-                    if (isPreviousChar(local, n, 'M') && isLastChar(wdsz, n)) { // B is silent if word ends in MB
-                        break;
-                    }
-                    code.append(symb);
-                    break;
-                case 'C': // lots of C special cases
-                    /* discard if SCI, SCE or SCY */
-                    if (isPreviousChar(local, n, 'S') && !isLastChar(wdsz, n) && FRONTV.indexOf(local.charAt(n + 1)) >= 0) {
-                        break;
-                    }
-                    if (isPreviousChar(local, n, 'S') && isNextChar(local, n, 'H')) { // SCH->sk
-                        code.append('K');
-                        break;
-                    }
-                    if (regionMatch(local, n, "CIA") || isNextChar(local, n, 'H')) { // "CIA" -> X or CH -> X
-                        code.append('X');
-                        break;
-                    }
-                    if (!isLastChar(wdsz, n) && FRONTV.indexOf(local.charAt(n + 1)) >= 0) {
-                        code.append('S');
-                        break; // CI,CE,CY -> S
-                    }
-                    code.append('K'); // default C -> K
-                    break;
-                case 'D':
-                    if (!isLastChar(wdsz, n + 1) && isNextChar(local, n, 'G') && FRONTV.indexOf(local.charAt(n + 2)) >= 0) { // DGE DGI DGY -> J
-                        code.append('J');
-                        n += 2;
-                    } else {
-                        code.append('T');
-                    }
-                    break;
-                case 'G': // GH silent at end or before consonant
-                    if (isLastChar(wdsz, n + 1) && isNextChar(local, n, 'H')) {
-                        break;
-                    }
-                    if (!isLastChar(wdsz, n + 1) && isNextChar(local, n, 'H') && !isVowel(local, n + 2)) {
-                        break;
-                    }
-                    if (n > 0 && (regionMatch(local, n, "GN") || regionMatch(local, n, "GNED"))) {
-                        break; // silent G
-                    }
-                    // NOTE: Given that duplicated chars are removed, I don't see how this can ever be true
-                    hard = isPreviousChar(local, n, 'G');
-                    if (!isLastChar(wdsz, n) && FRONTV.indexOf(local.charAt(n + 1)) >= 0 && !hard) {
-                        code.append('J');
-                    } else {
-                        code.append('K');
-                    }
-                    break;
-                case 'H':
-                    if (isLastChar(wdsz, n)) {
-                        break; // terminal H
-                    }
-                    if (n > 0 && VARSON.indexOf(local.charAt(n - 1)) >= 0) {
-                        break;
-                    }
-                    if (isVowel(local, n + 1)) {
-                        code.append('H'); // Hvowel
-                    }
-                    break;
-                case 'F':
-                case 'J':
-                case 'L':
-                case 'M':
-                case 'N':
-                case 'R':
-                    code.append(symb);
-                    break;
-                case 'K':
-                    if (n > 0) { // not initial
-                        if (!isPreviousChar(local, n, 'C')) {
-                            code.append(symb);
-                        }
-                    } else {
-                        code.append(symb); // initial K
-                    }
-                    break;
-                case 'P':
-                    if (isNextChar(local, n, 'H')) {
-                        // PH -> F
-                        code.append('F');
-                    } else {
-                        code.append(symb);
-                    }
-                    break;
-                case 'Q':
-                    code.append('K');
-                    break;
-                case 'S':
-                    if (regionMatch(local, n, "SH") || regionMatch(local, n, "SIO") || regionMatch(local, n, "SIA")) {
-                        code.append('X');
-                    } else {
-                        code.append('S');
-                    }
-                    break;
-                case 'T':
-                    if (regionMatch(local, n, "TIA") || regionMatch(local, n, "TIO")) {
-                        code.append('X');
-                        break;
-                    }
-                    if (regionMatch(local, n, "TCH")) {
-                        // Silent if in "TCH"
-                        break;
-                    }
-                    // substitute numeral 0 for TH (resembles theta after all)
-                    if (regionMatch(local, n, "TH")) {
-                        code.append('0');
-                    } else {
-                        code.append('T');
-                    }
-                    break;
-                case 'V':
-                    code.append('F');
-                    break;
-                case 'W':
-                case 'Y': // silent if not followed by vowel
-                    if (!isLastChar(wdsz, n) && isVowel(local, n + 1)) {
-                        code.append(symb);
-                    }
-                    break;
-                case 'X':
-                    code.append('K');
-                    code.append('S');
-                    break;
-                case 'Z':
-                    code.append('S');
-                    break;
-                default:
-                    // do nothing
-                    break;
-                } // end switch
-            } // end else from symb != 'C'
-            n++;
-            if (code.length() > getMaxCodeLen()) {
-                code.setLength(getMaxCodeLen());
-            }
-        }
-        return code.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private boolean regionMatch(final StringBuilder string, final int index, final String test) {
@@ -386,13 +136,7 @@ public class Metaphone implements StringEncoder {
         return matches;
     }
 
-    /**
-     * Sets the maxCodeLen.
-     *
-     * @param maxCodeLen The maxCodeLen to set.
-     */
     public void setMaxCodeLen(final int maxCodeLen) {
-        this.maxCodeLen = maxCodeLen;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.io.OutputStream;
@@ -66,34 +65,19 @@ public class Base58OutputStream extends BaseNCodecOutputStream<Base58, Base58Out
             setEncode(true);
         }
 
-        /**
-         * Builds a new Base58OutputStream instance with the configured settings.
-         *
-         * @return a new Base58OutputStream.
-         */
         @Override
         public Base58OutputStream get() {
-            return new Base58OutputStream(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Creates a new Base58 codec instance.
-         *
-         * @return a new Base58 codec.
-         */
         @Override
         protected Base58 newBaseNCodec() {
-            return new Base58();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /**
-     * Constructs a new Builder.
-     *
-     * @return a new Builder.
-     */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private Base58OutputStream(final Builder builder) {
@@ -108,5 +92,4 @@ public class Base58OutputStream extends BaseNCodecOutputStream<Base58, Base58Out
     public Base58OutputStream(final OutputStream outputStream) {
         this(builder().setOutputStream(outputStream));
     }
-
 }

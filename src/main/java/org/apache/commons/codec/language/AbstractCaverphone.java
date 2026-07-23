@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language;
 
 import org.apache.commons.codec.EncoderException;
@@ -40,40 +39,12 @@ public abstract class AbstractCaverphone implements StringEncoder {
         // empty
     }
 
-    /**
-     * Encodes an Object using the Caverphone algorithm. This method is provided in order to satisfy the requirements of
-     * the Encoder interface, and will throw an EncoderException if the supplied object is not of type {@link String}.
-     *
-     * @param source
-     *            Object to encode.
-     * @return An object (or type {@link String}) containing the Caverphone code which corresponds to the String
-     *         supplied.
-     * @throws EncoderException
-     *             if the parameter supplied is not of type {@link String}.
-     */
     @Override
     public Object encode(final Object source) throws EncoderException {
-        if (!(source instanceof String)) {
-            throw new EncoderException("Parameter supplied to Caverphone encode is not of type java.lang.String");
-        }
-        return this.encode((String) source);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests if the encodings of two strings are equal.
-     *
-     * This method might be promoted to a new AbstractStringEncoder superclass.
-     *
-     * @param str1
-     *            First of two strings to compare.
-     * @param str2
-     *            Second of two strings to compare.
-     * @return {@code true} if the encodings of these strings are identical, {@code false} otherwise.
-     * @throws EncoderException
-     *             thrown if there is an error condition during the encoding process.
-     */
     public boolean isEncodeEqual(final String str1, final String str2) throws EncoderException {
-        return this.encode(str1).equals(this.encode(str2));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

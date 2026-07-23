@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language;
 
 import org.apache.commons.codec.EncoderException;
@@ -176,49 +175,18 @@ public class Soundex implements StringEncoder {
         this.specialCaseHW = specialCaseHW;
     }
 
-    /**
-     * Encodes the Strings and returns the number of characters in the two encoded Strings that are the same. This return value ranges from 0 through 4: 0
-     * indicates little or no similarity, and 4 indicates strong similarity or identical values.
-     *
-     * @param s1 A String that will be encoded and compared.
-     * @param s2 A String that will be encoded and compared.
-     * @return The number of characters in the two encoded Strings that are the same from 0 to 4.
-     * @see SoundexUtils#difference(StringEncoder,String,String)
-     * @see <a href="https://msdn.microsoft.com/library/default.asp?url=/library/en-us/tsqlref/ts_de-dz_8co5.asp"> MS T-SQL DIFFERENCE</a>
-     * @throws EncoderException if an error occurs encoding one of the strings.
-     * @since 1.3
-     */
     public int difference(final String s1, final String s2) throws EncoderException {
-        return SoundexUtils.difference(this, s1, s2);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes an Object using the Soundex algorithm. This method is provided in order to satisfy the requirements of the Encoder interface, and will throw an
-     * EncoderException if the supplied object is not of type {@link String}.
-     *
-     * @param obj Object to encode.
-     * @return An object (or type {@link String}) containing the Soundex code which corresponds to the String supplied.
-     * @throws EncoderException         if the parameter supplied is not of type {@link String}.
-     * @throws IllegalArgumentException if a character is not mapped.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (!(obj instanceof String)) {
-            throw new EncoderException("Parameter supplied to Soundex encode is not of type java.lang.String");
-        }
-        return soundex((String) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a String using the Soundex algorithm.
-     *
-     * @param str A String object to encode.
-     * @return A Soundex code corresponding to the String supplied.
-     * @throws IllegalArgumentException if a character is not mapped.
-     */
     @Override
     public String encode(final String str) {
-        return soundex(str);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -267,40 +235,7 @@ public class Soundex implements StringEncoder {
         this.maxLength = maxLength;
     }
 
-    /**
-     * Retrieves the Soundex code for a given String object.
-     *
-     * @param str String to encode using the Soundex algorithm.
-     * @return A Soundex code for the String supplied.
-     * @throws IllegalArgumentException if a character is not mapped.
-     */
     public String soundex(String str) {
-        if (str == null) {
-            return null;
-        }
-        str = SoundexUtils.clean(str);
-        if (str.isEmpty()) {
-            return str;
-        }
-        final char[] out = { '0', '0', '0', '0' };
-        int count = 0;
-        final char first = str.charAt(0);
-        out[count++] = first;
-        char lastDigit = map(first); // previous digit
-        for (int i = 1; i < str.length() && count < out.length; i++) {
-            final char ch = str.charAt(i);
-            if (this.specialCaseHW && (ch == 'H' || ch == 'W')) { // these are ignored completely
-                continue;
-            }
-            final char digit = map(ch);
-            if (digit == SILENT_MARKER) {
-                continue;
-            }
-            if (digit != '0' && digit != lastDigit) { // don't store vowels or repeats
-                out[count++] = digit;
-            }
-            lastDigit = digit;
-        }
-        return new String(out);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

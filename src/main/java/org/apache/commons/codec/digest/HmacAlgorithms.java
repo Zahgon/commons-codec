@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.digest;
 
 /**
@@ -40,7 +39,6 @@ public enum HmacAlgorithms {
      * </p>
      */
     HMAC_MD5("HmacMD5"),
-
     /**
      * The HmacSHA1 Message Authentication Code (MAC) algorithm specified in RFC 2104 and FIPS PUB 180-2.
      * <p>
@@ -48,7 +46,6 @@ public enum HmacAlgorithms {
      * </p>
      */
     HMAC_SHA_1("HmacSHA1"),
-
     /**
      * The HmacSHA224 Message Authentication Code (MAC) algorithm specified in RFC 2104 and FIPS PUB 180-2.
      * <p>
@@ -58,7 +55,6 @@ public enum HmacAlgorithms {
      * @since 1.11
      */
     HMAC_SHA_224("HmacSHA224"),
-
     /**
      * The HmacSHA256 Message Authentication Code (MAC) algorithm specified in RFC 2104 and FIPS PUB 180-2.
      * <p>
@@ -66,7 +62,6 @@ public enum HmacAlgorithms {
      * </p>
      */
     HMAC_SHA_256("HmacSHA256"),
-
     /**
      * The HmacSHA384 Message Authentication Code (MAC) algorithm specified in RFC 2104 and FIPS PUB 180-2.
      * <p>
@@ -74,7 +69,6 @@ public enum HmacAlgorithms {
      * </p>
      */
     HMAC_SHA_384("HmacSHA384"),
-
     /**
      * The HmacSHA512 Message Authentication Code (MAC) algorithm specified in RFC 2104 and FIPS PUB 180-2.
      * <p>
@@ -89,29 +83,12 @@ public enum HmacAlgorithms {
         this.name = algorithm;
     }
 
-    /**
-     * Gets the algorithm name.
-     *
-     * @return the algorithm name.
-     * @since 1.11
-     */
     public String getName() {
-        return name;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * The algorithm name.
-     *
-     * @see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/SunProviders.html#SunJCEProvider">
-     *      Java 8 Cryptography Architecture Sun Providers Documentation</a>
-     * @see <a href=
-     *      "https://docs.oracle.com/javase/9/security/oracleproviders.htm#JSSEC-GUID-A47B1249-593C-4C38-A0D0-68FA7681E0A7">
-     *      Java 9 Cryptography Architecture Sun Providers Documentation</a>
-     * @return The algorithm name ("HmacSHA512" for example).
-     */
     @Override
     public String toString() {
-        return name;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

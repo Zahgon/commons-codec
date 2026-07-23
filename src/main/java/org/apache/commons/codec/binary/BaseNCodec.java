@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Supplier;
-
 import org.apache.commons.codec.BinaryDecoder;
 import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.CodecPolicy;
@@ -59,15 +57,24 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
     public abstract static class AbstractBuilder<T, B extends AbstractBuilder<T, B>> implements Supplier<T> {
 
         private int unencodedBlockSize;
+
         private int encodedBlockSize;
+
         private CodecPolicy decodingPolicy = DECODING_POLICY_DEFAULT;
+
         private int lineLength;
+
         private byte[] lineSeparator = CHUNK_SEPARATOR;
+
         private final byte[] defaultEncodeTable;
+
         private byte[] encodeTable;
+
         private byte[] decodeTable;
 
-        /** Padding byte. */
+        /**
+         * Padding byte.
+         */
         private byte padding = PAD_DEFAULT;
 
         AbstractBuilder(final byte[] defaultEncodeTable) {
@@ -75,164 +82,81 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
             this.encodeTable = defaultEncodeTable;
         }
 
-        /**
-         * Returns this instance typed as the subclass type {@code B}.
-         * <p>
-         * This is the same as the expression:
-         * </p>
-         *
-         * <pre>
-         * (B) this
-         * </pre>
-         *
-         * @return {@code this} instance typed as the subclass type {@code B}.
-         */
         @SuppressWarnings("unchecked")
         B asThis() {
-            return (B) this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         byte[] getDecodeTable() {
-            return decodeTable;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         CodecPolicy getDecodingPolicy() {
-            return decodingPolicy;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         int getEncodedBlockSize() {
-            return encodedBlockSize;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         byte[] getEncodeTable() {
-            return encodeTable;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         int getLineLength() {
-            return lineLength;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         byte[] getLineSeparator() {
-            return lineSeparator;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         byte getPadding() {
-            return padding;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         int getUnencodedBlockSize() {
-            return unencodedBlockSize;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the decode table.
-         *
-         * @param decodeTable the decode table.
-         * @return {@code this} instance.
-         * @since 1.20.0
-         */
         public B setDecodeTable(final byte[] decodeTable) {
-            this.decodeTable = decodeTable != null ? decodeTable.clone() : null;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the decode table.
-         *
-         * @param decodeTable the decode table, null resets to the default.
-         * @return {@code this} instance.
-         */
         B setDecodeTableRaw(final byte[] decodeTable) {
-            this.decodeTable = decodeTable;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the decoding policy.
-         *
-         * @param decodingPolicy the decoding policy, null resets to the default.
-         * @return {@code this} instance.
-         */
         public B setDecodingPolicy(final CodecPolicy decodingPolicy) {
-            this.decodingPolicy = decodingPolicy != null ? decodingPolicy : DECODING_POLICY_DEFAULT;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the encoded block size, subclasses normally set this on construction.
-         *
-         * @param encodedBlockSize the encoded block size, subclasses normally set this on construction.
-         * @return {@code this} instance.
-         */
         B setEncodedBlockSize(final int encodedBlockSize) {
-            this.encodedBlockSize = encodedBlockSize;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the encode table.
-         *
-         * @param encodeTable the encode table, null resets to the default.
-         * @return {@code this} instance.
-         */
         public B setEncodeTable(final byte... encodeTable) {
-            this.encodeTable = encodeTable != null ? encodeTable.clone() : defaultEncodeTable;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the encode table.
-         *
-         * @param encodeTable the encode table, null resets to the default.
-         * @return {@code this} instance.
-         */
         B setEncodeTableRaw(final byte... encodeTable) {
-            this.encodeTable = encodeTable != null ? encodeTable : defaultEncodeTable;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the line length.
-         *
-         * @param lineLength the line length, less than 0 resets to the default.
-         * @return {@code this} instance.
-         */
         public B setLineLength(final int lineLength) {
-            this.lineLength = Math.max(0, lineLength);
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the line separator.
-         *
-         * @param lineSeparator the line separator, null resets to the default.
-         * @return {@code this} instance.
-         */
         public B setLineSeparator(final byte... lineSeparator) {
-            this.lineSeparator = lineSeparator != null ? lineSeparator.clone() : CHUNK_SEPARATOR;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the padding byte.
-         *
-         * @param padding the padding byte.
-         * @return {@code this} instance.
-         */
         public B setPadding(final byte padding) {
-            this.padding = padding;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets the unencoded block size, subclasses normally set this on construction.
-         *
-         * @param unencodedBlockSize the unencoded block size, subclasses normally set this on construction.
-         * @return {@code this} instance.
-         */
         B setUnencodedBlockSize(final int unencodedBlockSize) {
-            this.unencodedBlockSize = unencodedBlockSize;
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -284,15 +208,9 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
          */
         int modulus;
 
-        /**
-         * Returns a String useful for debugging (especially within a debugger.)
-         *
-         * @return a String useful for debugging.
-         */
         @Override
         public String toString() {
-            return String.format("%s[buffer=%s, currentLinePos=%s, eof=%s, ibitWorkArea=%s, lbitWorkArea=%s, " + "modulus=%s, pos=%s, readPos=%s]",
-                    this.getClass().getSimpleName(), Arrays.toString(buffer), currentLinePos, eof, ibitWorkArea, lbitWorkArea, modulus, pos, readPos);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -324,6 +242,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      * @see <a href="https://tools.ietf.org/html/rfc1421">RFC 1421 section 4.3.2.4</a>
      */
     public static final int PEM_CHUNK_SIZE = 64;
+
     private static final int DEFAULT_BUFFER_RESIZE_FACTOR = 2;
 
     /**
@@ -342,13 +261,16 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      */
     private static final int MAX_BUFFER_SIZE = Integer.MAX_VALUE - 8;
 
-    /** Mask used to extract 8 bits, used in decoding bytes */
+    /**
+     * Mask used to extract 8 bits, used in decoding bytes
+     */
     protected static final int MASK_8BITS = 0xff;
 
     /**
      * Byte used to pad output.
      */
-    protected static final byte PAD_DEFAULT = '='; // Allow static access to default
+    // Allow static access to default
+    protected static final byte PAD_DEFAULT = '=';
 
     /**
      * The default decoding policy.
@@ -393,36 +315,16 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
         return Math.max(minCapacity, MAX_BUFFER_SIZE);
     }
 
-    /**
-     * Gets a copy of the chunk separator per RFC 2045 section 2.1.
-     *
-     * @return the chunk separator.
-     * @see <a href="https://www.ietf.org/rfc/rfc2045">RFC 2045 section 2.1</a>
-     * @since 1.15
-     */
     public static byte[] getChunkSeparator() {
-        return CHUNK_SEPARATOR.clone();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the array length or 0 if null.
-     *
-     * @param array the array or null.
-     * @return the array length or 0 if null.
-     */
     static int getLength(final byte[] array) {
-        return array == null ? 0 : array.length;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests whether or not the {@code value} is in the given {@code table}.
-     *
-     * @param value The value to test.
-     * @param table The table to test against.
-     * @return {@code true} if the value is in the table, {@code false} otherwise.
-     */
     static boolean isInAlphabet(final byte value, final byte[] table) {
-        return value >= 0 && value < table.length && table[value] != -1;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -472,13 +374,19 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
     @Deprecated
     protected final byte PAD = PAD_DEFAULT;
 
-    /** Pad byte. Instance variable just in case it needs to vary later. */
+    /**
+     * Pad byte. Instance variable just in case it needs to vary later.
+     */
     protected final byte pad;
 
-    /** Number of bytes in each full block of unencoded data, for example 4 for Base64 and 5 for Base32 */
+    /**
+     * Number of bytes in each full block of unencoded data, for example 4 for Base64 and 5 for Base32
+     */
     private final int unencodedBlockSize;
 
-    /** Number of bytes in each full block of encoded data, for example 3 for Base64 and 8 for Base32 */
+    /**
+     * Number of bytes in each full block of encoded data, for example 3 for Base64 and 8 for Base32
+     */
     private final int encodedBlockSize;
 
     /**
@@ -589,8 +497,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      * @deprecated Use {@link BaseNCodec#BaseNCodec(AbstractBuilder)}.
      */
     @Deprecated
-    protected BaseNCodec(final int unencodedBlockSize, final int encodedBlockSize, final int lineLength, final int chunkSeparatorLength, final byte pad,
-            final CodecPolicy decodingPolicy) {
+    protected BaseNCodec(final int unencodedBlockSize, final int encodedBlockSize, final int lineLength, final int chunkSeparatorLength, final byte pad, final CodecPolicy decodingPolicy) {
         this.unencodedBlockSize = unencodedBlockSize;
         this.encodedBlockSize = encodedBlockSize;
         final boolean useChunking = lineLength > 0 && chunkSeparatorLength > 0;
@@ -602,233 +509,74 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
         this.decodeTable = null;
     }
 
-    /**
-     * Returns the amount of buffered data available for reading.
-     *
-     * @param context the context to be used.
-     * @return The amount of buffered data available for reading.
-     */
-    int available(final Context context) { // package protected for access from I/O streams
-        return hasData(context) ? context.pos - context.readPos : 0;
+    int available(final Context context) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests a given byte array to see if it contains any characters within the alphabet or PAD.
-     *
-     * Intended for use in checking line-ending arrays.
-     *
-     * @param arrayOctet byte array to test.
-     * @return {@code true} if any byte is a valid character in the alphabet or PAD; {@code false} otherwise.
-     */
     protected boolean containsAlphabetOrPad(final byte[] arrayOctet) {
-        if (arrayOctet != null) {
-            for (final byte element : arrayOctet) {
-                if (pad == element || isInAlphabet(element)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Decodes a byte[] containing characters in the Base-N alphabet.
-     *
-     * @param array A byte array containing Base-N character data.
-     * @return a byte array containing binary data.
-     */
     @Override
     public byte[] decode(final byte[] array) {
-        if (BinaryCodec.isEmpty(array)) {
-            return array;
-        }
-        final Context context = new Context();
-        decode(array, 0, array.length, context);
-        decode(array, 0, EOF, context); // Notify decoder of EOF.
-        final byte[] result = new byte[context.pos];
-        readResults(result, 0, result.length, context);
-        return result;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // package protected for access from I/O streams
     abstract void decode(byte[] array, int i, int length, Context context);
 
-    /**
-     * Decodes an Object using the Base-N algorithm. This method is provided in order to satisfy the requirements of the Decoder interface, and will throw a
-     * DecoderException if the supplied object is not of type byte[] or String.
-     *
-     * @param obj Object to decode.
-     * @return An object (of type byte[]) containing the binary data which corresponds to the byte[] or String supplied.
-     * @throws DecoderException if the parameter supplied is not of type byte[].
-     */
     @Override
     public Object decode(final Object obj) throws DecoderException {
-        if (obj instanceof byte[]) {
-            return decode((byte[]) obj);
-        }
-        if (obj instanceof String) {
-            return decode((String) obj);
-        }
-        throw new DecoderException("Parameter supplied to Base-N decode is not a byte[] or a String");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Decodes a String containing characters in the Base-N alphabet.
-     *
-     * @param array A String containing Base-N character data.
-     * @return a byte array containing binary data.
-     */
     public byte[] decode(final String array) {
-        return decode(StringUtils.getBytesUtf8(array));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a byte[] containing binary data, into a byte[] containing characters in the alphabet.
-     *
-     * @param array a byte array containing binary data.
-     * @return A byte array containing only the base N alphabetic character data.
-     */
     @Override
     public byte[] encode(final byte[] array) {
-        if (BinaryCodec.isEmpty(array)) {
-            return array;
-        }
-        return encode(array, 0, array.length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a byte[] containing binary data, into a byte[] containing characters in the alphabet.
-     *
-     * @param array  a byte array containing binary data.
-     * @param offset initial offset of the subarray.
-     * @param length length of the subarray.
-     * @return A byte array containing only the base N alphabetic character data.
-     * @since 1.11
-     */
     public byte[] encode(final byte[] array, final int offset, final int length) {
-        if (BinaryCodec.isEmpty(array)) {
-            return array;
-        }
-        final Context context = new Context();
-        encode(array, offset, length, context);
-        encode(array, offset, EOF, context); // Notify encoder of EOF.
-        final byte[] buf = new byte[context.pos - context.readPos];
-        readResults(buf, 0, buf.length, context);
-        return buf;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // package protected for access from I/O streams
     abstract void encode(byte[] array, int i, int length, Context context);
 
-    /**
-     * Encodes an Object using the Base-N algorithm. This method is provided in order to satisfy the requirements of the Encoder interface, and will throw an
-     * EncoderException if the supplied object is not of type byte[].
-     *
-     * @param obj Object to encode.
-     * @return An object (of type byte[]) containing the Base-N encoded data which corresponds to the byte[] supplied.
-     * @throws EncoderException if the parameter supplied is not of type byte[].
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (!(obj instanceof byte[])) {
-            throw new EncoderException("Parameter supplied to Base-N encode is not a byte[]");
-        }
-        return encode((byte[]) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a byte[] containing binary data, into a String containing characters in the appropriate alphabet. Uses UTF8 encoding.
-     * <p>
-     * This is a duplicate of {@link #encodeToString(byte[])}; it was merged during refactoring.
-     * </p>
-     *
-     * @param array a byte array containing binary data.
-     * @return String containing only character data in the appropriate alphabet.
-     * @since 1.5
-     */
     public String encodeAsString(final byte[] array) {
-        return StringUtils.newStringUtf8(encode(array));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a byte[] containing binary data, into a String containing characters in the Base-N alphabet. Uses UTF8 encoding.
-     *
-     * @param array a byte array containing binary data.
-     * @return A String containing only Base-N character data.
-     */
     public String encodeToString(final byte[] array) {
-        return StringUtils.newStringUtf8(encode(array));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Ensures that the buffer has room for {@code size} bytes
-     *
-     * @param size    minimum spare space required.
-     * @param context the context to be used.
-     * @return the buffer.
-     */
     protected byte[] ensureBufferSize(final int size, final Context context) {
-        if (context.buffer == null) {
-            context.buffer = new byte[Math.max(size, getDefaultBufferSize())];
-            context.pos = 0;
-            context.readPos = 0;
-            // Overflow-conscious:
-            // x + y > z == x + y - z > 0
-        } else if (context.pos + size - context.buffer.length > 0) {
-            return resizeBuffer(context, context.pos + size);
-        }
-        return context.buffer;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the decoding behavior policy.
-     *
-     * <p>
-     * The default is lenient. If the decoding policy is strict, then decoding will raise an {@link IllegalArgumentException} if trailing bits are not part of a
-     * valid encoding. Decoding will compose trailing bits into 8-bit bytes and discard the remainder.
-     * </p>
-     *
-     * @return true if using strict decoding.
-     * @since 1.15
-     */
     public CodecPolicy getCodecPolicy() {
-        return decodingPolicy;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the default buffer size. Can be overridden.
-     *
-     * @return the default buffer size.
-     */
     protected int getDefaultBufferSize() {
-        return DEFAULT_BUFFER_SIZE;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the amount of space needed to encode the supplied array.
-     *
-     * @param array byte[] array which will later be encoded.
-     * @return amount of space needed to encode the supplied array. Returns a long since a max-len array will require &gt; Integer.MAX_VALUE.
-     */
     public long getEncodedLength(final byte[] array) {
-        // Calculate non-chunked size - rounded up to allow for padding
-        // cast to long is needed to avoid possibility of overflow
-        long len = (array.length + unencodedBlockSize - 1) / unencodedBlockSize * (long) encodedBlockSize;
-        if (lineLength > 0) { // We're using chunking
-            // Round up to nearest multiple
-            len += (len + lineLength - 1) / lineLength * chunkSeparatorLength;
-        }
-        return len;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests whether this object has buffered data for reading.
-     *
-     * @param context the context to be used.
-     * @return true if there is data still available for reading.
-     */
-    boolean hasData(final Context context) { // package protected for access from I/O streams
-        return context.pos > context.readPos;
+    boolean hasData(final Context context) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -839,74 +587,19 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      */
     protected abstract boolean isInAlphabet(byte value);
 
-    /**
-     * Tests a given byte array to see if it contains only valid characters within the alphabet. The method optionally treats whitespace and pad as valid.
-     *
-     * @param arrayOctet byte array to test.
-     * @param allowWhitespacePad if {@code true}, then whitespace and PAD are also allowed.
-     * @return {@code true} if all bytes are valid characters in the alphabet or if the byte array is empty; {@code false}, otherwise.
-     */
     public boolean isInAlphabet(final byte[] arrayOctet, final boolean allowWhitespacePad) {
-        for (final byte octet : arrayOctet) {
-            if (!isInAlphabet(octet) && (!allowWhitespacePad || octet != pad && !Character.isWhitespace(octet))) {
-                return false;
-            }
-        }
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests a given String to see if it contains only valid characters within the alphabet. The method treats whitespace and PAD as valid.
-     *
-     * @param basen String to test.
-     * @return {@code true} if all characters in the String are valid characters in the alphabet or if the String is empty; {@code false}, otherwise.
-     * @see #isInAlphabet(byte[], boolean)
-     */
     public boolean isInAlphabet(final String basen) {
-        return isInAlphabet(StringUtils.getBytesUtf8(basen), true);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests true if decoding behavior is strict. Decoding will raise an {@link IllegalArgumentException} if trailing bits are not part of a valid encoding.
-     *
-     * <p>
-     * The default is false for lenient decoding. Decoding will compose trailing bits into 8-bit bytes and discard the remainder.
-     * </p>
-     *
-     * @return true if using strict decoding.
-     * @since 1.15
-     */
     public boolean isStrictDecoding() {
-        return decodingPolicy == CodecPolicy.STRICT;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Reads buffered data into the provided byte[] array, starting at position bPos, up to a maximum of bAvail bytes. Returns how many bytes were actually
-     * extracted.
-     * <p>
-     * Package private for access from I/O streams.
-     * </p>
-     *
-     * @param b         byte[] array to extract the buffered data into.
-     * @param position  position in byte[] array to start extraction at.
-     * @param available amount of bytes we're allowed to extract. We may extract fewer (if fewer are available).
-     * @param context   the context to be used.
-     * @return The number of bytes successfully extracted into the provided byte[] array.
-     */
     int readResults(final byte[] b, final int position, final int available, final Context context) {
-        if (hasData(context)) {
-            final int len = Math.min(available(context), available);
-            System.arraycopy(context.buffer, context.readPos, b, position, len);
-            context.readPos += len;
-            if (!hasData(context)) {
-                // All data read.
-                // Reset position markers but do not set buffer to null to allow its reuse.
-                // hasData(context) will still return false, and this method will return 0 until
-                // more data is available, or -1 if EOF.
-                context.pos = context.readPos = 0;
-            }
-            return len;
-        }
-        return context.eof ? EOF : 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

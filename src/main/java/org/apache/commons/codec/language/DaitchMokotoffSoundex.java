@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Pattern;
-
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.Resources;
@@ -73,8 +72,11 @@ public class DaitchMokotoffSoundex implements StringEncoder {
      * Inner class representing a branch during DM Soundex encoding.
      */
     private static final class Branch {
+
         private final StringBuilder builder;
+
         private String cachedString;
+
         private String lastReplacement;
 
         private Branch() {
@@ -95,13 +97,7 @@ public class DaitchMokotoffSoundex implements StringEncoder {
 
         @Override
         public boolean equals(final Object other) {
-            if (this == other) {
-                return true;
-            }
-            if (!(other instanceof Branch)) {
-                return false;
-            }
-            return toString().equals(((Branch) other).toString());
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -116,7 +112,7 @@ public class DaitchMokotoffSoundex implements StringEncoder {
 
         @Override
         public int hashCode() {
-            return toString().hashCode();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -142,10 +138,7 @@ public class DaitchMokotoffSoundex implements StringEncoder {
 
         @Override
         public String toString() {
-            if (cachedString == null) {
-                cachedString = builder.toString();
-            }
-            return cachedString;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -153,14 +146,18 @@ public class DaitchMokotoffSoundex implements StringEncoder {
      * Inner class for storing rules.
      */
     private static final class Rule {
+
         private static final Pattern PIPE = Pattern.compile("\\|");
+
         private final String pattern;
+
         private final String[] replacementAtStart;
+
         private final String[] replacementBeforeVowel;
+
         private final String[] replacementDefault;
 
-        private Rule(final String pattern, final String replacementAtStart, final String replacementBeforeVowel,
-                final String replacementDefault) {
+        private Rule(final String pattern, final String replacementAtStart, final String replacementBeforeVowel, final String replacementDefault) {
             this.pattern = pattern;
             this.replacementAtStart = PIPE.split(replacementAtStart);
             this.replacementBeforeVowel = PIPE.split(replacementBeforeVowel);
@@ -175,13 +172,11 @@ public class DaitchMokotoffSoundex implements StringEncoder {
             if (atStart) {
                 return replacementAtStart;
             }
-
             final int nextIndex = getPatternLength();
             final boolean nextCharIsVowel = nextIndex < context.length() && isVowel(context.charAt(nextIndex));
             if (nextCharIsVowel) {
                 return replacementBeforeVowel;
             }
-
             return replacementDefault;
         }
 
@@ -195,8 +190,7 @@ public class DaitchMokotoffSoundex implements StringEncoder {
 
         @Override
         public String toString() {
-            return String.format("%s=(%s,%s,%s)", pattern, Arrays.asList(replacementAtStart),
-                    Arrays.asList(replacementBeforeVowel), Arrays.asList(replacementDefault));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -213,16 +207,24 @@ public class DaitchMokotoffSoundex implements StringEncoder {
 
     private static final String MULTILINE_COMMENT_START = "/*";
 
-    /** The resource file containing the replacement and folding rules */
+    /**
+     * The resource file containing the replacement and folding rules
+     */
     private static final String RESOURCE_FILE = "/org/apache/commons/codec/language/dmrules.txt";
 
-    /** The code length of a DM Soundex value. */
+    /**
+     * The code length of a DM Soundex value.
+     */
     private static final int MAX_LENGTH = 6;
 
-    /** Transformation rules indexed by the first character of their pattern. */
+    /**
+     * Transformation rules indexed by the first character of their pattern.
+     */
     private static final Map<Character, List<Rule>> RULES = new HashMap<>();
 
-    /** Folding rules. */
+    /**
+     * Folding rules.
+     */
     private static final Map<Character, Character> FOLDINGS = new HashMap<>();
 
     private static final Pattern EQUAL = Pattern.compile("=");
@@ -237,8 +239,7 @@ public class DaitchMokotoffSoundex implements StringEncoder {
         RULES.forEach((k, v) -> v.sort((rule1, rule2) -> rule2.getPatternLength() - rule1.getPatternLength()));
     }
 
-    private static void parseRules(final Scanner scanner, final String location, final Map<Character, List<Rule>> ruleMapping,
-            final Map<Character, Character> asciiFoldings) {
+    private static void parseRules(final Scanner scanner, final String location, final Map<Character, List<Rule>> ruleMapping, final Map<Character, Character> asciiFoldings) {
         int currentLine = 0;
         boolean inMultilineComment = false;
         while (scanner.hasNextLine()) {
@@ -262,7 +263,8 @@ public class DaitchMokotoffSoundex implements StringEncoder {
                 // trim leading-trailing whitespace
                 line = line.trim();
                 if (line.isEmpty()) {
-                    continue; // empty lines can be safely skipped
+                    // empty lines can be safely skipped
+                    continue;
                 }
                 if (line.contains("=")) {
                     // folding
@@ -273,8 +275,7 @@ public class DaitchMokotoffSoundex implements StringEncoder {
                     final String leftCharacter = parts[0];
                     final String rightCharacter = parts[1];
                     if (leftCharacter.length() != 1 || rightCharacter.length() != 1) {
-                        throw new IllegalArgumentException(
-                                "Malformed folding statement - patterns are not single characters: " + rawLine + " in " + location);
+                        throw new IllegalArgumentException("Malformed folding statement - patterns are not single characters: " + rawLine + " in " + location);
                     }
                     asciiFoldings.put(leftCharacter.charAt(0), rightCharacter.charAt(0));
                 } else {
@@ -310,7 +311,9 @@ public class DaitchMokotoffSoundex implements StringEncoder {
         return str;
     }
 
-    /** Whether to use ASCII folding prior to encoding. */
+    /**
+     * Whether to use ASCII folding prior to encoding.
+     */
     private final boolean folding;
 
     /**
@@ -360,74 +363,18 @@ public class DaitchMokotoffSoundex implements StringEncoder {
         return sb.toString();
     }
 
-    /**
-     * Encodes an Object using the Daitch-Mokotoff Soundex algorithm without branching.
-     * <p>
-     * This method is provided in order to satisfy the requirements of the Encoder interface, and will throw an
-     * EncoderException if the supplied object is not of type {@link String}.
-     * </p>
-     *
-     * @see #soundex(String)
-     * @param obj
-     *            Object to encode.
-     * @return An object (of type {@link String}) containing the DM Soundex code, which corresponds to the String
-     *         supplied.
-     * @throws EncoderException
-     *             if the parameter supplied is not of type {@link String}.
-     * @throws IllegalArgumentException
-     *             if a character is not mapped.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (!(obj instanceof String)) {
-            throw new EncoderException("Parameter supplied to DaitchMokotoffSoundex encode is not of type java.lang.String");
-        }
-        return encode((String) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a String using the Daitch-Mokotoff Soundex algorithm without branching.
-     *
-     * @see #soundex(String)
-     * @param source
-     *            A String object to encode.
-     * @return A DM Soundex code corresponding to the String supplied.
-     * @throws IllegalArgumentException
-     *             if a character is not mapped.
-     */
     @Override
     public String encode(final String source) {
-        if (source == null) {
-            return null;
-        }
-        return soundex(source, false)[0];
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a String using the Daitch-Mokotoff Soundex algorithm with branching.
-     * <p>
-     * In case a string is encoded into multiple codes (see branching rules), the result will contain all codes,
-     * separated by '|'.
-     * </p>
-     * <p>
-     * Example: the name "AUERBACH" is encoded as both
-     * </p>
-     * <ul>
-     * <li>097400</li>
-     * <li>097500</li>
-     * </ul>
-     * <p>
-     * Thus the result will be "097400|097500".
-     * </p>
-     *
-     * @param source
-     *            A String object to encode.
-     * @return A string containing a set of DM Soundex codes corresponding to the String supplied.
-     * @throws IllegalArgumentException
-     *             if a character is not mapped.
-     */
     public String soundex(final String source) {
-        return String.join("|", soundex(source, true));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.util.Arrays;
-
 import org.apache.commons.codec.CodecPolicy;
 
 /**
@@ -75,26 +73,17 @@ public class Base16 extends BaseNCodec {
 
         @Override
         public Base16 get() {
-            return new Base16(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public Builder setEncodeTable(final byte... encodeTable) {
-            super.setDecodeTableRaw(Arrays.equals(encodeTable, LOWER_CASE_ENCODE_TABLE) ? LOWER_CASE_DECODE_TABLE : UPPER_CASE_DECODE_TABLE);
-            return super.setEncodeTable(encodeTable);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Sets whether to use the lower-case Base16 alphabet.
-         *
-         * @param lowerCase {@code true} to use the lower-case Base16 alphabet.
-         * @return {@code this} instance.
-         */
         public Builder setLowerCase(final boolean lowerCase) {
-            setEncodeTableRaw(lowerCase ? LOWER_CASE_ENCODE_TABLE : UPPER_CASE_ENCODE_TABLE);
-            return asThis();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -111,16 +100,81 @@ public class Base16 extends BaseNCodec {
      * positive integer equivalents. Characters that are not in the Base16 alphabet but fall within the bounds of the array are translated to -1.
      */
     // @formatter:off
-    private static final byte[] UPPER_CASE_DECODE_TABLE = {
-            //  0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 00-0f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 10-1f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 20-2f
-             0,  1,  2,  3,  4,  5,  6,  7,  8,  9, -1, -1, -1, -1, -1, -1, // 30-3f 0-9
-            -1, 10, 11, 12, 13, 14, 15                                      // 40-46 A-F
-    };
-    // @formatter:on
+    private static final byte[] UPPER_CASE_DECODE_TABLE = { //  0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+    // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 30-3f 0-9
+    0, // 30-3f 0-9
+    1, // 30-3f 0-9
+    2, // 30-3f 0-9
+    3, // 30-3f 0-9
+    4, // 30-3f 0-9
+    5, // 30-3f 0-9
+    6, // 30-3f 0-9
+    7, // 30-3f 0-9
+    8, // 30-3f 0-9
+    9, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 40-46 A-F
+    -1, // 40-46 A-F
+    10, // 40-46 A-F
+    11, // 40-46 A-F
+    12, // 40-46 A-F
+    13, // 40-46 A-F
+    14, // 40-46 A-F
+    15 };
 
+    // @formatter:on
     /**
      * This array is a lookup table that translates 4-bit positive integer index values into their "Base16 Alphabet" equivalents as specified in Table 5 of RFC
      * 4648.
@@ -132,34 +186,125 @@ public class Base16 extends BaseNCodec {
      * equivalents. Characters that are not in the Base16 alphabet but fall within the bounds of the array are translated to -1.
      */
     // @formatter:off
-    private static final byte[] LOWER_CASE_DECODE_TABLE = {
-            //  0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 00-0f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 10-1f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 20-2f
-             0,  1,  2,  3,  4,  5,  6,  7,  8,  9, -1, -1, -1, -1, -1, -1, // 30-3f 0-9
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 40-4f
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 50-5f
-            -1, 10, 11, 12, 13, 14, 15                                      // 60-66 a-f
-    };
-    // @formatter:on
+    private static final byte[] LOWER_CASE_DECODE_TABLE = { //  0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
+    // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 00-0f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 10-1f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 20-2f
+    -1, // 30-3f 0-9
+    0, // 30-3f 0-9
+    1, // 30-3f 0-9
+    2, // 30-3f 0-9
+    3, // 30-3f 0-9
+    4, // 30-3f 0-9
+    5, // 30-3f 0-9
+    6, // 30-3f 0-9
+    7, // 30-3f 0-9
+    8, // 30-3f 0-9
+    9, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 30-3f 0-9
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 40-4f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 50-5f
+    -1, // 60-66 a-f
+    -1, // 60-66 a-f
+    10, // 60-66 a-f
+    11, // 60-66 a-f
+    12, // 60-66 a-f
+    13, // 60-66 a-f
+    14, // 60-66 a-f
+    15 };
 
+    // @formatter:on
     /**
      * This array is a lookup table that translates 4-bit positive integer index values into their "Base16 Alphabet" lower-case equivalents.
      */
     private static final byte[] LOWER_CASE_ENCODE_TABLE = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
-    /** Mask used to extract 4 bits, used when decoding character. */
+    /**
+     * Mask used to extract 4 bits, used when decoding character.
+     */
     private static final int MASK_4_BITS = 0x0f;
 
-    /**
-     * Constructs a new builder.
-     *
-     * @return a new builder.
-     * @since 1.20.0
-     */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -198,45 +343,7 @@ public class Base16 extends BaseNCodec {
 
     @Override
     void decode(final byte[] data, int offset, final int length, final Context context) {
-        if (context.eof || length < 0) {
-            context.eof = true;
-            if (context.ibitWorkArea != 0) {
-                validateTrailingCharacter();
-            }
-            return;
-        }
-        final int dataLen = Math.min(data.length - offset, length);
-        final int availableChars = (context.ibitWorkArea != 0 ? 1 : 0) + dataLen;
-        // small optimization to short-cut the rest of this method when it is fed byte-by-byte
-        if (availableChars == 1 && availableChars == dataLen) {
-            // store 1/2 byte for next invocation of decode, we offset by +1 as empty-value is 0
-            context.ibitWorkArea = decodeOctet(data[offset]) + 1;
-            return;
-        }
-        // we must have an even number of chars to decode
-        final int charsToProcess = availableChars % BYTES_PER_ENCODED_BLOCK == 0 ? availableChars : availableChars - 1;
-        final int end = offset + dataLen;
-        final byte[] buffer = ensureBufferSize(charsToProcess / BYTES_PER_ENCODED_BLOCK, context);
-        int result;
-        if (dataLen < availableChars) {
-            // we have 1/2 byte from previous invocation to decode
-            result = context.ibitWorkArea - 1 << BITS_PER_ENCODED_BYTE;
-            result |= decodeOctet(data[offset++]);
-            buffer[context.pos++] = (byte) result;
-            // reset to empty-value for next invocation!
-            context.ibitWorkArea = 0;
-        }
-        final int loopEnd = end - 1;
-        while (offset < loopEnd) {
-            result = decodeOctet(data[offset++]) << BITS_PER_ENCODED_BYTE;
-            result |= decodeOctet(data[offset++]);
-            buffer[context.pos++] = (byte) result;
-        }
-        // we have one char of a hex-pair left over
-        if (offset < end) {
-            // store 1/2 byte for next invocation of decode, we offset by +1 as empty-value is 0
-            context.ibitWorkArea = decodeOctet(data[offset]) + 1;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private int decodeOctet(final byte octet) {
@@ -252,37 +359,12 @@ public class Base16 extends BaseNCodec {
 
     @Override
     void encode(final byte[] data, final int offset, final int length, final Context context) {
-        if (context.eof) {
-            return;
-        }
-        if (length < 0) {
-            context.eof = true;
-            return;
-        }
-        final int size = length * BYTES_PER_ENCODED_BLOCK;
-        if (size < 0) {
-            throw new IllegalArgumentException("Input length exceeds maximum size for encoded data: " + length);
-        }
-        final byte[] buffer = ensureBufferSize(size, context);
-        final int end = offset + length;
-        for (int i = offset; i < end; i++) {
-            final int value = data[i];
-            final int high = value >> BITS_PER_ENCODED_BYTE & MASK_4_BITS;
-            final int low = value & MASK_4_BITS;
-            buffer[context.pos++] = encodeTable[high];
-            buffer[context.pos++] = encodeTable[low];
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns whether or not the {@code octet} is in the Base16 alphabet.
-     *
-     * @param octet The value to test.
-     * @return {@code true} if the value is defined in the Base16 alphabet {@code false} otherwise.
-     */
     @Override
     public boolean isInAlphabet(final byte octet) {
-        return isInAlphabet((byte) (octet & 0xff), decodeTable);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -292,8 +374,7 @@ public class Base16 extends BaseNCodec {
      */
     private void validateTrailingCharacter() {
         if (isStrictDecoding()) {
-            throw new IllegalArgumentException("Strict decoding: Last encoded character is a valid Base 16 alphabet character but not a possible encoding. " +
-                    "Decoding requires at least two characters to create one byte.");
+            throw new IllegalArgumentException("Strict decoding: Last encoded character is a valid Base 16 alphabet character but not a possible encoding. " + "Decoding requires at least two characters to create one byte.");
         }
     }
 }

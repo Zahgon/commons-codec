@@ -78,11 +78,15 @@ public final class Blake3 {
     private static final class ChunkState {
 
         private int[] chainingValue;
+
         private final long chunkCounter;
+
         private final int flags;
 
         private final byte[] block = new byte[BLOCK_LEN];
+
         private int blockLength;
+
         private int blocksCompressed;
 
         private ChunkState(final int[] key, final long chunkCounter, final int flags) {
@@ -111,14 +115,11 @@ public final class Blake3 {
                     // If the block buffer is full, compress it and clear it. More
                     // input is coming, so this compression is not CHUNK_END.
                     final int[] blockWords = unpackInts(block, BLOCK_INTS);
-                    chainingValue = Arrays.copyOf(
-                            compress(chainingValue, blockWords, BLOCK_LEN, chunkCounter, flags | startFlag()),
-                            CHAINING_VALUE_INTS);
+                    chainingValue = Arrays.copyOf(compress(chainingValue, blockWords, BLOCK_LEN, chunkCounter, flags | startFlag()), CHAINING_VALUE_INTS);
                     blocksCompressed++;
                     blockLength = 0;
                     Arrays.fill(block, (byte) 0);
                 }
-
                 final int want = BLOCK_LEN - blockLength;
                 final int take = Math.min(want, length);
                 System.arraycopy(input, offset, block, blockLength, take);
@@ -128,15 +129,21 @@ public final class Blake3 {
             }
         }
     }
+
     private static final class EngineState {
+
         private final int[] key;
+
         private final int flags;
+
         // Space for 54 subtree chaining values: 2^54 * CHUNK_LEN = 2^64
         // No more than 54 entries can ever be added to this stack (after updating 2^64 bytes and not finalizing any)
         // so we preallocate the stack here. This can be smaller in environments where the data limit is expected to
         // be much lower.
         private final int[][] cvStack = new int[54][];
+
         private int stackLen;
+
         private ChunkState state;
 
         private EngineState(final int[] key, final int flags) {
@@ -173,7 +180,6 @@ public final class Blake3 {
                     addChunkCV(chunkCV, totalChunks);
                     state = new ChunkState(key, totalChunks, flags);
                 }
-
                 // Compress input bytes into the current chunk state.
                 final int want = CHUNK_LEN - state.length();
                 final int take = Math.min(want, length);
@@ -218,9 +224,13 @@ public final class Blake3 {
     private static final class Output {
 
         private final int[] inputChainingValue;
+
         private final int[] blockWords;
+
         private final long counter;
+
         private final int blockLength;
+
         private final int flags;
 
         private Output(final int[] inputChainingValue, final int[] blockWords, final long counter, final int blockLength, final int flags) {
@@ -253,11 +263,17 @@ public final class Blake3 {
     }
 
     private static final int BLOCK_LEN = 64;
+
     private static final int BLOCK_INTS = BLOCK_LEN / Integer.BYTES;
+
     private static final int KEY_LEN = 32;
+
     private static final int KEY_INTS = KEY_LEN / Integer.BYTES;
+
     private static final int OUT_LEN = 32;
+
     private static final int CHUNK_LEN = 1024;
+
     private static final int CHAINING_VALUE_INTS = 8;
 
     /**
@@ -267,28 +283,26 @@ public final class Blake3 {
 
     // domain flags
     private static final int CHUNK_START = 1;
+
     private static final int CHUNK_END = 1 << 1;
+
     private static final int PARENT = 1 << 2;
+
     private static final int ROOT = 1 << 3;
+
     private static final int KEYED_HASH = 1 << 4;
+
     private static final int DERIVE_KEY_CONTEXT = 1 << 5;
+
     private static final int DERIVE_KEY_MATERIAL = 1 << 6;
 
     /**
      * Pre-permuted for all 7 rounds; the second row (2,6,3,...) indicates the base permutation.
      */
     // @formatter:off
-    private static final byte[][] MSG_SCHEDULE = {
-            { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 },
-            { 2, 6, 3, 10, 7, 0, 4, 13, 1, 11, 12, 5, 9, 14, 15, 8 },
-            { 3, 4, 10, 12, 13, 2, 7, 14, 6, 5, 9, 0, 11, 15, 8, 1 },
-            { 10, 7, 12, 9, 14, 3, 13, 15, 4, 0, 11, 2, 5, 8, 1, 6 },
-            { 12, 13, 9, 11, 15, 10, 14, 8, 7, 2, 5, 3, 0, 1, 6, 4 },
-            { 9, 14, 11, 5, 8, 12, 15, 1, 13, 3, 0, 10, 2, 6, 4, 7 },
-            { 11, 15, 5, 0, 1, 9, 8, 6, 14, 10, 2, 12, 3, 4, 7, 13 }
-    };
-    // @formatter:on
+    private static final byte[][] MSG_SCHEDULE = { { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, { 2, 6, 3, 10, 7, 0, 4, 13, 1, 11, 12, 5, 9, 14, 15, 8 }, { 3, 4, 10, 12, 13, 2, 7, 14, 6, 5, 9, 0, 11, 15, 8, 1 }, { 10, 7, 12, 9, 14, 3, 13, 15, 4, 0, 11, 2, 5, 8, 1, 6 }, { 12, 13, 9, 11, 15, 10, 14, 8, 7, 2, 5, 3, 0, 1, 6, 4 }, { 9, 14, 11, 5, 8, 12, 15, 1, 13, 3, 0, 10, 2, 6, 4, 7 }, { 11, 15, 5, 0, 1, 9, 8, 6, 14, 10, 2, 12, 3, 4, 7, 13 } };
 
+    // @formatter:on
     private static void checkBufferArgs(final byte[] buffer, final int offset, final int length) {
         Objects.requireNonNull(buffer);
         if (offset < 0) {
@@ -335,71 +349,24 @@ public final class Blake3 {
         state[b] = Integer.rotateRight(state[b] ^ state[c], 7);
     }
 
-    /**
-     * Calculates the Blake3 hash of the provided data.
-     *
-     * @param data source array to absorb data from.
-     * @return 32-byte hash squeezed from the provided data.
-     * @throws NullPointerException if data is null.
-     */
     public static byte[] hash(final byte[] data) {
-        return initHash().update(data).doFinalize(OUT_LEN);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Constructs a fresh Blake3 hash function. The instance returned functions as an arbitrary length message digest.
-     *
-     * @return fresh Blake3 instance in hashed mode.
-     */
     public static Blake3 initHash() {
-        return new Blake3(IV, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Constructs a fresh Blake3 key derivation function using the provided key derivation context byte string.
-     * The instance returned functions as a key-derivation function which can further absorb additional context data
-     * before squeezing derived key data.
-     *
-     * @param kdfContext a globally unique key-derivation context byte string to separate key derivation contexts from each other.
-     * @return fresh Blake3 instance in key derivation mode.
-     * @throws NullPointerException if kdfContext is null.
-     */
     public static Blake3 initKeyDerivationFunction(final byte[] kdfContext) {
-        Objects.requireNonNull(kdfContext);
-        final EngineState kdf = new EngineState(IV, DERIVE_KEY_CONTEXT);
-        kdf.inputData(kdfContext, 0, kdfContext.length);
-        final byte[] key = new byte[KEY_LEN];
-        kdf.outputHash(key, 0, key.length);
-        return new Blake3(unpackInts(key, KEY_INTS), DERIVE_KEY_MATERIAL);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Constructs a fresh Blake3 keyed hash function. The instance returned functions as a pseudorandom function (PRF) or as a
-     * message authentication code (MAC).
-     *
-     * @param key 32-byte secret key.
-     * @return fresh Blake3 instance in keyed mode using the provided key.
-     * @throws NullPointerException     if key is null.
-     * @throws IllegalArgumentException if key is not 32 bytes.
-     */
     public static Blake3 initKeyedHash(final byte[] key) {
-        Objects.requireNonNull(key);
-        if (key.length != KEY_LEN) {
-            throw new IllegalArgumentException("Blake3 keys must be 32 bytes");
-        }
-        return new Blake3(unpackInts(key, KEY_INTS), KEYED_HASH);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Calculates the Blake3 keyed hash (MAC) of the provided data.
-     *
-     * @param key  32-byte secret key.
-     * @param data source array to absorb data from.
-     * @return 32-byte mac squeezed from the provided data.
-     * @throws NullPointerException if key or data are null.
-     */
     public static byte[] keyedHash(final byte[] key, final byte[] data) {
-        return initKeyedHash(key).update(data).doFinalize(OUT_LEN);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static void packInt(final int value, final byte[] dst, final int off, final int len) {
@@ -424,7 +391,6 @@ public final class Blake3 {
         g(state, 1, 5, 9, 13, msg[schedule[2]], msg[schedule[3]]);
         g(state, 2, 6, 10, 14, msg[schedule[4]], msg[schedule[5]]);
         g(state, 3, 7, 11, 15, msg[schedule[6]], msg[schedule[7]]);
-
         // Mix the diagonals.
         g(state, 0, 5, 10, 15, msg[schedule[8]], msg[schedule[9]]);
         g(state, 1, 6, 11, 12, msg[schedule[10]], msg[schedule[11]]);
@@ -450,88 +416,27 @@ public final class Blake3 {
         engineState = new EngineState(key, flags);
     }
 
-    /**
-     * Finalizes hash output data that depends on the sequence of updated bytes preceding this invocation and any
-     * previously finalized bytes. Note that this can finalize up to 2<sup>64</sup> bytes per instance.
-     *
-     * @param out destination array to finalize bytes into.
-     * @return {@code this} instance.
-     * @throws NullPointerException if out is null.
-     */
     public Blake3 doFinalize(final byte[] out) {
-        return doFinalize(out, 0, out.length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Finalizes an arbitrary number of bytes into the provided output array that depends on the sequence of previously
-     * updated and finalized bytes. Note that this can finalize up to 2<sup>64</sup> bytes per instance.
-     *
-     * @param out    destination array to finalize bytes into.
-     * @param offset where in the array to begin writing bytes to.
-     * @param length number of bytes to finalize.
-     * @return {@code this} instance.
-     * @throws NullPointerException      if out is null.
-     * @throws IndexOutOfBoundsException if offset or length are negative or if offset + length is greater than the
-     *                                   length of the provided array.
-     */
     public Blake3 doFinalize(final byte[] out, final int offset, final int length) {
-        checkBufferArgs(out, offset, length);
-        engineState.outputHash(out, offset, length);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Squeezes and returns an arbitrary number of bytes dependent on the sequence of previously absorbed and squeezed bytes.
-     *
-     * @param nrBytes number of bytes to finalize.
-     * @return requested number of finalized bytes.
-     * @throws IllegalArgumentException if nrBytes is negative.
-     */
     public byte[] doFinalize(final int nrBytes) {
-        if (nrBytes < 0) {
-            throw new IllegalArgumentException("Requested bytes must be non-negative");
-        }
-        final byte[] hash = new byte[nrBytes];
-        doFinalize(hash);
-        return hash;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Resets this instance back to its initial state when it was first constructed.
-     *
-     * @return {@code this} instance.
-     */
     public Blake3 reset() {
-        engineState.reset();
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Updates this hash state using the provided bytes.
-     *
-     * @param in source array to update data from.
-     * @return {@code this} instance.
-     * @throws NullPointerException if in is null.
-     */
     public Blake3 update(final byte[] in) {
-        return update(in, 0, in.length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Updates this hash state using the provided bytes at an offset.
-     *
-     * @param in     source array to update data from.
-     * @param offset where in the array to begin reading bytes.
-     * @param length number of bytes to update.
-     * @return {@code this} instance.
-     * @throws NullPointerException      if in is null.
-     * @throws IndexOutOfBoundsException if offset or length are negative or if offset + length is greater than the
-     *                                   length of the provided array.
-     */
     public Blake3 update(final byte[] in, final int offset, final int length) {
-        checkBufferArgs(in, offset, length);
-        engineState.inputData(in, offset, length);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

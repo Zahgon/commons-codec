@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language;
 
 import org.apache.commons.codec.EncoderException;
@@ -51,7 +50,7 @@ public class RefinedSoundex implements StringEncoder {
     //                                                      ABCDEFGHIJKLMNOPQRSTUVWXYZ
     public static final String US_ENGLISH_MAPPING_STRING = "01360240043788015936020505";
 
-   /**
+    /**
      * RefinedSoundex is *refined* for a number of reasons one being that the
      * mappings have been altered. This implementation contains default
      * mappings for US English.
@@ -71,7 +70,7 @@ public class RefinedSoundex implements StringEncoder {
      */
     private final char[] soundexMapping;
 
-     /**
+    /**
      * Creates an instance of the RefinedSoundex object using the default US
      * English mapping.
      */
@@ -104,121 +103,25 @@ public class RefinedSoundex implements StringEncoder {
         this.soundexMapping = mapping.toCharArray();
     }
 
-    /**
-     * Returns the number of characters in the two encoded Strings that are the
-     * same. This return value ranges from 0 to the length of the shortest
-     * encoded String: 0 indicates little or no similarity, and 4 out of 4 (for
-     * example) indicates strong similarity or identical values. For refined
-     * Soundex, the return value can be greater than 4.
-     *
-     * @param s1
-     *                  A String that will be encoded and compared.
-     * @param s2
-     *                  A String that will be encoded and compared.
-     * @return The number of characters in the two encoded Strings that are the
-     *             same from 0 to the length of the shortest encoded String.
-     *
-     * @see SoundexUtils#difference(StringEncoder,String,String)
-     * @see <a href="https://msdn.microsoft.com/library/default.asp?url=/library/en-us/tsqlref/ts_de-dz_8co5.asp">
-     *          MS T-SQL DIFFERENCE</a>
-     *
-     * @throws EncoderException
-     *                  if an error occurs encoding one of the strings.
-     * @since 1.3
-     */
     public int difference(final String s1, final String s2) throws EncoderException {
-        return SoundexUtils.difference(this, s1, s2);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes an Object using the refined Soundex algorithm. This method is
-     * provided in order to satisfy the requirements of the Encoder interface,
-     * and will throw an EncoderException if the supplied object is not of type
-     * {@link String}.
-     *
-     * @param obj
-     *                  Object to encode.
-     * @return An object (or type {@link String}) containing the refined.
-     *             Soundex code which corresponds to the String supplied.
-     * @throws EncoderException
-     *                  if the parameter supplied is not of type {@link String}.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (!(obj instanceof String)) {
-            throw new EncoderException("Parameter supplied to RefinedSoundex encode is not of type java.lang.String");
-        }
-        return soundex((String) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a String using the refined Soundex algorithm.
-     *
-     * @param str
-     *                  A String object to encode.
-     * @return A Soundex code corresponding to the String supplied.
-     */
     @Override
     public String encode(final String str) {
-        return soundex(str);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the mapping code for a given character. The mapping codes are
-     * maintained in an internal char array named soundexMapping, and the
-     * default values of these mappings are US English.
-     *
-     * @param c
-     *                  char to get mapping for.
-     * @return A character (really a numeral) to return for the given char.
-     */
     char getMappingCode(final char c) {
-        if (!Character.isLetter(c)) {
-            return 0;
-        }
-        final int index = Character.toUpperCase(c) - 'A';
-        if (index < 0 || index >= this.soundexMapping.length) {
-            return 0;
-        }
-        return this.soundexMapping[index];
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Retrieves the Refined Soundex code for a given String object.
-     *
-     * @param str
-     *                  String to encode using the Refined Soundex algorithm.
-     * @return A Soundex code for the String supplied.
-     */
     public String soundex(String str) {
-        if (str == null) {
-            return null;
-        }
-        str = SoundexUtils.clean(str);
-        if (str.isEmpty()) {
-            return str;
-        }
-
-        final StringBuilder sBuf = new StringBuilder();
-        sBuf.append(str.charAt(0));
-
-        char last, current;
-        last = '*';
-
-        for (int i = 0; i < str.length(); i++) {
-
-            current = getMappingCode(str.charAt(i));
-            if (current == last) {
-                continue;
-            }
-            if (current != 0) {
-                sBuf.append(current);
-            }
-
-            last = current;
-
-        }
-
-        return sBuf.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

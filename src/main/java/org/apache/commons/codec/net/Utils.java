@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.net;
 
 import org.apache.commons.codec.DecoderException;
@@ -35,28 +34,11 @@ final class Utils {
      */
     private static final int RADIX = 16;
 
-    /**
-     * Returns the numeric value of the character {@code b} in radix 16.
-     *
-     * @param b The byte to be converted.
-     * @return The numeric value represented by the character in radix 16.
-     * @throws DecoderException Thrown when the byte is not valid per {@link Character#digit(char,int)}.
-     */
     static int digit16(final byte b) throws DecoderException {
-        final int i = Character.digit((char) b, RADIX);
-        if (i == -1) {
-            throw new DecoderException("Invalid URL encoding: not a valid digit (radix " + RADIX + "): " + b);
-        }
-        return i;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the upper case hexadecimal digit of the lower 4 bits of the int.
-     *
-     * @param b the input int.
-     * @return the upper case hexadecimal digit of the lower 4 bits of the int.
-     */
     static char hexChar(final int b) {
-        return Character.toUpperCase(Character.forDigit(b & 0xF, RADIX));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

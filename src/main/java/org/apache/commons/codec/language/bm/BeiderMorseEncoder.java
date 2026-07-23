@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language.bm;
 
 import org.apache.commons.codec.EncoderException;
@@ -83,7 +82,6 @@ public class BeiderMorseEncoder implements StringEncoder {
 
     // Implementation note: This class is a spring-friendly facade to PhoneticEngine. It allows read/write configuration
     // of an immutable PhoneticEngine instance that will be delegated to for the actual encoding.
-
     // a cached object
     private PhoneticEngine engine = new PhoneticEngine(NameType.GENERIC, RuleType.APPROX, true);
 
@@ -96,100 +94,39 @@ public class BeiderMorseEncoder implements StringEncoder {
 
     @Override
     public Object encode(final Object source) throws EncoderException {
-        if (!(source instanceof String)) {
-            throw new EncoderException("BeiderMorseEncoder encode parameter is not of type String");
-        }
-        return encode((String) source);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String encode(final String source) throws EncoderException {
-        if (source == null) {
-            return null;
-        }
-        return this.engine.encode(source);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the name type currently in operation.
-     *
-     * @return the NameType currently being used.
-     */
     public NameType getNameType() {
-        return this.engine.getNameType();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the rule type currently in operation.
-     *
-     * @return the RuleType currently being used.
-     */
     public RuleType getRuleType() {
-        return this.engine.getRuleType();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Discovers if multiple possible encodings are concatenated.
-     *
-     * @return true if multiple encodings are concatenated, false if just the first one is returned.
-     */
     public boolean isConcat() {
-        return this.engine.isConcat();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Sets how multiple possible phonetic encodings are combined.
-     *
-     * @param concat
-     *            true if multiple encodings are to be combined with a '|', false if just the first one is
-     *            to be considered.
-     */
     public void setConcat(final boolean concat) {
-        this.engine = new PhoneticEngine(this.engine.getNameType(),
-                                         this.engine.getRuleType(),
-                                         concat,
-                                         this.engine.getMaxPhonemes());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Sets the number of maximum of phonemes that shall be considered by the engine.
-     *
-     * @param maxPhonemes
-     *            the maximum number of phonemes returned by the engine.
-     * @since 1.7
-     */
     public void setMaxPhonemes(final int maxPhonemes) {
-        this.engine = new PhoneticEngine(this.engine.getNameType(),
-                                         this.engine.getRuleType(),
-                                         this.engine.isConcat(),
-                                         maxPhonemes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Sets the type of name. Use {@link NameType#GENERIC} unless you specifically want phonetic encodings
-     * optimized for Ashkenazi or Sephardic Jewish family names.
-     *
-     * @param nameType
-     *            the NameType in use.
-     */
     public void setNameType(final NameType nameType) {
-        this.engine = new PhoneticEngine(nameType,
-                                         this.engine.getRuleType(),
-                                         this.engine.isConcat(),
-                                         this.engine.getMaxPhonemes());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Sets the rule type to apply. This will widen or narrow the range of phonetic encodings considered.
-     *
-     * @param ruleType
-     *            {@link RuleType#APPROX} or {@link RuleType#EXACT} for approximate or exact phonetic matches.
-     */
     public void setRuleType(final RuleType ruleType) {
-        this.engine = new PhoneticEngine(this.engine.getNameType(),
-                                         ruleType,
-                                         this.engine.isConcat(),
-                                         this.engine.getMaxPhonemes());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

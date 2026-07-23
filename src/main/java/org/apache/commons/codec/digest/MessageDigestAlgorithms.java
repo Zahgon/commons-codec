@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.digest;
 
 import java.security.MessageDigest;
@@ -175,20 +174,11 @@ public class MessageDigestAlgorithms {
      */
     public static final String SHAKE256_512 = "SHAKE256-512";
 
-    /**
-     * Gets all constant values defined in this class.
-     *
-     * @return all constant values defined in this class.
-     * @since 1.11
-     */
     public static String[] values() {
-        // Do not use a constant array here as that can be changed externally by accident or design
-        return new String[] { MD2, MD5, SHA_1, SHA_224, SHA_256, SHA_384, SHA_512, SHA_512_224, SHA_512_256, SHA3_224, SHA3_256, SHA3_384, SHA3_512,
-                SHAKE128_256, SHAKE256_512 };
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private MessageDigestAlgorithms() {
         // cannot be instantiated.
     }
-
 }

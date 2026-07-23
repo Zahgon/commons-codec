@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language.bm;
 
 import java.util.ArrayList;
@@ -28,7 +27,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Pattern;
-
 import org.apache.commons.codec.Resources;
 
 /**
@@ -75,6 +73,7 @@ import org.apache.commons.codec.Resources;
  * @since 1.6
  */
 public class Lang {
+
     // Implementation note: This class is divided into two sections. The first part is a static factory interface that
     // exposes the LANGUAGE_RULES_RN resource as a Lang instance. The second part is the Lang instance methods that
     // encapsulate a particular language-guessing rule table and the language guessing itself.
@@ -82,10 +81,12 @@ public class Lang {
     // It may make sense in the future to expose the private constructor to allow power users to build custom language-
     // guessing rules, perhaps by marking it protected and allowing sub-classing. However, the vast majority of users
     // should be strongly encouraged to use the static factory {@code instance} method to get their Lang instances.
-
     private static final class LangRule {
+
         private final boolean acceptOnMatch;
+
         private final Set<String> languages;
+
         private final Pattern pattern;
 
         private LangRule(final Pattern pattern, final Set<String> languages, final boolean acceptOnMatch) {
@@ -95,7 +96,7 @@ public class Lang {
         }
 
         public boolean matches(final String txt) {
-            return pattern.matcher(txt).find();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -111,76 +112,12 @@ public class Lang {
         }
     }
 
-    /**
-     * Gets a Lang instance for one of the supported NameTypes.
-     *
-     * @param nameType
-     *            the NameType to look up.
-     * @return a Lang encapsulating the language guessing rules for that name type.
-     */
     public static Lang instance(final NameType nameType) {
-        return LANGS.get(nameType);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Loads language rules from a resource.
-     * <p>
-     * In normal use, you will obtain instances of Lang through the {@link #instance(NameType)} method.
-     * You will only need to call this yourself if you are developing custom language mapping rules.
-     * </p>
-     *
-     * @param languageRulesResourceName
-     *            the fully-qualified resource name to load.
-     * @param languages
-     *            the languages that these rules will support.
-     * @return a Lang encapsulating the loaded language-guessing rules.
-     */
     public static Lang loadFromResource(final String languageRulesResourceName, final Languages languages) {
-        final List<LangRule> rules = new ArrayList<>();
-        try (Scanner scanner = new Scanner(Resources.getInputStream(languageRulesResourceName),
-                ResourceConstants.ENCODING)) {
-            boolean inExtendedComment = false;
-            while (scanner.hasNextLine()) {
-                final String rawLine = scanner.nextLine();
-                String line = rawLine;
-                if (inExtendedComment) {
-                    // check for closing comment marker, otherwise discard doc comment line
-                    if (line.endsWith(ResourceConstants.EXT_CMT_END)) {
-                        inExtendedComment = false;
-                    }
-                } else if (line.startsWith(ResourceConstants.EXT_CMT_START)) {
-                    inExtendedComment = true;
-                } else {
-                    // discard comments
-                    final int cmtI = line.indexOf(ResourceConstants.CMT);
-                    if (cmtI >= 0) {
-                        line = line.substring(0, cmtI);
-                    }
-
-                    // trim leading-trailing whitespace
-                    line = line.trim();
-
-                    if (line.isEmpty()) {
-                        continue; // empty lines can be safely skipped
-                    }
-
-                    // split it up
-                    final String[] parts = ResourceConstants.SPACES.split(line);
-
-                    if (parts.length != 3) {
-                        throw new IllegalArgumentException("Malformed line '" + rawLine +
-                                "' in language resource '" + languageRulesResourceName + "'");
-                    }
-
-                    final Pattern pattern = Pattern.compile(parts[0]);
-                    final String[] langs = PLUS.split(parts[1]);
-                    final boolean accept = parts[2].equals("true");
-
-                    rules.add(new LangRule(pattern, new HashSet<>(Arrays.asList(langs)), accept));
-                }
-            }
-        }
-        return new Lang(rules, languages);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private final Languages languages;
@@ -192,38 +129,11 @@ public class Lang {
         this.languages = languages;
     }
 
-    /**
-     * Guesses the language of a word.
-     *
-     * @param text
-     *            the word.
-     * @return the language that the word originates from or {@link Languages#ANY} if there was no unique match.
-     */
     public String guessLanguage(final String text) {
-        final Languages.LanguageSet ls = guessLanguages(text);
-        return ls.isSingleton() ? ls.getAny() : Languages.ANY;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Guesses the languages of a word.
-     *
-     * @param input
-     *            the word.
-     * @return a Set of Strings of language names that are potential matches for the input word.
-     */
     public Languages.LanguageSet guessLanguages(final String input) {
-        final String text = input.toLowerCase(Locale.ENGLISH);
-        final Set<String> langs = new HashSet<>(languages.getLanguages());
-        rules.forEach(rule -> {
-            if (rule.matches(text)) {
-                if (rule.acceptOnMatch) {
-                    langs.retainAll(rule.languages);
-                } else {
-                    langs.removeAll(rule.languages);
-                }
-            }
-        });
-        final Languages.LanguageSet ls = Languages.LanguageSet.from(langs);
-        return ls.equals(Languages.NO_LANGUAGES) ? Languages.ANY_LANGUAGE : ls;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

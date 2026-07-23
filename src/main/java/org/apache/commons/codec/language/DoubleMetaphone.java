@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language;
 
 import java.util.Locale;
-
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.StringEncoder;
 import org.apache.commons.codec.binary.StringUtils;
@@ -45,7 +43,9 @@ public class DoubleMetaphone implements StringEncoder {
     public class DoubleMetaphoneResult {
 
         private final StringBuilder primary = new StringBuilder(getMaxCodeLen());
+
         private final StringBuilder alternate = new StringBuilder(getMaxCodeLen());
+
         private final int maxLength;
 
         /**
@@ -57,123 +57,48 @@ public class DoubleMetaphone implements StringEncoder {
             this.maxLength = maxLength;
         }
 
-        /**
-         * Appends the given value as primary and alternative.
-         *
-         * @param value The value to append.
-         */
         public void append(final char value) {
-            appendPrimary(value);
-            appendAlternate(value);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Appends the given primary and alternative values.
-         *
-         * @param primary   The primary value.
-         * @param alternate The alternate value.
-         */
         public void append(final char primary, final char alternate) {
-            appendPrimary(primary);
-            appendAlternate(alternate);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Appends the given value as primary and alternative.
-         *
-         * @param value The value to append.
-         */
         public void append(final String value) {
-            appendPrimary(value);
-            appendAlternate(value);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Appends the given primary and alternative values.
-         *
-         * @param primary   The primary value.
-         * @param alternate The alternate value.
-         */
         public void append(final String primary, final String alternate) {
-            appendPrimary(primary);
-            appendAlternate(alternate);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Appends the given value as alternative.
-         *
-         * @param value The value to append.
-         */
         public void appendAlternate(final char value) {
-            if (alternate.length() < maxLength) {
-                alternate.append(value);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Appends the given value as alternative.
-         *
-         * @param value The value to append.
-         */
         public void appendAlternate(final String value) {
-            final int addChars = maxLength - alternate.length();
-            if (value.length() <= addChars) {
-                alternate.append(value);
-            } else {
-                alternate.append(value, 0, addChars);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Appends the given value as primary.
-         *
-         * @param value The value to append.
-         */
         public void appendPrimary(final char value) {
-            if (primary.length() < maxLength) {
-                primary.append(value);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Appends the given value as primary.
-         *
-         * @param value The value to append.
-         */
         public void appendPrimary(final String value) {
-            final int addChars = maxLength - primary.length();
-            if (value.length() <= addChars) {
-                primary.append(value);
-            } else {
-                primary.append(value, 0, addChars);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Gets the alternate string.
-         *
-         * @return the alternate string.
-         */
         public String getAlternate() {
-            return alternate.toString();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Gets the primary string.
-         *
-         * @return the primary string.
-         */
         public String getPrimary() {
-            return primary.toString();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Tests whether this result is complete.
-         *
-         * @return whether this result is complete.
-         */
         public boolean isComplete() {
-            return primary.length() >= maxLength && alternate.length() >= maxLength;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -188,30 +113,13 @@ public class DoubleMetaphone implements StringEncoder {
     private static final String[] SILENT_START = { "GN", "KN", "PN", "WR", "PS" };
 
     private static final String[] L_R_N_M_B_H_F_V_W_SPACE = { "L", "R", "N", "M", "B", "H", "F", "V", "W", " " };
+
     private static final String[] ES_EP_EB_EL_EY_IB_IL_IN_IE_EI_ER = { "ES", "EP", "EB", "EL", "EY", "IB", "IL", "IN", "IE", "EI", "ER" };
+
     private static final String[] L_T_K_S_N_M_B_Z = { "L", "T", "K", "S", "N", "M", "B", "Z" };
 
-    /**
-     * Tests whether {@code value} contains any of the {@code criteria} starting at index {@code start} and matching up to length {@code length}.
-     *
-     * @param value    The value to test.
-     * @param start    Where in {@code value} to start testing.
-     * @param length   How many to test.
-     * @param criteria The search criteria.
-     * @return Whether there was a match.
-     */
     protected static boolean contains(final String value, final int start, final int length, final String... criteria) {
-        boolean result = false;
-        if (start >= 0 && start + length <= value.length()) {
-            final String target = value.substring(start, start + length);
-            for (final String element : criteria) {
-                if (target.equals(element)) {
-                    result = true;
-                    break;
-                }
-            }
-        }
-        return result;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -226,18 +134,8 @@ public class DoubleMetaphone implements StringEncoder {
         // empty
     }
 
-    /**
-     * Gets the character at index {@code index} if available, or {@link Character#MIN_VALUE} if out of bounds.
-     *
-     * @param value The String to query.
-     * @param index A string index.
-     * @return The character at the index or {@link Character#MIN_VALUE} if out of bounds.
-     */
     protected char charAt(final String value, final int index) {
-        if (index < 0 || index >= value.length()) {
-            return Character.MIN_VALUE;
-        }
-        return value.charAt(index);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -271,8 +169,7 @@ public class DoubleMetaphone implements StringEncoder {
             return false;
         }
         final char c = charAt(value, index + 2);
-        return c != 'I' && c != 'E' ||
-                contains(value, index - 2, 6, "BACHER", "MACHER");
+        return c != 'I' && c != 'E' || contains(value, index - 2, 6, "BACHER", "MACHER");
     }
 
     /**
@@ -282,8 +179,7 @@ public class DoubleMetaphone implements StringEncoder {
         if (index != 0) {
             return false;
         }
-        if (!contains(value, index + 1, 5, "HARAC", "HARIS") &&
-                   !contains(value, index + 1, 3, "HOR", "HYM", "HIA", "HEM")) {
+        if (!contains(value, index + 1, 5, "HARAC", "HARIS") && !contains(value, index + 1, 3, "HOR", "HYM", "HIA", "HEM")) {
             return false;
         }
         return !contains(value, 0, 5, "CHORE");
@@ -293,24 +189,17 @@ public class DoubleMetaphone implements StringEncoder {
      * Complex condition 1 for 'CH'.
      */
     private boolean conditionCH1(final String value, final int index) {
-        return contains(value, 0, 4, "VAN ", "VON ") || contains(value, 0, 3, "SCH") ||
-                contains(value, index - 2, 6, "ORCHES", "ARCHIT", "ORCHID") ||
-                contains(value, index + 2, 1, "T", "S") ||
-                (contains(value, index - 1, 1, "A", "O", "U", "E") || index == 0) &&
-                 (contains(value, index + 2, 1, L_R_N_M_B_H_F_V_W_SPACE) || index + 1 == value.length() - 1);
+        return contains(value, 0, 4, "VAN ", "VON ") || contains(value, 0, 3, "SCH") || contains(value, index - 2, 6, "ORCHES", "ARCHIT", "ORCHID") || contains(value, index + 2, 1, "T", "S") || (contains(value, index - 1, 1, "A", "O", "U", "E") || index == 0) && (contains(value, index + 2, 1, L_R_N_M_B_H_F_V_W_SPACE) || index + 1 == value.length() - 1);
     }
 
     /**
      * Complex condition 0 for 'L'.
      */
     private boolean conditionL0(final String value, final int index) {
-        if (index == value.length() - 3 &&
-            contains(value, index - 1, 4, "ILLO", "ILLA", "ALLE")) {
+        if (index == value.length() - 3 && contains(value, index - 1, 4, "ILLO", "ILLA", "ALLE")) {
             return true;
         }
-        return (contains(value, value.length() - 2, 2, "AS", "OS") ||
-                contains(value, value.length() - 1, 1, "A", "O")) &&
-                contains(value, index - 1, 4, "ALLE");
+        return (contains(value, value.length() - 2, 2, "AS", "OS") || contains(value, value.length() - 1, 1, "A", "O")) && contains(value, index - 1, 4, "ALLE");
     }
 
     /**
@@ -320,168 +209,29 @@ public class DoubleMetaphone implements StringEncoder {
         if (charAt(value, index + 1) == 'M') {
             return true;
         }
-        return contains(value, index - 1, 3, "UMB") &&
-               (index + 1 == value.length() - 1 || contains(value, index + 2, 2, "ER"));
+        return contains(value, index - 1, 3, "UMB") && (index + 1 == value.length() - 1 || contains(value, index + 2, 2, "ER"));
     }
 
-    /**
-     * Encodes a value with Double Metaphone.
-     *
-     * @param value String to encode.
-     * @return an encoded string.
-     */
     public String doubleMetaphone(final String value) {
-        return doubleMetaphone(value, false);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes a value with Double Metaphone, optionally using the alternate encoding.
-     *
-     * @param value String to encode.
-     * @param alternate use alternate encode.
-     * @return an encoded string.
-     */
     public String doubleMetaphone(String value, final boolean alternate) {
-        value = cleanInput(value);
-        if (value == null) {
-            return null;
-        }
-
-        final boolean slavoGermanic = isSlavoGermanic(value);
-        int index = isSilentStart(value) ? 1 : 0;
-
-        final DoubleMetaphoneResult result = new DoubleMetaphoneResult(getMaxCodeLen());
-
-        while (!result.isComplete() && index <= value.length() - 1) {
-            switch (value.charAt(index)) {
-            case 'A':
-            case 'E':
-            case 'I':
-            case 'O':
-            case 'U':
-            case 'Y':
-                index = handleAEIOUY(result, index);
-                break;
-            case 'B':
-                result.append('P');
-                index = charAt(value, index + 1) == 'B' ? index + 2 : index + 1;
-                break;
-            case '\u00C7':
-                // C with a Cedilla
-                result.append('S');
-                index++;
-                break;
-            case 'C':
-                index = handleC(value, result, index);
-                break;
-            case 'D':
-                index = handleD(value, result, index);
-                break;
-            case 'F':
-                result.append('F');
-                index = charAt(value, index + 1) == 'F' ? index + 2 : index + 1;
-                break;
-            case 'G':
-                index = handleG(value, result, index, slavoGermanic);
-                break;
-            case 'H':
-                index = handleH(value, result, index);
-                break;
-            case 'J':
-                index = handleJ(value, result, index, slavoGermanic);
-                break;
-            case 'K':
-                result.append('K');
-                index = charAt(value, index + 1) == 'K' ? index + 2 : index + 1;
-                break;
-            case 'L':
-                index = handleL(value, result, index);
-                break;
-            case 'M':
-                result.append('M');
-                index = conditionM0(value, index) ? index + 2 : index + 1;
-                break;
-            case 'N':
-                result.append('N');
-                index = charAt(value, index + 1) == 'N' ? index + 2 : index + 1;
-                break;
-            case '\u00D1':
-                // N with a tilde (Spanish ene)
-                result.append('N');
-                index++;
-                break;
-            case 'P':
-                index = handleP(value, result, index);
-                break;
-            case 'Q':
-                result.append('K');
-                index = charAt(value, index + 1) == 'Q' ? index + 2 : index + 1;
-                break;
-            case 'R':
-                index = handleR(value, result, index, slavoGermanic);
-                break;
-            case 'S':
-                index = handleS(value, result, index, slavoGermanic);
-                break;
-            case 'T':
-                index = handleT(value, result, index);
-                break;
-            case 'V':
-                result.append('F');
-                index = charAt(value, index + 1) == 'V' ? index + 2 : index + 1;
-                break;
-            case 'W':
-                index = handleW(value, result, index);
-                break;
-            case 'X':
-                index = handleX(value, result, index);
-                break;
-            case 'Z':
-                index = handleZ(value, result, index, slavoGermanic);
-                break;
-            default:
-                index++;
-                break;
-            }
-        }
-
-        return alternate ? result.getAlternate() : result.getPrimary();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes the value using DoubleMetaphone.  It will only work if
-     * {@code obj} is a {@code String} (like {@code Metaphone}).
-     *
-     * @param obj Object to encode (should be of type String).
-     * @return An encoded Object (will be of type String).
-     * @throws EncoderException encode parameter is not of type String.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (!(obj instanceof String)) {
-            throw new EncoderException("DoubleMetaphone encode parameter is not of type String");
-        }
-        return doubleMetaphone((String) obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes the value using DoubleMetaphone.
-     *
-     * @param value String to encode.
-     * @return An encoded String.
-     */
     @Override
     public String encode(final String value) {
-        return doubleMetaphone(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the maxCodeLen.
-     *
-     * @return the maxCodeLen.
-     */
     public int getMaxCodeLen() {
-        return maxCodeLen;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -498,7 +248,8 @@ public class DoubleMetaphone implements StringEncoder {
      * Handles 'C' cases.
      */
     private int handleC(final String value, final DoubleMetaphoneResult result, int index) {
-        if (conditionC0(value, index)) {  // very confusing, moved out
+        if (conditionC0(value, index)) {
+            // very confusing, moved out
             result.append('K');
             index += 2;
         } else if (index == 0 && contains(value, index, 6, "CAESAR")) {
@@ -506,8 +257,7 @@ public class DoubleMetaphone implements StringEncoder {
             index += 2;
         } else if (contains(value, index, 2, "CH")) {
             index = handleCH(value, result, index);
-        } else if (contains(value, index, 2, "CZ") &&
-                   !contains(value, index - 2, 4, "WICZ")) {
+        } else if (contains(value, index, 2, "CZ") && !contains(value, index - 2, 4, "WICZ")) {
             //-- "Czerny" --//
             result.append('S', 'X');
             index += 2;
@@ -515,8 +265,7 @@ public class DoubleMetaphone implements StringEncoder {
             //-- "focaccia" --//
             result.append('X');
             index += 3;
-        } else if (contains(value, index, 2, "CC") &&
-                   !(index == 1 && charAt(value, 0) == 'M')) {
+        } else if (contains(value, index, 2, "CC") && !(index == 1 && charAt(value, 0) == 'M')) {
             //-- double "cc" but not "McClelland" --//
             return handleCC(value, result, index);
         } else if (contains(value, index, 2, "CK", "CG", "CQ")) {
@@ -535,14 +284,12 @@ public class DoubleMetaphone implements StringEncoder {
             if (contains(value, index + 1, 2, " C", " Q", " G")) {
                 //-- Mac Caffrey, Mac Gregor --//
                 index += 3;
-            } else if (contains(value, index + 1, 1, "C", "K", "Q") &&
-                       !contains(value, index + 1, 2, "CE", "CI")) {
+            } else if (contains(value, index + 1, 1, "C", "K", "Q") && !contains(value, index + 1, 2, "CE", "CI")) {
                 index += 2;
             } else {
                 index++;
             }
         }
-
         return index;
     }
 
@@ -550,11 +297,9 @@ public class DoubleMetaphone implements StringEncoder {
      * Handles 'CC' cases.
      */
     private int handleCC(final String value, final DoubleMetaphoneResult result, int index) {
-        if (contains(value, index + 2, 1, "I", "E", "H") &&
-            !contains(value, index + 2, 2, "HU")) {
+        if (contains(value, index + 2, 1, "I", "E", "H") && !contains(value, index + 2, 2, "HU")) {
             //-- "bellocchio" but not "bacchus" --//
-            if (index == 1 && charAt(value, index - 1) == 'A' ||
-                contains(value, index - 1, 5, "UCCEE", "UCCES")) {
+            if (index == 1 && charAt(value, index - 1) == 'A' || contains(value, index - 1, 5, "UCCEE", "UCCES")) {
                 //-- "accident", "accede", "succeed" --//
                 result.append("KS");
             } else {
@@ -562,11 +307,11 @@ public class DoubleMetaphone implements StringEncoder {
                 result.append('X');
             }
             index += 3;
-        } else {    // Pierce's rule
+        } else {
+            // Pierce's rule
             result.append('K');
             index += 2;
         }
-
         return index;
     }
 
@@ -574,7 +319,8 @@ public class DoubleMetaphone implements StringEncoder {
      * Handles 'CH' cases.
      */
     private int handleCH(final String value, final DoubleMetaphoneResult result, final int index) {
-        if (index > 0 && contains(value, index, 4, "CHAE")) {   // Michael
+        if (index > 0 && contains(value, index, 4, "CHAE")) {
+            // Michael
             result.append('K', 'X');
             return index + 2;
         }
@@ -633,8 +379,7 @@ public class DoubleMetaphone implements StringEncoder {
         } else if (charAt(value, index + 1) == 'N') {
             if (index == 1 && isVowel(charAt(value, 0)) && !slavoGermanic) {
                 result.append("KN", "N");
-            } else if (!contains(value, index + 2, 2, "EY") &&
-                       charAt(value, index + 1) != 'Y' && !slavoGermanic) {
+            } else if (!contains(value, index + 2, 2, "EY") && charAt(value, index + 1) != 'Y' && !slavoGermanic) {
                 result.append("N", "KN");
             } else {
                 result.append("KN");
@@ -643,26 +388,17 @@ public class DoubleMetaphone implements StringEncoder {
         } else if (contains(value, index + 1, 2, "LI") && !slavoGermanic) {
             result.append("KL", "L");
             index += 2;
-        } else if (index == 0 &&
-                   (charAt(value, index + 1) == 'Y' ||
-                    contains(value, index + 1, 2, ES_EP_EB_EL_EY_IB_IL_IN_IE_EI_ER))) {
+        } else if (index == 0 && (charAt(value, index + 1) == 'Y' || contains(value, index + 1, 2, ES_EP_EB_EL_EY_IB_IL_IN_IE_EI_ER))) {
             //-- -ges-, -gep-, -gel-, -gie- at beginning --//
             result.append('K', 'J');
             index += 2;
-        } else if ((contains(value, index + 1, 2, "ER") ||
-                    charAt(value, index + 1) == 'Y') &&
-                   !contains(value, 0, 6, "DANGER", "RANGER", "MANGER") &&
-                   !contains(value, index - 1, 1, "E", "I") &&
-                   !contains(value, index - 1, 3, "RGY", "OGY")) {
+        } else if ((contains(value, index + 1, 2, "ER") || charAt(value, index + 1) == 'Y') && !contains(value, 0, 6, "DANGER", "RANGER", "MANGER") && !contains(value, index - 1, 1, "E", "I") && !contains(value, index - 1, 3, "RGY", "OGY")) {
             //-- -ger-, -gy- --//
             result.append('K', 'J');
             index += 2;
-        } else if (contains(value, index + 1, 1, "E", "I", "Y") ||
-                   contains(value, index - 1, 4, "AGGI", "OGGI")) {
+        } else if (contains(value, index + 1, 1, "E", "I", "Y") || contains(value, index - 1, 4, "AGGI", "OGGI")) {
             //-- Italian "biaggi" --//
-            if (contains(value, 0, 4, "VAN ", "VON ") ||
-                contains(value, 0, 3, "SCH") ||
-                contains(value, index + 1, 2, "ET")) {
+            if (contains(value, 0, 4, "VAN ", "VON ") || contains(value, 0, 3, "SCH") || contains(value, index + 1, 2, "ET")) {
                 //-- obvious germanic --//
                 result.append('K');
             } else if (contains(value, index + 1, 3, "IER")) {
@@ -696,14 +432,11 @@ public class DoubleMetaphone implements StringEncoder {
                 result.append('K');
             }
             index += 2;
-        } else if (index > 1 && contains(value, index - 2, 1, "B", "H", "D") ||
-                   index > 2 && contains(value, index - 3, 1, "B", "H", "D") ||
-                   index > 3 && contains(value, index - 4, 1, "B", "H")) {
+        } else if (index > 1 && contains(value, index - 2, 1, "B", "H", "D") || index > 2 && contains(value, index - 3, 1, "B", "H", "D") || index > 3 && contains(value, index - 4, 1, "B", "H")) {
             //-- Parker's rule (with some further refinements) - "hugh"
             index += 2;
         } else {
-            if (index > 2 && charAt(value, index - 1) == 'U' &&
-                contains(value, index - 3, 1, "C", "G", "L", "R", "T")) {
+            if (index > 2 && charAt(value, index - 1) == 'U' && contains(value, index - 3, 1, "C", "G", "L", "R", "T")) {
                 //-- "laugh", "McLaughlin", "cough", "gough", "rough", "tough"
                 result.append('F');
             } else if (index > 0 && charAt(value, index - 1) != 'I') {
@@ -719,8 +452,7 @@ public class DoubleMetaphone implements StringEncoder {
      */
     private int handleH(final String value, final DoubleMetaphoneResult result, int index) {
         //-- only keep if first & before vowel or between 2 vowels --//
-        if ((index == 0 || isVowel(charAt(value, index - 1))) &&
-            isVowel(charAt(value, index + 1))) {
+        if ((index == 0 || isVowel(charAt(value, index - 1))) && isVowel(charAt(value, index + 1))) {
             result.append('H');
             index += 2;
             //-- also takes car of "HH" --//
@@ -735,33 +467,29 @@ public class DoubleMetaphone implements StringEncoder {
      */
     private int handleJ(final String value, final DoubleMetaphoneResult result, int index, final boolean slavoGermanic) {
         if (contains(value, index, 4, "JOSE") || contains(value, 0, 4, "SAN ")) {
-                //-- obvious Spanish, "Jose", "San Jacinto" --//
-                if (index == 0 && charAt(value, index + 4) == ' ' ||
-                     value.length() == 4 || contains(value, 0, 4, "SAN ")) {
-                    result.append('H');
-                } else {
-                    result.append('J', 'H');
-                }
-                index++;
+            //-- obvious Spanish, "Jose", "San Jacinto" --//
+            if (index == 0 && charAt(value, index + 4) == ' ' || value.length() == 4 || contains(value, 0, 4, "SAN ")) {
+                result.append('H');
             } else {
-                if (index == 0 && !contains(value, index, 4, "JOSE")) {
-                    result.append('J', 'A');
-                } else if (isVowel(charAt(value, index - 1)) && !slavoGermanic &&
-                           (charAt(value, index + 1) == 'A' || charAt(value, index + 1) == 'O')) {
-                    result.append('J', 'H');
-                } else if (index == value.length() - 1) {
-                    result.append('J', ' ');
-                } else if (!contains(value, index + 1, 1, L_T_K_S_N_M_B_Z) &&
-                           !contains(value, index - 1, 1, "S", "K", "L")) {
-                    result.append('J');
-                }
-
-                if (charAt(value, index + 1) == 'J') {
-                    index += 2;
-                } else {
-                    index++;
-                }
+                result.append('J', 'H');
             }
+            index++;
+        } else {
+            if (index == 0 && !contains(value, index, 4, "JOSE")) {
+                result.append('J', 'A');
+            } else if (isVowel(charAt(value, index - 1)) && !slavoGermanic && (charAt(value, index + 1) == 'A' || charAt(value, index + 1) == 'O')) {
+                result.append('J', 'H');
+            } else if (index == value.length() - 1) {
+                result.append('J', ' ');
+            } else if (!contains(value, index + 1, 1, L_T_K_S_N_M_B_Z) && !contains(value, index - 1, 1, "S", "K", "L")) {
+                result.append('J');
+            }
+            if (charAt(value, index + 1) == 'J') {
+                index += 2;
+            } else {
+                index++;
+            }
+        }
         return index;
     }
 
@@ -801,9 +529,7 @@ public class DoubleMetaphone implements StringEncoder {
      * Handles 'R' cases.
      */
     private int handleR(final String value, final DoubleMetaphoneResult result, final int index, final boolean slavoGermanic) {
-        if (index == value.length() - 1 && !slavoGermanic &&
-            contains(value, index - 2, 2, "IE") &&
-            !contains(value, index - 4, 2, "ME", "MA")) {
+        if (index == value.length() - 1 && !slavoGermanic && contains(value, index - 2, 2, "IE") && !contains(value, index - 4, 2, "ME", "MA")) {
             result.appendAlternate('R');
         } else {
             result.append('R');
@@ -838,8 +564,7 @@ public class DoubleMetaphone implements StringEncoder {
                 result.append('S', 'X');
             }
             index += 3;
-        } else if (index == 0 && contains(value, index + 1, 1, "M", "N", "L", "W") ||
-                   contains(value, index + 1, 1, "Z")) {
+        } else if (index == 0 && contains(value, index + 1, 1, "M", "N", "L", "W") || contains(value, index + 1, 1, "Z")) {
             //-- german & anglicisations, for example "smith" match "schmidt" //
             // "snider" match "schneider" --//
             //-- also, -sz- in slavic language although in hungarian it //
@@ -895,10 +620,8 @@ public class DoubleMetaphone implements StringEncoder {
             result.append('X');
             index += 3;
         } else if (contains(value, index, 2, "TH") || contains(value, index, 3, "TTH")) {
-            if (contains(value, index + 2, 2, "OM", "AM") ||
-                //-- special case "thomas", "thames" or germanic --//
-                contains(value, 0, 4, "VAN ", "VON ") ||
-                contains(value, 0, 3, "SCH")) {
+            if (contains(value, index + 2, 2, "OM", "AM") || //-- special case "thomas", "thames" or germanic --//
+            contains(value, 0, 4, "VAN ", "VON ") || contains(value, 0, 3, "SCH")) {
                 result.append('T');
             } else {
                 result.append('0', 'T');
@@ -919,8 +642,7 @@ public class DoubleMetaphone implements StringEncoder {
             //-- can also be in middle of word --//
             result.append('R');
             index += 2;
-        } else if (index == 0 && (isVowel(charAt(value, index + 1)) ||
-                           contains(value, index, 2, "WH"))) {
+        } else if (index == 0 && (isVowel(charAt(value, index + 1)) || contains(value, index, 2, "WH"))) {
             if (isVowel(charAt(value, index + 1))) {
                 //-- Wasserman should match Vasserman --//
                 result.append('A', 'F');
@@ -929,9 +651,7 @@ public class DoubleMetaphone implements StringEncoder {
                 result.append('A');
             }
             index++;
-        } else if (index == value.length() - 1 && isVowel(charAt(value, index - 1)) ||
-                   contains(value, index - 1, 5, "EWSKI", "EWSKY", "OWSKI", "OWSKY") ||
-                   contains(value, 0, 3, "SCH")) {
+        } else if (index == value.length() - 1 && isVowel(charAt(value, index - 1)) || contains(value, index - 1, 5, "EWSKI", "EWSKY", "OWSKI", "OWSKY") || contains(value, 0, 3, "SCH")) {
             //-- Arnow should match Arnoff --//
             result.appendAlternate('F');
             index++;
@@ -953,9 +673,7 @@ public class DoubleMetaphone implements StringEncoder {
             result.append('S');
             index++;
         } else {
-            if (!(index == value.length() - 1 &&
-                  (contains(value, index - 3, 3, "IAU", "EAU") ||
-                   contains(value, index - 2, 2, "AU", "OU")))) {
+            if (!(index == value.length() - 1 && (contains(value, index - 3, 3, "IAU", "EAU") || contains(value, index - 2, 2, "AU", "OU")))) {
                 //-- French for example breaux --//
                 result.append("KS");
             }
@@ -973,8 +691,7 @@ public class DoubleMetaphone implements StringEncoder {
             result.append('J');
             index += 2;
         } else {
-            if (contains(value, index + 1, 2, "ZO", "ZI", "ZA") ||
-                slavoGermanic && index > 0 && charAt(value, index - 1) != 'T') {
+            if (contains(value, index + 1, 2, "ZO", "ZI", "ZA") || slavoGermanic && index > 0 && charAt(value, index - 1) != 'T') {
                 result.append("S", "TS");
             } else {
                 result.append('S');
@@ -984,32 +701,12 @@ public class DoubleMetaphone implements StringEncoder {
         return index;
     }
 
-    /**
-     * Tests whether the Double Metaphone values of two {@code String} values
-     * are equal.
-     *
-     * @param value1 The left-hand side of the encoded {@link String#equals(Object)}.
-     * @param value2 The right-hand side of the encoded {@link String#equals(Object)}.
-     * @return {@code true} if the encoded {@code String}s are equal;
-     *          {@code false} otherwise.
-     * @see #isDoubleMetaphoneEqual(String,String,boolean)
-     */
     public boolean isDoubleMetaphoneEqual(final String value1, final String value2) {
-        return isDoubleMetaphoneEqual(value1, value2, false);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests whether the Double Metaphone values of two {@code String} values
-     * are equal, optionally using the alternate value.
-     *
-     * @param value1 The left-hand side of the encoded {@link String#equals(Object)}.
-     * @param value2 The right-hand side of the encoded {@link String#equals(Object)}.
-     * @param alternate use the alternate value if {@code true}.
-     * @return {@code true} if the encoded {@code String}s are equal;
-     *          {@code false} otherwise.
-     */
     public boolean isDoubleMetaphoneEqual(final String value1, final String value2, final boolean alternate) {
-        return StringUtils.equals(doubleMetaphone(value1, alternate), doubleMetaphone(value2, alternate));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1033,8 +730,7 @@ public class DoubleMetaphone implements StringEncoder {
      * of Slavo-Germanic origin if it contains any of 'W', 'K', 'CZ', or 'WITZ'.
      */
     private boolean isSlavoGermanic(final String value) {
-        return value.indexOf('W') > -1 || value.indexOf('K') > -1 ||
-                value.contains("CZ") || value.contains("WITZ");
+        return value.indexOf('W') > -1 || value.indexOf('K') > -1 || value.contains("CZ") || value.contains("WITZ");
     }
 
     /**
@@ -1044,12 +740,7 @@ public class DoubleMetaphone implements StringEncoder {
         return VOWELS.indexOf(ch) != -1;
     }
 
-    /**
-     * Sets the maxCodeLen.
-     *
-     * @param maxCodeLen The maxCodeLen to set.
-     */
     public void setMaxCodeLen(final int maxCodeLen) {
-        this.maxCodeLen = maxCodeLen;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

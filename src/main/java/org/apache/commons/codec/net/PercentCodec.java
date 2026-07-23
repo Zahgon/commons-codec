@@ -14,12 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.net;
 
 import java.nio.ByteBuffer;
 import java.util.BitSet;
-
 import org.apache.commons.codec.BinaryDecoder;
 import org.apache.commons.codec.BinaryEncoder;
 import org.apache.commons.codec.DecoderException;
@@ -95,51 +93,14 @@ public class PercentCodec implements BinaryEncoder, BinaryDecoder {
         return false;
     }
 
-    /**
-     * Decodes bytes encoded with Percent-Encoding based on RFC 3986. The reverse process is performed in order to
-     * decode the encoded characters to Unicode.
-     */
     @Override
     public byte[] decode(final byte[] bytes) throws DecoderException {
-        if (bytes == null) {
-            return null;
-        }
-        final ByteBuffer buffer = ByteBuffer.allocate(expectedDecodingBytes(bytes));
-        for (int i = 0; i < bytes.length; i++) {
-            final byte b = bytes[i];
-            if (b == ESCAPE_CHAR) {
-                try {
-                    final int u = Utils.digit16(bytes[++i]);
-                    final int l = Utils.digit16(bytes[++i]);
-                    buffer.put((byte) ((u << 4) + l));
-                } catch (final ArrayIndexOutOfBoundsException e) {
-                    throw new DecoderException("Invalid percent decoding: ", e);
-                }
-            } else if (plusForSpace && b == '+') {
-                buffer.put((byte) ' ');
-            } else {
-                buffer.put(b);
-            }
-        }
-        return buffer.array();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Decodes a byte[] Object, whose bytes are encoded with Percent-Encoding.
-     *
-     * @param obj the object to decode.
-     * @return the decoding result byte[] as Object.
-     * @throws DecoderException if the object is not a byte array.
-     */
     @Override
     public Object decode(final Object obj) throws DecoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof byte[]) {
-            return decode((byte[]) obj);
-        }
-        throw new DecoderException("Objects of type " + obj.getClass().getName() + " cannot be Percent decoded");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private byte[] doEncode(final byte[] bytes, final int expectedLength, final boolean willEncode) {
@@ -164,44 +125,19 @@ public class PercentCodec implements BinaryEncoder, BinaryDecoder {
         return buffer.array();
     }
 
-    /**
-     * Percent-Encoding based on RFC 3986. The non US-ASCII characters are encoded, as well as the
-     * US-ASCII characters that are configured to be always encoded.
-     */
     @Override
     public byte[] encode(final byte[] bytes) throws EncoderException {
-        if (bytes == null) {
-            return null;
-        }
-        final int expectedEncodingBytes = expectedEncodingBytes(bytes);
-        final boolean willEncode = expectedEncodingBytes != bytes.length;
-        if (willEncode || plusForSpace && containsSpace(bytes)) {
-            return doEncode(bytes, expectedEncodingBytes, willEncode);
-        }
-        return bytes;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Encodes an object into using the Percent-Encoding. Only byte[] objects are accepted.
-     *
-     * @param obj the object to encode.
-     * @return the encoding result byte[] as Object.
-     * @throws EncoderException if the object is not a byte array.
-     */
     @Override
     public Object encode(final Object obj) throws EncoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof byte[]) {
-            return encode((byte[]) obj);
-        }
-        throw new EncoderException("Objects of type " + obj.getClass().getName() + " cannot be Percent encoded");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private int expectedDecodingBytes(final byte[] bytes) {
         int byteCount = 0;
-        for (int i = 0; i < bytes.length;) {
+        for (int i = 0; i < bytes.length; ) {
             final byte b = bytes[i];
             i += b == ESCAPE_CHAR ? 3 : 1;
             byteCount++;

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.digest;
 
 import java.io.ByteArrayOutputStream;
@@ -106,26 +105,18 @@ public class GitIdentifiers {
 
         @Override
         public int compareTo(final DirectoryEntry o) {
-            return sortKey.compareTo(o.sortKey);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean equals(final Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            if (!(obj instanceof DirectoryEntry)) {
-                return false;
-            }
-            final DirectoryEntry other = (DirectoryEntry) obj;
-            return name.equals(other.name);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public int hashCode() {
-            return name.hashCode();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 
     /**
@@ -144,12 +135,10 @@ public class GitIdentifiers {
          * @see <a href="https://git-scm.com/docs/git-fast-import">git-fast-import - Backend for fast Git data importers</a>
          */
         DIRECTORY(new byte[] { '4', '0', '0', '0', '0' }),
-
         /**
          * A regular, but executable, file.
          */
         EXECUTABLE(new byte[] { '1', '0', '0', '7', '5', '5' }),
-
         /**
          * A gitlink, SHA-1 of the object refers to a commit in another repository. Git links can only be specified either by SHA or through a commit mark. They
          * are used to implement submodules.
@@ -158,7 +147,6 @@ public class GitIdentifiers {
          * @see <a href="https://git-scm.com/docs/git-fast-import">git-fast-import - Backend for fast Git data importers</a>
          */
         GIT_LINK(new byte[] { '1', '6', '0', '0', '0', '0' }),
-
         /**
          * A regular (non-executable) file.
          * <p>
@@ -166,7 +154,6 @@ public class GitIdentifiers {
          * </p>
          */
         REGULAR(new byte[] { '1', '0', '0', '6', '4', '4' }),
-
         /**
          * A symbolic link. The content of the file will be the link target.
          */
@@ -208,6 +195,7 @@ public class GitIdentifiers {
          */
         @FunctionalInterface
         private interface BlobIdSupplier {
+
             byte[] get() throws IOException;
         }
 
@@ -219,30 +207,17 @@ public class GitIdentifiers {
         }
 
         private final Map<String, TreeIdBuilder> dirEntries = new HashMap<>();
+
         private final Map<String, DirectoryEntry> fileEntries = new HashMap<>();
+
         private final MessageDigest messageDigest;
 
         private TreeIdBuilder(final MessageDigest messageDigest) {
             this.messageDigest = Objects.requireNonNull(messageDigest);
         }
 
-        /**
-         * Adds and returns the {@link TreeIdBuilder} for the named subdirectory, creating it if absent.
-         *
-         * @param name The relative path of the subdirectory in normalized form (may contain {@code '/'}).
-         * @return The {@link TreeIdBuilder} for the subdirectory.
-         * @throws IllegalArgumentException If any path component is {@code ".."}.
-         */
         public TreeIdBuilder addDirectory(final String name) {
-            TreeIdBuilder current = this;
-            for (final String component : name.split("/", -1)) {
-                // Noop segments
-                if (component.isEmpty() || ".".equals(component)) {
-                    continue;
-                }
-                current = current.dirEntries.computeIfAbsent(requireNoParentTraversal(component), k -> new TreeIdBuilder(messageDigest));
-            }
-            return current;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         private void addFile(final FileMode mode, final String name, final BlobIdSupplier blobId) throws IOException {
@@ -254,74 +229,21 @@ public class GitIdentifiers {
             }
         }
 
-        /**
-         * Adds a file entry at the given path within this tree.
-         *
-         * <p>If {@code name} contains {@code '/'}, intermediate subdirectories are created automatically.</p>
-         *
-         * @param mode The file mode (e.g. {@link FileMode#REGULAR}).
-         * @param name The relative path of the entry in normalized form(may contain {@code '/'}).
-         * @param data The file content.
-         * @throws IOException If an I/O error occurs.
-         * @throws IllegalArgumentException If any path component is {@code ".."}.
-         */
         public void addFile(final FileMode mode, final String name, final byte[] data) throws IOException {
-            addFile(mode, name, () -> blobId(messageDigest, data));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Adds a file entry at the given path within this tree, streaming content without buffering.
-         *
-         * <p>If {@code name} contains {@code '/'}, intermediate subdirectories are created automatically.</p>
-         *
-         * <p>The stream is eagerly drained.</p>
-         *
-         * @param mode     The file mode (e.g. {@link FileMode#REGULAR}).
-         * @param name The relative path of the entry in normalized form(may contain {@code '/'}).
-         * @param dataSize The exact number of bytes in {@code data}.
-         * @param data     The file content.
-         * @throws IOException If the stream cannot be read.
-         * @throws IllegalArgumentException If any path component is {@code ".."}.
-         */
         public void addFile(final FileMode mode, final String name, final long dataSize, final InputStream data) throws IOException {
-            addFile(mode, name, () -> blobId(messageDigest, dataSize, data));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Adds a symbolic link entry at the given path within this tree.
-         *
-         * <p>If {@code name} contains {@code '/'}, intermediate subdirectories are created automatically.</p>
-         *
-         * @param name The relative path of the entry in normalized form(may contain {@code '/'}).
-         * @param target The target of the symbolic link.
-         * @throws IOException If an I/O error occurs.
-         * @throws IllegalArgumentException If any path component is {@code ".."}.
-         */
         public void addSymbolicLink(final String name, final String target) throws IOException {
-            addFile(FileMode.SYMBOLIC_LINK, name, target.getBytes(StandardCharsets.UTF_8));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        /**
-         * Computes the Git tree identifier for this directory and all its descendants.
-         *
-         * @return The raw tree identifier bytes.
-         */
         @Override
         public byte[] get() {
-            final Set<DirectoryEntry> entries = new TreeSet<>(fileEntries.values());
-            dirEntries.forEach((k, v) -> entries.add(new DirectoryEntry(k, FileMode.DIRECTORY, v.get())));
-            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            for (final DirectoryEntry entry : entries) {
-                baos.write(entry.type.modeBytes, 0, entry.type.modeBytes.length);
-                baos.write(' ');
-                final byte[] bytes = entry.name.getBytes(StandardCharsets.UTF_8);
-                baos.write(bytes, 0, bytes.length);
-                baos.write('\0');
-                baos.write(entry.rawObjectId, 0, entry.rawObjectId.length);
-            }
-            messageDigest.reset();
-            DigestUtils.updateDigest(messageDigest, getGitTreePrefix(baos.size()));
-            return DigestUtils.updateDigest(messageDigest, baos.toByteArray()).digest();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         private TreeIdBuilder populate(final Path directory) throws IOException {
@@ -340,67 +262,16 @@ public class GitIdentifiers {
         }
     }
 
-    /**
-     * Reads through a byte array and returns a generalized Git blob identifier.
-     *
-     * <p>The identifier is computed in the way described by the
-     * <a href="https://www.swhid.org/swhid-specification/v1.2/5.Core_identifiers/#52-contents">SWHID contents identifier</a>, but it can use any hash
-     * algorithm.</p>
-     *
-     * <p>When the hash algorithm is SHA-1, the identifier is identical to Git blob identifier and SWHID contents identifier.</p>
-     *
-     * @param messageDigest The MessageDigest to use (for example SHA-1).
-     * @param data          Data to digest.
-     * @return A generalized Git blob identifier.
-     */
     public static byte[] blobId(final MessageDigest messageDigest, final byte[] data) {
-        messageDigest.reset();
-        DigestUtils.updateDigest(messageDigest, getGitBlobPrefix(data.length));
-        return DigestUtils.digest(messageDigest, data);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Reads through a stream of known size and returns a generalized Git blob identifier, without buffering.
-     *
-     * <p>When the size of the content is known in advance, this overload streams {@code data} directly through
-     * the digest without buffering the full content in memory.</p>
-     *
-     * <p>When the hash algorithm is SHA-1, the identifier is identical to Git blob identifier and SWHID contents identifier.</p>
-     *
-     * @param messageDigest The MessageDigest to use (for example SHA-1).
-     * @param dataSize      The exact number of bytes in {@code data}.
-     * @param data          Stream to digest.
-     * @return A generalized Git blob identifier.
-     * @throws IOException On error reading the stream.
-     */
     public static byte[] blobId(final MessageDigest messageDigest, final long dataSize, final InputStream data) throws IOException {
-        messageDigest.reset();
-        DigestUtils.updateDigest(messageDigest, getGitBlobPrefix(dataSize));
-        return DigestUtils.updateDigest(messageDigest, data).digest();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Reads through a file and returns a generalized Git blob identifier.
-     *
-     * <p>The identifier is computed in the way described by the
-     * <a href="https://www.swhid.org/swhid-specification/v1.2/5.Core_identifiers/#52-contents">SWHID contents identifier</a>, but it can use any hash
-     * algorithm.</p>
-     *
-     * <p>When the hash algorithm is SHA-1, the identifier is identical to Git blob identifier and SWHID contents identifier.</p>
-     *
-     * @param messageDigest The MessageDigest to use (for example SHA-1).
-     * @param data          Path to the file to digest.
-     * @return A generalized Git blob identifier.
-     * @throws IOException On error accessing the file.
-     */
     public static byte[] blobId(final MessageDigest messageDigest, final Path data) throws IOException {
-        if (Files.isSymbolicLink(data)) {
-            final byte[] linkTarget = Files.readSymbolicLink(data).toString().getBytes(StandardCharsets.UTF_8);
-            return blobId(messageDigest, linkTarget);
-        }
-        messageDigest.reset();
-        DigestUtils.updateDigest(messageDigest, getGitBlobPrefix(Files.size(data)));
-        return DigestUtils.updateDigest(messageDigest, data).digest();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static byte[] getGitBlobPrefix(final long dataSize) {
@@ -415,39 +286,12 @@ public class GitIdentifiers {
         return getGitPrefix("tree", dataSize);
     }
 
-    /**
-     * Reads through a directory and returns a generalized Git tree identifier.
-     *
-     * <p>The identifier is computed in the way described by the
-     * <a href="https://www.swhid.org/swhid-specification/v1.2/5.Core_identifiers/#53-directories">SWHID directory identifier</a>, but it can use any hash
-     * algorithm.</p>
-     *
-     * <p>When the hash algorithm is SHA-1, the identifier is identical to Git tree identifier and SWHID directory identifier.</p>
-     *
-     * @param messageDigest The MessageDigest to use (for example SHA-1).
-     * @param data          Path to the directory to digest.
-     * @return A generalized Git tree identifier.
-     * @throws IOException On error accessing the directory or its contents.
-     */
     public static byte[] treeId(final MessageDigest messageDigest, final Path data) throws IOException {
-        return treeIdBuilder(messageDigest).populate(data).get();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns a new {@link TreeIdBuilder} for constructing a generalized Git tree identifier from a virtual directory
-     * structure, such as the contents of an archive.
-     *
-     * <p>The identifier is computed in the way described by the
-     * <a href="https://www.swhid.org/swhid-specification/v1.2/5.Core_identifiers/#53-directories">SWHID directory identifier</a>, but it can use any hash
-     * algorithm.</p>
-     *
-     * <p>When the hash algorithm is SHA-1, the identifier is identical to Git tree identifier and SWHID directory identifier.</p>
-     *
-     * @param messageDigest The MessageDigest to use (for example SHA-1).
-     * @return A new {@link TreeIdBuilder}.
-     */
     public static TreeIdBuilder treeIdBuilder(final MessageDigest messageDigest) {
-        return new TreeIdBuilder(messageDigest);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private GitIdentifiers() {

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.io.InputStream;
@@ -64,22 +63,17 @@ public class Base58InputStream extends BaseNCodecInputStream<Base58, Base58Input
 
         @Override
         public Base58InputStream get() {
-            return new Base58InputStream(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         protected Base58 newBaseNCodec() {
-            return new Base58();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /**
-     * Constructs a new Builder.
-     *
-     * @return a new Builder.
-     */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private Base58InputStream(final Builder builder) {

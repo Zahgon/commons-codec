@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec;
 
 import java.util.Comparator;
@@ -27,8 +26,8 @@ import java.util.Comparator;
  * <p>This class is immutable and thread-safe.</p>
  */
 @SuppressWarnings("rawtypes")
-// TODO ought to implement Comparator<String> but that's not possible whilst maintaining binary compatibility.
-public class StringEncoderComparator implements Comparator {
+public class // TODO ought to implement Comparator<String> but that's not possible whilst maintaining binary compatibility.
+StringEncoderComparator implements Comparator {
 
     /**
      * Internal encoder instance.
@@ -43,7 +42,8 @@ public class StringEncoderComparator implements Comparator {
      */
     @Deprecated
     public StringEncoderComparator() {
-        this.stringEncoder = null; // Trying to use this will cause things to break
+        // Trying to use this will cause things to break
+        this.stringEncoder = null;
     }
 
     /**
@@ -56,34 +56,8 @@ public class StringEncoderComparator implements Comparator {
         this.stringEncoder = stringEncoder;
     }
 
-    /**
-     * Compares two strings based not on the strings themselves, but on an encoding of the two strings using the
-     * StringEncoder this Comparator was created with.
-     *
-     * If an {@link EncoderException} is encountered, return {@code 0}.
-     *
-     * @param o1
-     *            the object to compare.
-     * @param o2
-     *            the object to compare to.
-     * @return the Comparable.compareTo() return code or 0 if an encoding error was caught.
-     * @see Comparable
-     */
     @Override
     public int compare(final Object o1, final Object o2) {
-
-        int compareCode = 0;
-
-        try {
-            @SuppressWarnings("unchecked") // May fail with CCE if encode returns something that is not Comparable
-            // However this was always the case.
-            final Comparable<Comparable<?>> s1 = (Comparable<Comparable<?>>) this.stringEncoder.encode(o1);
-            final Comparable<?> s2 = (Comparable<?>) this.stringEncoder.encode(o2);
-            compareCode = s1.compareTo(s2);
-        } catch (final EncoderException ee) {
-            compareCode = 0;
-        }
-        return compareCode;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

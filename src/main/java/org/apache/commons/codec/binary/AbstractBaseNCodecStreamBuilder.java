@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.util.function.Supplier;
@@ -30,6 +29,7 @@ import java.util.function.Supplier;
 public abstract class AbstractBaseNCodecStreamBuilder<T, C extends BaseNCodec, B extends AbstractBaseNCodecStreamBuilder<T, C, B>> implements Supplier<T> {
 
     private C baseNCodec;
+
     private boolean encode;
 
     /**
@@ -41,25 +41,15 @@ public abstract class AbstractBaseNCodecStreamBuilder<T, C extends BaseNCodec, B
 
     @SuppressWarnings("unchecked")
     B asThis() {
-        return (B) this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the codec to encode/decode a stream.
-     *
-     * @return the codec to encode/decode a stream.
-     */
     protected C getBaseNCodec() {
-        return baseNCodec;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets whether to encode or decode a stream.
-     *
-     * @return whether to encode or decode a stream.
-     */
     protected boolean getEncode() {
-        return encode;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -69,25 +59,11 @@ public abstract class AbstractBaseNCodecStreamBuilder<T, C extends BaseNCodec, B
      */
     protected abstract C newBaseNCodec();
 
-    /**
-     * Sets a BaseNCodec subclass of type C.
-     *
-     * @param baseNCodec a BaseNCodec subclass of type C.
-     * @return {@code this} instance.
-     */
     public B setBaseNCodec(final C baseNCodec) {
-        this.baseNCodec = baseNCodec != null ? baseNCodec : newBaseNCodec();
-        return asThis();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Sets whether we should encode all data read (true), or if false if we should decode.
-     *
-     * @param encode encode or decode.
-     * @return {@code this} instance.
-     */
     public B setEncode(final boolean encode) {
-        this.encode = encode;
-        return asThis();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

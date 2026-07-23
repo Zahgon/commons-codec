@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.digest;
 
 import java.io.BufferedInputStream;
@@ -27,10 +26,8 @@ import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.binary.StringUtils;
 
@@ -150,46 +147,12 @@ public final class HmacUtils {
         return getInitializedMac(HmacAlgorithms.HMAC_SHA_512, key);
     }
 
-    /**
-     * Returns an initialized {@code Mac} for the given {@code algorithm}.
-     *
-     * @param algorithm the name of the algorithm requested. See
-     *                  <a href= "https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html#AppA" >Appendix A in the Java
-     *                  Cryptography Architecture Reference Guide</a> for information about standard algorithm names.
-     * @param key       The key for the keyed digest (must not be null).
-     * @return A Mac instance initialized with the given key.
-     * @throws IllegalArgumentException when a {@link NoSuchAlgorithmException} is caught or key is null or key is invalid.
-     * @see Mac#getInstance(String)
-     * @see Mac#init(Key)
-     */
     public static Mac getInitializedMac(final HmacAlgorithms algorithm, final byte[] key) {
-        return getInitializedMac(algorithm.getName(), key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns an initialized {@code Mac} for the given {@code algorithm}.
-     *
-     * @param algorithm the name of the algorithm requested. See
-     *                  <a href= "https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html#AppA" >Appendix A in the Java
-     *                  Cryptography Architecture Reference Guide</a> for information about standard algorithm names.
-     * @param key       The key for the keyed digest (must not be null).
-     * @return A Mac instance initialized with the given key.
-     * @throws IllegalArgumentException when a {@link NoSuchAlgorithmException} is caught or key is null or key is invalid.
-     * @see Mac#getInstance(String)
-     * @see Mac#init(Key)
-     */
     public static Mac getInitializedMac(final String algorithm, final byte[] key) {
-        if (key == null) {
-            throw new IllegalArgumentException("Null key");
-        }
-        try {
-            final SecretKeySpec keySpec = new SecretKeySpec(key, algorithm);
-            final Mac mac = Mac.getInstance(algorithm);
-            mac.init(keySpec);
-            return mac;
-        } catch (final NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new IllegalArgumentException(e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -513,8 +476,8 @@ public final class HmacUtils {
     public static byte[] hmacSha384(final String key, final String valueToDigest) {
         return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmac(valueToDigest);
     }
-    // hmacSha384
 
+    // hmacSha384
     /**
      * Returns a HmacSHA384 Message Authentication Code (MAC) as hexadecimal string (lowercase) for the given key and value.
      *
@@ -606,8 +569,8 @@ public final class HmacUtils {
     public static byte[] hmacSha512(final String key, final String valueToDigest) {
         return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmac(valueToDigest);
     }
-    // hmacSha512
 
+    // hmacSha512
     /**
      * Returns a HmacSHA512 Message Authentication Code (MAC) as hexadecimal string (lowercase) for the given key and value.
      *
@@ -654,82 +617,24 @@ public final class HmacUtils {
         return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmacHex(valueToDigest);
     }
 
-    /**
-     * Tests whether this algorithm is available
-     *
-     * @param hmacAlgorithms the HmacAlgorithms to check.
-     * @return whether this algorithm is available.
-     * @since 1.11
-     */
     public static boolean isAvailable(final HmacAlgorithms hmacAlgorithms) {
-        return isAvailable(hmacAlgorithms.getName());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Tests whether this algorithm is available
-     *
-     * @param name the name to check.
-     * @return whether this algorithm is available.
-     * @since 1.11
-     */
     public static boolean isAvailable(final String name) {
-        try {
-            Mac.getInstance(name);
-            return true;
-        } catch (final NoSuchAlgorithmException e) {
-            return false;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Resets and then updates the given {@link Mac} with the value.
-     *
-     * @param mac           the initialized {@link Mac} to update.
-     * @param valueToDigest the value to update the {@link Mac} with (maybe null or empty).
-     * @return the updated {@link Mac}.
-     * @throws IllegalStateException if the Mac was not initialized.
-     */
     public static Mac updateHmac(final Mac mac, final byte[] valueToDigest) {
-        mac.reset();
-        mac.update(valueToDigest);
-        return mac;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Resets and then updates the given {@link Mac} with the value.
-     *
-     * @param mac           the initialized {@link Mac} to update.
-     * @param valueToDigest the value to update the {@link Mac} with.
-     *                      <p>
-     *                      The InputStream must not be null and will not be closed.
-     *                      </p>
-     * @return the updated {@link Mac}.
-     * @throws IOException           If an I/O error occurs.
-     * @throws IllegalStateException If the Mac was not initialized.
-     */
     public static Mac updateHmac(final Mac mac, final InputStream valueToDigest) throws IOException {
-        mac.reset();
-        final byte[] buffer = new byte[STREAM_BUFFER_LENGTH];
-        int read = valueToDigest.read(buffer, 0, STREAM_BUFFER_LENGTH);
-        while (read > -1) {
-            mac.update(buffer, 0, read);
-            read = valueToDigest.read(buffer, 0, STREAM_BUFFER_LENGTH);
-        }
-        return mac;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Resets and then updates the given {@link Mac} with the value.
-     *
-     * @param mac           the initialized {@link Mac} to update.
-     * @param valueToDigest the value to update the {@link Mac} with (maybe null or empty).
-     * @return the updated {@link Mac}.
-     * @throws IllegalStateException if the Mac was not initialized.
-     */
     public static Mac updateHmac(final Mac mac, final String valueToDigest) {
-        mac.reset();
-        mac.update(StringUtils.getBytesUtf8(valueToDigest));
-        return mac;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private final Mac mac;
@@ -796,155 +701,51 @@ public final class HmacUtils {
         this(algorithm, StringUtils.getBytesUtf8(key));
     }
 
-    /**
-     * Returns the digest for the input data.
-     *
-     * @param valueToDigest the input to use.
-     * @return the digest as a byte[].
-     * @since 1.11
-     */
     public byte[] hmac(final byte[] valueToDigest) {
-        return mac.doFinal(valueToDigest);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the input data.
-     *
-     * @param valueToDigest the input to use.
-     * @return the digest as a byte[].
-     * @since 1.11
-     */
     public byte[] hmac(final ByteBuffer valueToDigest) {
-        mac.update(valueToDigest);
-        return mac.doFinal();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the file.
-     *
-     * @param valueToDigest the file to use.
-     * @return the digest.
-     * @throws IOException If an I/O error occurs.
-     * @since 1.11
-     */
     public byte[] hmac(final File valueToDigest) throws IOException {
-        return hmac(valueToDigest.toPath());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the stream.
-     *
-     * @param valueToDigest the data to use.
-     *                      <p>
-     *                      The InputStream must not be null and will not be closed.
-     *                      </p>
-     * @return the digest.
-     * @throws IOException If an I/O error occurs.
-     * @since 1.11
-     */
     public byte[] hmac(final InputStream valueToDigest) throws IOException {
-        final byte[] buffer = new byte[STREAM_BUFFER_LENGTH];
-        int read;
-        while ((read = valueToDigest.read(buffer, 0, STREAM_BUFFER_LENGTH)) > -1) {
-            mac.update(buffer, 0, read);
-        }
-        return mac.doFinal();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the file.
-     *
-     * @param valueToDigest the path to use.
-     * @return the digest.
-     * @throws IOException If an I/O error occurs.
-     * @since 1.19.0
-     */
     public byte[] hmac(final Path valueToDigest) throws IOException {
-        try (BufferedInputStream stream = new BufferedInputStream(Files.newInputStream(valueToDigest))) {
-            return hmac(stream);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the input data.
-     *
-     * @param valueToDigest the input to use, treated as UTF-8.
-     * @return the digest as a byte[].
-     * @since 1.11
-     */
     public byte[] hmac(final String valueToDigest) {
-        return mac.doFinal(StringUtils.getBytesUtf8(valueToDigest));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the input data.
-     *
-     * @param valueToDigest the input to use.
-     * @return the digest as a hexadecimal String.
-     * @since 1.11
-     */
     public String hmacHex(final byte[] valueToDigest) {
-        return Hex.encodeHexString(hmac(valueToDigest));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the input data.
-     *
-     * @param valueToDigest the input to use.
-     * @return the digest as a hexadecimal String.
-     * @since 1.11
-     */
     public String hmacHex(final ByteBuffer valueToDigest) {
-        return Hex.encodeHexString(hmac(valueToDigest));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the file.
-     *
-     * @param valueToDigest the file to use.
-     * @return the digest as a hexadecimal String.
-     * @throws IOException If an I/O error occurs.
-     * @since 1.11
-     */
     public String hmacHex(final File valueToDigest) throws IOException {
-        return Hex.encodeHexString(hmac(valueToDigest));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the stream.
-     *
-     * @param valueToDigest the data to use.
-     *                      <p>
-     *                      The InputStream must not be null and will not be closed.
-     *                      </p>
-     * @return the digest as a hexadecimal String.
-     * @throws IOException If an I/O error occurs.
-     * @since 1.11
-     */
     public String hmacHex(final InputStream valueToDigest) throws IOException {
-        return Hex.encodeHexString(hmac(valueToDigest));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the path.
-     *
-     * @param valueToDigest the path to use.
-     * @return the digest as a hexadecimal String.
-     * @throws IOException If an I/O error occurs.
-     * @since 1.19.0
-     */
     public String hmacHex(final Path valueToDigest) throws IOException {
-        return Hex.encodeHexString(hmac(valueToDigest));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Returns the digest for the input data.
-     *
-     * @param valueToDigest the input to use, treated as UTF-8.
-     * @return the digest as a hexadecimal String.
-     * @since 1.11
-     */
     public String hmacHex(final String valueToDigest) {
-        return Hex.encodeHexString(hmac(valueToDigest));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

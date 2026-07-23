@@ -14,13 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.io.OutputStream;
-
 import org.apache.commons.codec.CodecPolicy;
-import org.apache.commons.codec.binary.BaseNCodecOutputStream.AbstractBuilder; // NOPMD: Required by ECJ (Eclipse)
+// NOPMD: Required by ECJ (Eclipse)
+import org.apache.commons.codec.binary.BaseNCodecOutputStream.AbstractBuilder;
 
 /**
  * Provides Base32 encoding in a streaming fashion (unlimited size). When encoding the default lineLength is 76 characters and the default lineEnding is CRLF,
@@ -73,22 +72,17 @@ public class Base32OutputStream extends BaseNCodecOutputStream<Base32, Base32Out
 
         @Override
         public Base32OutputStream get() {
-            return new Base32OutputStream(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         protected Base32 newBaseNCodec() {
-            return new Base32();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /**
-     * Constructs a new Builder.
-     *
-     * @return a new Builder.
-     */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private Base32OutputStream(final Builder builder) {
@@ -129,8 +123,7 @@ public class Base32OutputStream extends BaseNCodecOutputStream<Base32, Base32Out
      */
     @Deprecated
     public Base32OutputStream(final OutputStream outputStream, final boolean encode, final int lineLength, final byte[] lineSeparator) {
-        super(builder().setOutputStream(outputStream).setEncode(encode)
-                .setBaseNCodec(Base32.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).get()));
+        super(builder().setOutputStream(outputStream).setEncode(encode).setBaseNCodec(Base32.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).get()));
     }
 
     /**
@@ -147,9 +140,7 @@ public class Base32OutputStream extends BaseNCodecOutputStream<Base32, Base32Out
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
     @Deprecated
-    public Base32OutputStream(final OutputStream outputStream, final boolean encode, final int lineLength, final byte[] lineSeparator,
-            final CodecPolicy decodingPolicy) {
-        super(builder().setOutputStream(outputStream).setEncode(encode)
-                .setBaseNCodec(Base32.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).setDecodingPolicy(decodingPolicy).get()));
+    public Base32OutputStream(final OutputStream outputStream, final boolean encode, final int lineLength, final byte[] lineSeparator, final CodecPolicy decodingPolicy) {
+        super(builder().setOutputStream(outputStream).setEncode(encode).setBaseNCodec(Base32.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).setDecodingPolicy(decodingPolicy).get()));
     }
 }

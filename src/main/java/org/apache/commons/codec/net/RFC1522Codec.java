@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.net;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.Objects;
-
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.binary.StringUtils;
@@ -41,13 +39,19 @@ import org.apache.commons.codec.binary.StringUtils;
  */
 abstract class RFC1522Codec {
 
-    /** Separator. */
+    /**
+     * Separator.
+     */
     protected static final char SEP = '?';
 
-    /** Prefix. */
+    /**
+     * Prefix.
+     */
     protected static final String POSTFIX = "?=";
 
-    /** Postfix. */
+    /**
+     * Postfix.
+     */
     protected static final String PREFIX = "=?";
 
     /**
@@ -59,49 +63,8 @@ abstract class RFC1522Codec {
         this.charset = Objects.requireNonNull(charset, "charset");
     }
 
-    /**
-     * Applies an RFC 1522 compliant decoding scheme to the given string of text.
-     * <p>
-     * This method processes the "encoded-word" header common to all the RFC 1522 codecs and then invokes {@link #doDecoding(byte[])} method of a concrete class
-     * to perform the specific decoding.
-     * </p>
-     *
-     * @param text a string to decode.
-     * @return A new decoded String or {@code null} if the input is {@code null}.
-     * @throws DecoderException             thrown if there is an error condition during the decoding process.
-     * @throws UnsupportedEncodingException thrown if charset specified in the "encoded-word" header is not supported.
-     */
     protected String decodeText(final String text) throws DecoderException, UnsupportedEncodingException {
-        if (text == null) {
-            return null;
-        }
-        if (!text.startsWith(PREFIX) || !text.endsWith(POSTFIX)) {
-            throw new DecoderException("RFC 1522 violation: malformed encoded content");
-        }
-        final int terminator = text.length() - 2;
-        int from = 2;
-        int to = text.indexOf(SEP, from);
-        if (to == terminator) {
-            throw new DecoderException("RFC 1522 violation: charset token not found");
-        }
-        final String charset = text.substring(from, to);
-        if (charset.isEmpty()) {
-            throw new DecoderException("RFC 1522 violation: charset not specified");
-        }
-        from = to + 1;
-        to = text.indexOf(SEP, from);
-        if (to == terminator) {
-            throw new DecoderException("RFC 1522 violation: encoding token not found");
-        }
-        final String encoding = text.substring(from, to);
-        if (!getEncoding().equalsIgnoreCase(encoding)) {
-            throw new DecoderException("This codec cannot decode " + encoding + " encoded content");
-        }
-        from = to + 1;
-        to = text.indexOf(SEP, from);
-        byte[] data = StringUtils.getBytesUsAscii(text.substring(from, to));
-        data = doDecoding(data);
-        return new String(data, charset);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -122,73 +85,20 @@ abstract class RFC1522Codec {
      */
     protected abstract byte[] doEncoding(byte[] bytes) throws EncoderException;
 
-    /**
-     * Applies an RFC 1522 compliant encoding scheme to the given string of text with the given charset.
-     * <p>
-     * This method constructs the "encoded-word" header common to all the RFC 1522 codecs and then invokes {@link #doEncoding(byte[])} method of a concrete
-     * class to perform the specific encoding.
-     * </p>
-     *
-     * @param text    a string to encode.
-     * @param charset a charset to be used.
-     * @return RFC 1522 compliant "encoded-word".
-     * @throws EncoderException thrown if there is an error condition during the Encoding process.
-     * @see Charset
-     */
     protected String encodeText(final String text, final Charset charset) throws EncoderException {
-        if (text == null) {
-            return null;
-        }
-        final StringBuilder buffer = new StringBuilder();
-        buffer.append(PREFIX);
-        buffer.append(charset);
-        buffer.append(SEP);
-        buffer.append(getEncoding());
-        buffer.append(SEP);
-        buffer.append(StringUtils.newStringUsAscii(doEncoding(text.getBytes(charset))));
-        buffer.append(POSTFIX);
-        return buffer.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Applies an RFC 1522 compliant encoding scheme to the given string of text with the given charset.
-     * <p>
-     * This method constructs the "encoded-word" header common to all the RFC 1522 codecs and then invokes {@link #doEncoding(byte[])} method of a concrete
-     * class to perform the specific encoding.
-     * </p>
-     *
-     * @param text        a string to encode.
-     * @param charsetName the charset to use.
-     * @return RFC 1522 compliant "encoded-word".
-     * @throws EncoderException            thrown if there is an error condition during the Encoding process.
-     * @throws UnsupportedCharsetException if charset is not available.
-     * @see Charset
-     */
     protected String encodeText(final String text, final String charsetName) throws EncoderException {
-        if (text == null) {
-            // Don't attempt charsetName conversion.
-            return null;
-        }
-        return encodeText(text, Charset.forName(charsetName));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the default Charset name used for string decoding and encoding.
-     *
-     * @return the default Charset name.
-     * @since 1.7
-     */
     public Charset getCharset() {
-        return charset;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    /**
-     * Gets the default Charset name used for string decoding and encoding.
-     *
-     * @return the default Charset name.
-     */
     public String getDefaultCharset() {
-        return charset.name();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**

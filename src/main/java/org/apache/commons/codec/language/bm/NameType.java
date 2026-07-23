@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.language.bm;
 
 /**
@@ -29,12 +28,10 @@ public enum NameType {
      * Ashkenazi family names.
      */
     ASHKENAZI("ash"),
-
     /**
      * Generic names and words.
      */
     GENERIC("gen"),
-
     /**
      * Sephardic family names.
      */
@@ -46,12 +43,7 @@ public enum NameType {
         this.name = name;
     }
 
-    /**
-     * Gets the short version of the name type.
-     *
-     * @return the NameType short string.
-     */
     public String getName() {
-        return this.name;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

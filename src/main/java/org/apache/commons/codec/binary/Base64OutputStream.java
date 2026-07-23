@@ -14,13 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.codec.binary;
 
 import java.io.OutputStream;
-
 import org.apache.commons.codec.CodecPolicy;
-import org.apache.commons.codec.binary.BaseNCodecOutputStream.AbstractBuilder; // NOPMD: Required by ECJ (Eclipse)
+// NOPMD: Required by ECJ (Eclipse)
+import org.apache.commons.codec.binary.BaseNCodecOutputStream.AbstractBuilder;
 
 /**
  * Provides Base64 encoding in a streaming fashion (unlimited size). When encoding the default lineLength is 76 characters and the default lineEnding is CRLF,
@@ -77,22 +76,17 @@ public class Base64OutputStream extends BaseNCodecOutputStream<Base64, Base64Out
 
         @Override
         public Base64OutputStream get() {
-            return new Base64OutputStream(this);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         protected Base64 newBaseNCodec() {
-            return new Base64();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    /**
-     * Constructs a new Builder.
-     *
-     * @return a new Builder.
-     */
     public static Builder builder() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private Base64OutputStream(final Builder builder) {
@@ -133,8 +127,7 @@ public class Base64OutputStream extends BaseNCodecOutputStream<Base64, Base64Out
      */
     @Deprecated
     public Base64OutputStream(final OutputStream outputStream, final boolean encode, final int lineLength, final byte[] lineSeparator) {
-        super(builder().setOutputStream(outputStream).setEncode(encode)
-                .setBaseNCodec(Base64.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).get()));
+        super(builder().setOutputStream(outputStream).setEncode(encode).setBaseNCodec(Base64.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).get()));
     }
 
     /**
@@ -151,9 +144,7 @@ public class Base64OutputStream extends BaseNCodecOutputStream<Base64, Base64Out
      * @deprecated Use {@link #builder()} and {@link Builder}.
      */
     @Deprecated
-    public Base64OutputStream(final OutputStream outputStream, final boolean encode, final int lineLength, final byte[] lineSeparator,
-            final CodecPolicy decodingPolicy) {
-        super(builder().setOutputStream(outputStream).setEncode(encode)
-                .setBaseNCodec(Base64.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).setDecodingPolicy(decodingPolicy).get()));
+    public Base64OutputStream(final OutputStream outputStream, final boolean encode, final int lineLength, final byte[] lineSeparator, final CodecPolicy decodingPolicy) {
+        super(builder().setOutputStream(outputStream).setEncode(encode).setBaseNCodec(Base64.builder().setLineLength(lineLength).setLineSeparator(lineSeparator).setDecodingPolicy(decodingPolicy).get()));
     }
 }
